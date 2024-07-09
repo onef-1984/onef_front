@@ -1,15 +1,15 @@
-import { ReportQuery } from "@/apis/queryCapsule";
 import { useQuery } from "@tanstack/react-query";
 import { useRouteId } from "../useRouteId";
+import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 
 export const useReviewAdaptor = () => {
   const reviewId = useRouteId();
 
   const reportQuery = new ReportQuery(reviewId as string);
-  const { data } = useQuery(reportQuery.getReport());
+  const { data, error } = useQuery(reportQuery.getReport());
 
   return {
-    statusCode: data?.statusCode ?? 200,
+    error,
     report: {
       id: data?.id ?? "",
       title: data?.title ?? "",

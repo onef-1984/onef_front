@@ -1,30 +1,20 @@
-import fetcher from "@/apis/axios";
+import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 
 export const useSignMutation = (url: string) => {
   const router = useRouter();
+  const authQuery = new AuthMutation();
 
   const mutate = useMutation({
-    mutationFn: async (data: { email: string; password: string; nickName?: string }) => {
-      const res = await fetcher({
-        url,
-        method: "POST",
-        data,
-      });
-
-      return res;
+    mutationFn: authQuery.postSign(url),
+    onSuccess: (data) => {
+      alert(data.message);
+      router.push("/dashboard");
     },
-    onSuccess: (data, variables) => {
-      console.log(data, "data");
-      console.log(variables, "variables");
-
-      if (data.statusCode === 200) {
-        alert(data.message);
-        router.push("/dashboard");
-      } else {
-        alert(data.message);
-      }
+    onError: (error: AxiosError<{ statusCode: number; message: string }>) => {
+      alert(error.response?.data.message);
     },
   });
 

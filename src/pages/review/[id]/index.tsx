@@ -1,17 +1,14 @@
 import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export default function Review() {
-  const { statusCode, report } = useReviewAdaptor();
-
+  const { report, error } = useReviewAdaptor();
   const router = useRouter();
 
-  useEffect(() => {
-    if (statusCode! > 200) {
-      router.push(`/${statusCode}`);
-    }
-  }, [statusCode, router]);
+  if (error) {
+    alert("존재하지 않는 게시글입니다");
+    router.push("/");
+  }
 
   return (
     <div>

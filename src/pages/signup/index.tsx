@@ -1,37 +1,40 @@
-import fetcher from "@/apis/axios";
 import Input from "@/components/inputs/Input";
 import InputWrapper from "@/components/inputs/InputWrapper";
+import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { playDragon } from "sicilian";
 
-const { register, handleSubmit } = playDragon({
+const signInFormController = playDragon({
   email: "",
   password: "",
+  passwordCheck: "",
   nickname: "",
 });
+const { register, handleSubmit } = signInFormController;
 
-export default function SignIn() {
+export default function SignUp() {
+  const { mutate } = useSignMutation("/auth/signup");
+
   return (
     <form
-      onSubmit={handleSubmit(async (data) => {
-        const res = await fetcher({
-          url: "http://localhost:3000/api/auth/signin",
-          method: "POST",
-          data,
-        });
-
-        console.log(res);
-      })}
+      noValidate
+      onSubmit={handleSubmit(async (data) =>
+        mutate({ email: data.email, password: data.password, nickname: data.nickname })
+      )}
     >
-      <InputWrapper inputName="Email" htmlFor="email">
-        <Input {...register("email")} />
+      <InputWrapper inputName="이메일" htmlFor="email">
+        {(type) => Input({ ...register("email"), type })}
       </InputWrapper>
 
-      <InputWrapper inputName="Password" htmlFor="password">
-        <Input {...register("password")} type="password" />
+      <InputWrapper inputName="닉네임" htmlFor="nickname">
+        {(type) => Input({ ...register("nickname"), type })}
       </InputWrapper>
 
-      <InputWrapper inputName="Nickname" htmlFor="password">
-        <Input {...register("password")} type="password" />
+      <InputWrapper inputName="비밀번호" htmlFor="password" type="password" typeToggler>
+        {(type) => Input({ ...register("password"), type })}
+      </InputWrapper>
+
+      <InputWrapper inputName="비밀번호 확인" htmlFor="passwordCheck" type="password" typeToggler>
+        {(type) => Input({ ...register("passwordCheck"), type })}
       </InputWrapper>
 
       <button>로그인</button>
