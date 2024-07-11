@@ -28,7 +28,7 @@ export default function InputWrapper({ children, inputName, htmlFor, type, error
 
         {type === "password" && (
           <button className={styles.button} type="button" onClick={handleTypeToggle}>
-            {typeState === "password" ? <IoEyeOutline /> : <IoEyeOffOutline />}
+            {typeState === "password" ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
         )}
       </label>

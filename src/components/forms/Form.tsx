@@ -1,10 +1,10 @@
 import { FormHTMLAttributes, ReactNode } from "react";
 
-interface SignFormProps extends FormHTMLAttributes<HTMLFormElement> {
+interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   children: ReactNode;
 }
 
-export default function Form({ onSubmit, children, className }: SignFormProps) {
+export default function Form({ onSubmit, children, className }: FormProps) {
   return (
     <form noValidate onSubmit={onSubmit} className={className}>
       {children}

@@ -1,9 +1,15 @@
+import { SignValidate } from "@/constants/sign/signValidate";
 import { playDragon } from "sicilian";
 
-const signUpFormController = playDragon({
+const { handleValidate, ErrorState, FormState, register, handleSubmit } = playDragon({
   email: "",
   password: "",
   passwordCheck: "",
   nickname: "",
 });
-export const { register, handleSubmit } = signUpFormController;
+
+const validator = handleValidate({
+  ...SignValidate(),
+});
+
+export { validator, ErrorState, FormState, register, handleSubmit };
