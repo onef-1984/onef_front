@@ -1,28 +1,49 @@
-import Input from "@/components/inputs/Input";
-import InputWrapper from "@/components/inputs/InputWrapper";
+import Input from "@/components/forms/Input";
+import InputWrapper from "@/components/forms/InputWrapper";
+import { handleSubmit, register, validator, ErrorState } from "@/hooks/useSicilian/signIn";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
-import { playDragon } from "sicilian";
-
-const signInFormController = playDragon({
-  email: "",
-  password: "",
-});
-const { register, handleSubmit } = signInFormController;
+import { signArray } from "@/constants/sign/signArray";
+import Link from "next/link";
+import Form from "@/components/forms/Form";
+import styles from "@/styles/Sign.module.css";
+import Clickable from "@/components/clickable/Clickable";
+import Button from "@/components/clickable/Button";
 
 export default function SignIn() {
-  const { mutate } = useSignMutation("/auth/signin");
+  const { mutate, isPending } = useSignMutation("/auth/signin");
+
+  const errorState = ErrorState();
 
   return (
-    <form noValidate onSubmit={handleSubmit(async (data) => mutate(data))}>
-      <InputWrapper inputName="이메일" htmlFor="email">
-        {(type) => Input({ ...register("email"), type })}
-      </InputWrapper>
-
-      <InputWrapper inputName="비밀번호" htmlFor="password" type="password" typeToggler>
-        {(type) => Input({ ...register("password"), type })}
-      </InputWrapper>
-
-      <button>로그인</button>
-    </form>
+    <div className={styles.root}>
+      <p className={styles.notice}>
+        아직 회원이 아니신가요?{" "}
+        <Link href="/signup" className={styles.link}>
+          회원가입 하기
+        </Link>
+      </p>
+      <Form className={styles.form} onSubmit={handleSubmit(async (data) => mutate(data))}>
+        {signArray
+          .filter((_, i) => i % 2 === 0)
+          .map(({ inputName, htmlFor, type, placeholder }) => {
+            return (
+              <InputWrapper
+                inputName={inputName}
+                // @ts-ignore
+                errorMessage={errorState[htmlFor]}
+                htmlFor={htmlFor}
+                type={type}
+                key={htmlFor}
+              >
+                {/* @ts-ignore */}
+                {(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+              </InputWrapper>
+            );
+          })}
+        <Button disabled={isPending}>
+          <Clickable>로그인</Clickable>
+        </Button>
+      </Form>
+    </div>
   );
 }

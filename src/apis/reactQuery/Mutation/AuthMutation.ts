@@ -1,4 +1,6 @@
+import { ErrorResponse } from "@/types/server.types";
 import { MutationFn } from "./MutationFn";
+import { SignData } from "@/types/client.types";
 
 export class AuthMutation extends MutationFn {
   constructor() {
@@ -6,7 +8,6 @@ export class AuthMutation extends MutationFn {
   }
 
   postSign(url: string) {
-    return (data: { email: string; password: string; nickname?: string }) =>
-      this.mutationFn<{ message: string }>(url, "post", data);
+    return (data: SignData) => this.mutationFn<ErrorResponse>(url, "post", data);
   }
 }

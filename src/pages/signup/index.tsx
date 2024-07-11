@@ -1,43 +1,39 @@
-import Input from "@/components/inputs/Input";
-import InputWrapper from "@/components/inputs/InputWrapper";
+import Input from "@/components/forms/Input";
+import InputWrapper from "@/components/forms/InputWrapper";
+import { handleSubmit, register } from "@/hooks/useSicilian/signUp";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
-import { playDragon } from "sicilian";
-
-const signInFormController = playDragon({
-  email: "",
-  password: "",
-  passwordCheck: "",
-  nickname: "",
-});
-const { register, handleSubmit } = signInFormController;
+import { signArray } from "@/constants/sign/signArray";
+import Link from "next/link";
+import Form from "@/components/forms/Form";
+import omit from "@/utils/omit";
+import Clickable from "@/components/clickable/Clickable";
+import Button from "@/components/clickable/Button";
+import styles from "@/styles/Sign.module.css";
 
 export default function SignUp() {
-  const { mutate } = useSignMutation("/auth/signup");
+  const { mutate, isPending } = useSignMutation("/auth/signup");
 
   return (
-    <form
-      noValidate
-      onSubmit={handleSubmit(async (data) =>
-        mutate({ email: data.email, password: data.password, nickname: data.nickname })
-      )}
-    >
-      <InputWrapper inputName="이메일" htmlFor="email">
-        {(type) => Input({ ...register("email"), type })}
-      </InputWrapper>
+    <div className={styles.root}>
+      <p className={styles.notice}>
+        이미 회원이신가요?{" "}
+        <Link href="/signin" className={styles.link}>
+          로그인 하기
+        </Link>
+      </p>
 
-      <InputWrapper inputName="닉네임" htmlFor="nickname">
-        {(type) => Input({ ...register("nickname"), type })}
-      </InputWrapper>
-
-      <InputWrapper inputName="비밀번호" htmlFor="password" type="password" typeToggler>
-        {(type) => Input({ ...register("password"), type })}
-      </InputWrapper>
-
-      <InputWrapper inputName="비밀번호 확인" htmlFor="passwordCheck" type="password" typeToggler>
-        {(type) => Input({ ...register("passwordCheck"), type })}
-      </InputWrapper>
-
-      <button>로그인</button>
-    </form>
+      <Form className={styles.form} onSubmit={handleSubmit(async (data) => mutate(omit(data, ["passwordCheck"])))}>
+        {signArray.map(({ inputName, htmlFor, type, placeholder }) => {
+          return (
+            <InputWrapper inputName={inputName} htmlFor={htmlFor} type={type} key={htmlFor}>
+              {(type) => Input({ ...register(htmlFor), type, placeholder })}
+            </InputWrapper>
+          );
+        })}
+        <Button disabled={isPending}>
+          <Clickable>회원가입</Clickable>
+        </Button>
+      </Form>
+    </div>
   );
 }

@@ -1,3 +1,8 @@
+export type ErrorResponse = {
+  statusCode: number;
+  message: string;
+};
+
 export type TimeStamp = {
   createdAt: string;
   updatedAt: string;

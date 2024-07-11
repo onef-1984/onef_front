@@ -1,6 +1,18 @@
 :root {
+  font-size: 62.5%;
   --black: #333;
   --primary: #f8f8f8;
-  --brown: #44341b;
-  --dark-brown: #3d2f18;
+  --error: #d6173a;
+
+  --brown-20: #c89b51;
+  --brown-30: #a47e41;
+  --brown-40: #6a522b;
+  --brown-70: #44341b;
+  --brown-90: #3d2f18;
+
+  --gray-30: #d9d9d9;
+}
+
+html {
+  background-color: var(--primary);
 }

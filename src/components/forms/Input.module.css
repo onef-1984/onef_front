@@ -1,0 +1,12 @@
+.root {
+  font-size: 1.4rem;
+  border: 0;
+  color: var(--brown-90);
+  background: inherit;
+  outline: none;
+  flex: 1;
+}
+
+.root:placeholder {
+  color: var(--gary-30);
+}

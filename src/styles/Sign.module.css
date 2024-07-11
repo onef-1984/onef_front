@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 0 1rem;
+  margin: 1rem auto;
+  max-width: 40rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.notice {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.link {
+  color: var(--brown-40);
+  font-weight: 700;
+  text-decoration: none;
+}
