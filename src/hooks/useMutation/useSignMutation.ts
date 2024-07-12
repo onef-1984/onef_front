@@ -14,7 +14,7 @@ export const useSignMutation = (url: string) => {
       router.push("/dashboard");
     },
     onError: (error: AxiosError<{ statusCode: number; message: string }>) => {
-      alert(error.response?.data.message);
+      alert(error.response?.data.message ?? "server error");
     },
   });
 

@@ -9,22 +9,16 @@ export const SignValidate = () => {
 
   const password = {
     required: true,
-    minLength: {
-      number: 8,
-      message: "비밀번호는 8자 이상이어야 합니다",
-    },
-    maxLength: {
-      number: 16,
-      message: "비밀번호는 16자 이하여야 합니다",
-    },
+    minLength: 8,
+    maxLength: 16,
     RegExp: [
       {
-        RegExp: new RegExp("^[A-Za-z0-9!@#$%^&*()_+{}|:<>?~-]+$"),
+        RegExp: new RegExp("^[^\\s]+$"),
         message: "비밀번호는 공백을 포함할 수 없습니다.",
       },
       {
-        RegExp: new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[!@#$%^&*()._-]+$"),
-        message: "비밀번호는 소문자, 대문자, 숫자, 특수문자를 모두 포함해야 합니다",
+        RegExp: new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[a-z\\d@$!%*?&]+$"),
+        message: "비밀번호는 소문자, 숫자, 특수문자를 모두 포함해야 합니다",
       },
     ],
   };
@@ -39,14 +33,8 @@ export const SignValidate = () => {
 
   const nickname = {
     required: true,
-    minLength: {
-      number: 2,
-      message: "닉네임은 2자 이상이어야 합니다",
-    },
-    maxLength: {
-      number: 8,
-      message: "닉네임은 8자 이하여야 합니다",
-    },
+    minLength: 2,
+    maxLength: 8,
   };
 
   return { email, nickname, password, passwordCheck };

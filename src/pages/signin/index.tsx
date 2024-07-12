@@ -15,7 +15,7 @@ export default function SignIn() {
 
   return (
     <div className={styles.root}>
-      <Form className={styles.form} onSubmit={handleSubmit(async (data) => mutate(data))}>
+      <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
         {signInArray.map(({ inputName, htmlFor, type, placeholder }) => {
           return (
             <InputWrapper
