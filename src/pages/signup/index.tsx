@@ -16,23 +16,35 @@ export default function SignUp() {
 
   return (
     <div className={styles.root}>
-      <Form className={styles.form} onSubmit={handleSubmit(async (data) => mutate(omit(data, ["passwordCheck"])))}>
-        {signUpArray.map(({ inputName, htmlFor, type, placeholder }) => {
-          return (
-            <InputWrapper
-              inputName={inputName}
-              errorMessage={errorState[htmlFor]}
-              htmlFor={htmlFor}
-              type={type}
-              key={htmlFor}
-            >
-              {(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
-            </InputWrapper>
-          );
-        })}
-        <Button disabled={isPending}>
-          <Clickable>회원가입</Clickable>
-        </Button>
+      <Form
+        className={styles.form}
+        onSubmit={handleSubmit(async (data) => mutate(omit(data, ["passwordCheck"])))}
+        inputWrapper={signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
+          <InputWrapper
+            inputName={inputName}
+            input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+            errorMessage={errorState[htmlFor]}
+            htmlFor={htmlFor}
+            type={type}
+            key={htmlFor}
+          />
+        ))}
+        button={
+          <Button disabled={isPending}>
+            <Clickable>회원가입</Clickable>
+          </Button>
+        }
+      >
+        {signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
+          <InputWrapper
+            inputName={inputName}
+            input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+            errorMessage={errorState[htmlFor]}
+            htmlFor={htmlFor}
+            type={type}
+            key={htmlFor}
+          />
+        ))}
       </Form>
 
       <p className={styles.notice}>

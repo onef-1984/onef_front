@@ -15,8 +15,9 @@ export default function SignIn() {
 
   return (
     <div className={styles.root}>
-      <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
-        {signInArray.map(({ inputName, htmlFor, type, placeholder }) => {
+      <Form
+        className={styles.form}
+        inputWrapper={signInArray.map(({ inputName, htmlFor, type, placeholder }) => {
           return (
             <InputWrapper
               inputName={inputName}
@@ -24,16 +25,17 @@ export default function SignIn() {
               htmlFor={htmlFor}
               type={type}
               key={htmlFor}
-            >
-              {(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
-            </InputWrapper>
+              input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+            />
           );
         })}
-
-        <Button disabled={isPending}>
-          <Clickable>로그인</Clickable>
-        </Button>
-      </Form>
+        button={
+          <Button disabled={isPending}>
+            <Clickable>로그인</Clickable>
+          </Button>
+        }
+        onSubmit={handleSubmit((data) => mutate(data))}
+      />
 
       <p className={styles.notice}>
         아직 회원이 아니신가요?{" "}
