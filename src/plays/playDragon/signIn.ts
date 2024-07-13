@@ -6,8 +6,6 @@ const initValue = { email: "", password: "" };
 
 const { handleValidate, ErrorState, FormState, register, handleSubmit, setValue } = playDragon(initValue);
 
-const validator = handleValidate({
-  ...pick(SignValidate(), ["email", "password"]),
-});
+const validator = handleValidate(pick(SignValidate(), ["email", "password"]));
 
 export { initValue, validator, ErrorState, FormState, register, handleSubmit, setValue };

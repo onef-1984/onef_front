@@ -1,6 +1,6 @@
 import Input from "@/components/forms/Input";
 import InputWrapper from "@/components/forms/InputWrapper";
-import { validator, ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signUp";
+import { validator, ErrorState, register, handleSubmit } from "@/plays/playDragon/signUp";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signUpArray } from "@/constants/sign/signArray";
 import Link from "next/link";
@@ -18,7 +18,7 @@ export default function SignUp() {
     <div className={styles.root}>
       <Form
         className={styles.form}
-        onSubmit={handleSubmit(async (data) => mutate(omit(data, ["passwordCheck"])))}
+        onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
         inputWrapper={signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
           <InputWrapper
             inputName={inputName}

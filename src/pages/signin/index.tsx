@@ -1,6 +1,6 @@
 import Input from "@/components/forms/Input";
 import InputWrapper from "@/components/forms/InputWrapper";
-import { validator, ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signIn";
+import { validator, ErrorState, register, handleSubmit } from "@/plays/playDragon/signIn";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signInArray } from "@/constants/sign/signArray";
 import Link from "next/link";

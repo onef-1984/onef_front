@@ -10,8 +10,6 @@ const initValue = {
 
 const { handleValidate, ErrorState, FormState, register, handleSubmit } = playDragon(initValue);
 
-const validator = handleValidate({
-  ...SignValidate(),
-});
+const validator = handleValidate(SignValidate());
 
 export { initValue, validator, ErrorState, FormState, register, handleSubmit };
