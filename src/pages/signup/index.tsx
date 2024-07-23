@@ -1,6 +1,6 @@
 import Input from "@/components/forms/Input";
 import InputWrapper from "@/components/forms/InputWrapper";
-import { validator, ErrorState, register, handleSubmit } from "@/plays/playDragon/signUp";
+import { handleValidate, ErrorState, register, handleSubmit } from "@/plays/playDragon/signUp";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signUpArray } from "@/constants/sign/signArray";
 import Link from "next/link";
@@ -9,10 +9,13 @@ import omit from "@/utils/omit";
 import Clickable from "@/components/clickable/Clickable";
 import Button from "@/components/clickable/Button";
 import styles from "@/styles/Sign.module.css";
+import { SignValidate } from "@/constants/sign/signValidate";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
   const errorState = ErrorState();
+
+  const validator = handleValidate(SignValidate());
 
   return (
     <div className={styles.root}>

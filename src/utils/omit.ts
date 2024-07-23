@@ -1,4 +1,4 @@
-import { UtilFnOmit } from "@/types/client.types";
+import { UtilFnOmit } from "@/types/util.types";
 
 const omit: UtilFnOmit = (obj, keys) => {
   for (const key of keys) {

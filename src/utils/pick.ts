@@ -1,4 +1,4 @@
-import { UtilFnPick } from "@/types/client.types";
+import { UtilFnPick } from "@/types/util.types";
 
 const pick: UtilFnPick = (obj, keys) => {
   for (const key in obj) {
