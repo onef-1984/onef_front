@@ -1,17 +1,17 @@
 import { QueryFn } from "./QueryFn";
-import { Report, TimeStamp } from "@/types/server.types";
+import { ReportEndPoint } from "@/apis/endpoints/report";
 
 export class ReportQuery extends QueryFn {
   constructor(private reviewId: string) {
     super();
   }
 
-  queryKey = ["review", this.reviewId];
+  queryKey = ["report", this.reviewId];
 
   getReport() {
     return {
       queryKey: [...this.queryKey],
-      queryFn: this.queryFn<Report & TimeStamp>(`/report/${this.reviewId}`),
+      queryFn: this.queryFn<Report>(ReportEndPoint.getReport(this.reviewId)),
       enabled: !!this.reviewId,
       retry: 1,
     };
