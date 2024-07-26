@@ -22,6 +22,9 @@ video {
   display: block;
   max-width: 100%;
 }
+a {
+  text-decoration: none;
+}
 button,
 input,
 select,

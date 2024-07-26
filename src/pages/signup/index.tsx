@@ -1,6 +1,6 @@
 import Input from "@/components/forms/Input";
 import InputWrapper from "@/components/forms/InputWrapper";
-import { handleValidate, ErrorState, register, handleSubmit } from "@/plays/playDragon/signUp";
+import { handleValidate, ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signUp";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signUpArray } from "@/constants/sign/signArray";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import Clickable from "@/components/clickable/Clickable";
 import Button from "@/components/clickable/Button";
 import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
+import Logo from "@/components/logo/Logo";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -19,6 +20,19 @@ export default function SignUp() {
 
   return (
     <div className={styles.root}>
+      <section className={styles.logoLink}>
+        <h1 style={{ margin: "0 auto", width: "166px", height: "71px" }}>
+          <Logo />
+        </h1>
+
+        <p className={styles.notice}>
+          이미 회원이신가요?{" "}
+          <Link href="/signin" className={styles.link}>
+            로그인하기
+          </Link>
+        </p>
+      </section>
+
       <Form
         className={styles.form}
         onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
@@ -49,13 +63,6 @@ export default function SignUp() {
           />
         ))}
       </Form>
-
-      <p className={styles.notice}>
-        이미 회원이신가요?{" "}
-        <Link href="/signin" className={styles.link}>
-          로그인 하기
-        </Link>
-      </p>
     </div>
   );
 }

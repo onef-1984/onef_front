@@ -1,5 +1,6 @@
 :root {
   font-size: 62.5%;
+  --white: #fff;
   --black: #333;
   --primary: #f8f8f8;
   --error: #d6173a;

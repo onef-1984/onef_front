@@ -1,3 +1,4 @@
+import { GetReport } from "@/types/report.types";
 import { QueryFn } from "./QueryFn";
 import { ReportEndPoint } from "@/apis/endpoints/report";
 
@@ -11,9 +12,8 @@ export class ReportQuery extends QueryFn {
   getReport() {
     return {
       queryKey: [...this.queryKey],
-      queryFn: this.queryFn<Report>(ReportEndPoint.getReport(this.reviewId)),
+      queryFn: this.queryFn<GetReport>(ReportEndPoint.getReport(this.reviewId)),
       enabled: !!this.reviewId,
-      retry: 1,
     };
   }
 }

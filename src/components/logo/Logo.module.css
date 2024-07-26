@@ -1,0 +1,11 @@
+.root {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  aspectratio: auto;
+
+  & img {
+    object-fit: cover;
+  }
+}

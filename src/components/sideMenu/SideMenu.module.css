@@ -1,0 +1,39 @@
+.root {
+  width: 22rem;
+  height: 100vh;
+
+  position: fixed;
+
+  background: var(--white);
+
+  transition: all 0.2s ease-in-out;
+
+  @media (max-width: 768px) {
+    top: 0;
+    margin-left: -22rem;
+  }
+
+  @media (max-width: 420px) {
+    width: 100%;
+    margin-left: -100%;
+  }
+}
+
+.root.open {
+  margin-left: 0;
+}
+
+.closeButton {
+  display: none;
+  border: none;
+  background: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    padding: 1.6rem 3.2rem;
+  }
+
+  @media (max-width: 420px) {
+    padding: 1.6rem;
+  }
+}

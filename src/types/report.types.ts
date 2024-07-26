@@ -1,3 +1,4 @@
+import { User } from "./auth.types";
 import { Item, SubInfo } from "./book.types";
 import { Roll } from "./util.types";
 
@@ -13,5 +14,7 @@ export type CreateReport = {
   tags?: Array<string>;
 };
 
-export type GetReport = Roll<Omit<Required<CreateReport>, "isbn13"> & { id: string; book: Item } & TimeStamp>;
+export type GetReport = Roll<
+  Omit<Required<CreateReport>, "isbn13"> & { id: string; book: Item; user: User } & TimeStamp
+>;
 export type GetReportList = { report: Array<GetReport> };

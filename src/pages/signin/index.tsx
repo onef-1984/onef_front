@@ -1,6 +1,6 @@
 import Input from "@/components/forms/Input";
 import InputWrapper from "@/components/forms/InputWrapper";
-import { ErrorState, handleValidate, register, handleSubmit } from "@/plays/playDragon/signIn";
+import { ErrorState, handleValidate, register, handleSubmit } from "@/hooks/useSicilian/signIn";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signInArray } from "@/constants/sign/signArray";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import Clickable from "@/components/clickable/Clickable";
 import Button from "@/components/clickable/Button";
 import { SignValidate } from "@/constants/sign/signValidate";
 import pick from "@/utils/pick";
+import Logo from "@/components/logo/Logo";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
@@ -19,6 +20,19 @@ export default function SignIn() {
 
   return (
     <div className={styles.root}>
+      <section className={styles.logoLink}>
+        <h1 style={{ margin: "0 auto", width: "166px", height: "71px" }}>
+          <Logo />
+        </h1>
+
+        <p className={styles.notice}>
+          아직 회원이 아니신가요?{" "}
+          <Link href="/signup" className={styles.link}>
+            회원가입하기
+          </Link>
+        </p>
+      </section>
+
       <Form
         className={styles.form}
         inputWrapper={signInArray.map(({ inputName, htmlFor, type, placeholder }) => {
@@ -40,13 +54,6 @@ export default function SignIn() {
         }
         onSubmit={handleSubmit((data) => mutate(data))}
       />
-
-      <p className={styles.notice}>
-        아직 회원이 아니신가요?{" "}
-        <Link href="/signup" className={styles.link}>
-          회원가입 하기
-        </Link>
-      </p>
     </div>
   );
 }

@@ -1,0 +1,16 @@
+.root {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+
+  & img {
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}
