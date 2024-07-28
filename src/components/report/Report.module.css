@@ -6,11 +6,12 @@
 
 .blur {
   backdrop-filter: blur(1rem);
+  background-color: rgba(0, 0, 0, 0.3);
   height: 28rem;
   padding: 1.6rem;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 5rem;
 }
 
@@ -23,8 +24,8 @@
 }
 
 .reportInfo {
-  color: var(--white);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  color: var(--primary);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
   font-size: 1rem;
   text-align: center;
   display: flex;

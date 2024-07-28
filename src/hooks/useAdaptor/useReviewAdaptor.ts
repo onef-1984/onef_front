@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouteId } from "../useRouteId";
 import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
+import { formatDate } from "@/utils/formatDate";
 
 export const useReviewAdaptor = () => {
   const reviewId = useRouteId();
@@ -15,8 +16,7 @@ export const useReviewAdaptor = () => {
       title: data?.title ?? "",
       content: data?.content ?? "",
       tags: data?.tags ?? [],
-      createdAt: data?.createdAt ?? "",
-      updatedAt: data?.updatedAt ?? "",
+      date: formatDate(data?.createdAt),
     },
     user: {
       id: data?.user.id ?? "",

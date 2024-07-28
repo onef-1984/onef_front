@@ -9,8 +9,6 @@ export default function Review() {
   const { report, error } = useReviewAdaptor();
   const router = useRouter();
 
-  console.log(report.content);
-
   if (error) {
     alert("존재하지 않는 게시글입니다");
     router.push("/");
