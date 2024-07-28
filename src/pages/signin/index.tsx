@@ -47,11 +47,7 @@ export default function SignIn() {
             />
           );
         })}
-        button={
-          <Button disabled={isPending}>
-            <Clickable>로그인</Clickable>
-          </Button>
-        }
+        button={<Button disabled={isPending}>로그인</Button>}
         onSubmit={handleSubmit((data) => mutate(data))}
       />
     </div>

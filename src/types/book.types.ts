@@ -1,15 +1,11 @@
-export type GetBookDetail = {
-  item: Array<
-    Item & {
-      subInfo: SubInfo;
-    }
-  >;
-} & Book;
+import { Roll } from "./util.types";
 
-export type GetBookList = {
-  query: string;
-  item: Array<Item>;
-} & Book;
+export type GetBookList = Roll<
+  {
+    query: string;
+    item: Array<Omit<Item, "subInfo" | "priceStandard">>;
+  } & Book
+>;
 
 export type Book = {
   totalResults: number;
@@ -21,13 +17,14 @@ export type SubInfo = {
   subTitle: string;
   originalTitle: string;
   itemPage: number;
-  packing: {
-    styleDesc: string;
-    weight: number;
-    sizeDepth: number;
-    sizeHeight: number;
-    sizeWidth: number;
-  };
+  packing: Packing;
+};
+
+export type Packing = {
+  weight: number;
+  sizeDepth: number;
+  sizeHeight: number;
+  sizeWidth: number;
 };
 
 export type Item = {
@@ -40,7 +37,7 @@ export type Item = {
   categoryId: number;
   categoryName: string;
   publisher: string;
-  priceStandard: number;
   customerReviewRank: number;
+  priceStandard: number;
   subInfo: SubInfo;
 };

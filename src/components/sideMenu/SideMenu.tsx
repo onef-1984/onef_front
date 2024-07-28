@@ -6,8 +6,6 @@ import { IoClose } from "react-icons/io5";
 export default function SideMenu() {
   const [toggle, setToggle] = useSideMenuToggle();
 
-  console.log(toggle);
-
   return (
     <aside className={clsx(styles.root, toggle && styles.open)}>
       <button type="button" className={styles.closeButton} onClick={() => setToggle((prev) => !prev)}>

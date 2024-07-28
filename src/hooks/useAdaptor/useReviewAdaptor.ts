@@ -27,26 +27,22 @@ export const useReviewAdaptor = () => {
     book: {
       isbn13: data?.book.isbn13 ?? "",
       title: data?.book.title ?? "",
-      author: data?.book.author ?? "",
+      author: data?.book.author.split(" (")[0] ?? "",
       description: data?.book.description ?? "",
       cover: data?.book.cover ?? "",
       categoryId: data?.book.categoryId ?? 0,
       categoryName: data?.book.categoryName ?? "",
+      pubDate: data?.book.pubDate ?? "",
       publisher: data?.book.publisher ?? "",
       priceStandard: data?.book.priceStandard ?? 0,
       customerReviewRank: data?.book.customerReviewRank ?? 0,
     },
     subInfo: {
-      subTitle: data?.book.subInfo.subTitle ?? "",
-      originalTitle: data?.book.subInfo.originalTitle ?? "",
       itemPage: data?.book.subInfo.itemPage ?? 0,
-      packing: {
-        styleDesc: data?.book.subInfo.packing.styleDesc ?? "",
-        weight: data?.book.subInfo.packing.weight ?? 0,
-        sizeDepth: data?.book.subInfo.packing.sizeDepth ?? 0,
-        sizeHeight: data?.book.subInfo.packing.sizeHeight ?? 0,
-        sizeWidth: data?.book.subInfo.packing.sizeWidth ?? 0,
-      },
+      weight: data?.book.subInfo.weight ?? 0,
+      sizeDepth: data?.book.subInfo.sizeDepth ?? 0,
+      sizeHeight: data?.book.subInfo.sizeHeight ?? 0,
+      sizeWidth: data?.book.subInfo.sizeWidth ?? 0,
     },
   };
 };

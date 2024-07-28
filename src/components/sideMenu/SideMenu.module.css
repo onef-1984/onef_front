@@ -1,14 +1,13 @@
 .root {
   width: 22rem;
-  height: 100vh;
-
-  position: fixed;
-
+  height: calc(100dvh - 96px);
+  flex: 0 0 22rem;
   background: var(--white);
 
   transition: all 0.2s ease-in-out;
 
   @media (max-width: 768px) {
+    position: absolute;
     top: 0;
     margin-left: -22rem;
   }

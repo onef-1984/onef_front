@@ -24,6 +24,13 @@ video {
 }
 a {
   text-decoration: none;
+  color: inherit;
+}
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
 }
 button,
 input,

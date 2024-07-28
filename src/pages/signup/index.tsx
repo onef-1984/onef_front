@@ -6,7 +6,6 @@ import { signUpArray } from "@/constants/sign/signArray";
 import Link from "next/link";
 import Form from "@/components/forms/Form";
 import omit from "@/utils/omit";
-import Clickable from "@/components/clickable/Clickable";
 import Button from "@/components/clickable/Button";
 import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
@@ -46,11 +45,7 @@ export default function SignUp() {
             key={htmlFor}
           />
         ))}
-        button={
-          <Button disabled={isPending}>
-            <Clickable>회원가입</Clickable>
-          </Button>
-        }
+        button={<Button disabled={isPending}>회원가입</Button>}
       >
         {signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
           <InputWrapper

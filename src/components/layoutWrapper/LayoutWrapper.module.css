@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+
+  & > main {
+    overflow: scroll;
+    height: calc(100vh - 97px);
+    flex: 1;
+
+    @media (max-width: 768px) {
+      height: calc(100vh - 65px);
+    }
+  }
+}

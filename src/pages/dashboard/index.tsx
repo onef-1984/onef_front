@@ -1,5 +1,196 @@
+import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import Link from "next/link";
 
 export default function Dashboard() {
-  return <Link href="/">ㅁ메인</Link>;
+  return (
+    <LayoutWrapper>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+      <Link href="/" style={{ fontSize: "2rem" }}>
+        ㅁ메인
+      </Link>
+    </LayoutWrapper>
+  );
 }
