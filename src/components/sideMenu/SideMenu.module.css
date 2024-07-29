@@ -1,6 +1,6 @@
 .root {
   width: 22rem;
-  height: calc(100dvh - 96px);
+  height: calc(100dvh - 64px);
   flex: 0 0 22rem;
   background: var(--white);
 
@@ -8,8 +8,10 @@
 
   @media (max-width: 768px) {
     position: absolute;
+    z-index: 1;
     top: 0;
     margin-left: -22rem;
+    height: 100dvh;
   }
 
   @media (max-width: 420px) {

@@ -1,8 +1,9 @@
 import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
-import styles from "./Report.module.css";
+import { useIsMyReview } from "@/hooks/useIsMyReview";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import { HiOutlineShare } from "react-icons/hi2";
+import styles from "./Report.module.css";
 import clsx from "clsx";
 
 export default function ReportHeader() {
@@ -21,23 +22,32 @@ export default function ReportHeader() {
             <h2 className={styles.reportTitle}>{report.title}</h2>
             <p>by. {user.nickname}</p>
           </div>
+
           <hr />
+
           <div>
             <p>{book.title}</p>
             <p>{book.author}</p>
             <p>
-              {book.publisher} ∙ {subInfo.itemPage}p ∙ {book.priceStandard}원
+              {book.publisher} ∙ {subInfo.itemPage}p
             </p>
           </div>
         </div>
 
         <div className={styles.icons}>
-          <button type="button">
-            <SlNote />
-          </button>
-          <button type="button">
-            <BsTrash3 />
-          </button>
+          {useIsMyReview() ? (
+            <>
+              <button type="button">
+                <SlNote />
+              </button>
+              <button type="button">
+                <BsTrash3 />
+              </button>
+            </>
+          ) : (
+            ""
+          )}
+
           <button type="button">
             <HiOutlineShare />
           </button>

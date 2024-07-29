@@ -6,7 +6,7 @@
 
 .blur {
   backdrop-filter: blur(1rem);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   height: 28rem;
   padding: 1.6rem;
   display: flex;
@@ -21,11 +21,14 @@
   margin: 0 auto;
   padding: 1.6rem;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 
 .reportInfo {
   color: var(--primary);
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
   font-size: 1rem;
   text-align: center;
   display: flex;
@@ -64,5 +67,4 @@
   cursor: pointer;
   font-size: 1.4rem;
   color: var(--white);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouteId } from "../useRouteId";
 import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import { formatDate } from "@/utils/formatDate";
+import { formatAuthor } from "@/utils/formatAuthor";
 
 export const useReviewAdaptor = () => {
   const reviewId = useRouteId();
@@ -16,7 +17,7 @@ export const useReviewAdaptor = () => {
       title: data?.title ?? "",
       content: data?.content ?? "",
       tags: data?.tags ?? [],
-      date: formatDate(data?.createdAt),
+      date: formatDate(data?.updatedAt),
     },
     user: {
       id: data?.user.id ?? "",
@@ -27,7 +28,8 @@ export const useReviewAdaptor = () => {
     book: {
       isbn13: data?.book.isbn13 ?? "",
       title: data?.book.title ?? "",
-      author: data?.book.author.split(" (")[0] ?? "",
+      // 가나다 (지은이) 라마바 (옮긴이) 이런 형태로 옮
+      author: formatAuthor(data?.book.author),
       description: data?.book.description ?? "",
       cover: data?.book.cover ?? "",
       categoryId: data?.book.categoryId ?? 0,

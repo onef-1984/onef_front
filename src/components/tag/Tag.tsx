@@ -5,5 +5,5 @@ type TagProps = {
 };
 
 export default function Tag({ children }: TagProps) {
-  return <span className={styles.root}>#{children}</span>;
+  return <span className={styles.root}>{`#${children}`}</span>;
 }

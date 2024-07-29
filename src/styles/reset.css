@@ -27,6 +27,7 @@ a {
   color: inherit;
 }
 button {
+  text-align: inherit;
   background: none;
   border: 0;
   padding: 0;

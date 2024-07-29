@@ -1,6 +1,7 @@
 .root {
   font-size: 1.6rem;
   display: flex;
+  flex: 1;
   gap: 0.4rem;
   flex-direction: column;
 }

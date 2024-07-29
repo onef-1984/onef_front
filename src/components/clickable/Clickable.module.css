@@ -13,3 +13,18 @@
 .disabled {
   background: var(--gray-50);
 }
+
+.white {
+  background: var(--white);
+  border: 1px solid var(--brown-70);
+  color: var(--brown-70);
+}
+
+.doubleButton {
+  display: flex;
+  gap: 0.8rem;
+
+  & button {
+    flex: 1;
+  }
+}

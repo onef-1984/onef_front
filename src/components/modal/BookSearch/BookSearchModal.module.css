@@ -1,0 +1,85 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+  overflow: scroll;
+}
+
+.modalWrapperSize {
+  max-width: 100%;
+  width: 42rem;
+}
+
+.form {
+  display: flex;
+  gap: 1rem;
+}
+
+.button {
+  flex: 0 0 10rem;
+}
+
+.bookSearchSize {
+  height: 35rem;
+
+  @media (max-width: 420px) {
+    height: 100%;
+  }
+}
+
+.bookSearchResult {
+  overflow: scroll;
+
+  scrollbar-width: none;
+  display: flex;
+
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  gap: 1rem;
+}
+
+.imageWrapper {
+  margin: 0 auto;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: calc(9.6rem * 1.5);
+  height: calc(14.4rem * 1.5);
+
+  & img {
+    object-fit: cover;
+  }
+}
+
+.detailInfo {
+  flex: 1;
+
+  & hr {
+    margin: 1.2rem 0;
+  }
+}
+
+.detailInfoTitle {
+  letter-spacing: -0.1rem;
+  word-spacing: 0.1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.detailInfoAuthor {
+  color: var(--primary-text);
+  font-size: 1.2rem;
+}
+
+.detailInfoDescription {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 140%;
+}

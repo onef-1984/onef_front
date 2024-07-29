@@ -21,7 +21,7 @@ export default function SignIn() {
   return (
     <div className={styles.root}>
       <section className={styles.logoLink}>
-        <h1 style={{ margin: "0 auto", width: "166px", height: "71px" }}>
+        <h1 className={styles.logo}>
           <Logo />
         </h1>
 

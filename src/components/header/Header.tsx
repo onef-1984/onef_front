@@ -2,7 +2,7 @@ import { useUserAdaptor } from "@/hooks/useAdaptor/useUserAdaptor";
 import Logo from "../logo/Logo";
 import Link from "next/link";
 import styles from "./Header.module.css";
-import { IoMenu } from "react-icons/io5";
+import { LuMenu } from "react-icons/lu";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import HeaderProfileImage from "./HeaderProfileImage";
 
@@ -19,7 +19,7 @@ export default function Header() {
         }}
         className={styles.hamburger}
       >
-        <IoMenu style={{ fontSize: "2.55rem" }} />
+        <LuMenu />
       </button>
 
       <h1 className={styles.logo}>

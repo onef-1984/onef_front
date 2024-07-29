@@ -6,7 +6,7 @@ import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
 import { useRouter } from "next/router";
 
 export default function Review() {
-  const { report, error } = useReviewAdaptor();
+  const { error } = useReviewAdaptor();
   const router = useRouter();
 
   if (error) {

@@ -1,26 +1,14 @@
 import { Roll } from "./util.types";
 
-export type GetBookList = Roll<
-  {
-    query: string;
-    item: Array<Omit<Item, "subInfo" | "priceStandard">>;
-  } & Book
->;
-
-export type Book = {
-  totalResults: number;
-  startIndex: number;
-  itemsPerPage: number;
-};
+export type GetBookList = Roll<{
+  hasNext: boolean;
+  items: Array<Omit<Item, "subInfo" | "priceStandard">>;
+}>;
 
 export type SubInfo = {
   subTitle: string;
   originalTitle: string;
   itemPage: number;
-  packing: Packing;
-};
-
-export type Packing = {
   weight: number;
   sizeDepth: number;
   sizeHeight: number;

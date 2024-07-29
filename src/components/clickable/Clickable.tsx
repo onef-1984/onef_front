@@ -5,8 +5,9 @@ import clsx from "clsx";
 interface ClickableProps {
   children: ReactNode;
   disabled?: boolean;
+  color?: "primary" | "white";
 }
 
-export default function Clickable({ children, disabled }: ClickableProps) {
-  return <span className={clsx(styles.root, disabled && styles.disabled)}>{children}</span>;
+export default function Clickable({ children, disabled, color }: ClickableProps) {
+  return <span className={clsx(styles.root, disabled && styles.disabled, color && styles[color])}>{children}</span>;
 }

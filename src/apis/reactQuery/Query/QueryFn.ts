@@ -8,4 +8,12 @@ export class QueryFn {
         url,
       });
   }
+
+  infiniteQueryFn<T>(url: string) {
+    return ({ pageParam }: { pageParam: number }) =>
+      fetcher<T>({
+        method: "get",
+        url: `${url}&skip=${pageParam}`,
+      });
+  }
 }

@@ -20,7 +20,14 @@
 .logoLink {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
+}
+
+.logo {
+  width: 25rem;
+  height: 9rem;
 }
 
 .notice {
