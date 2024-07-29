@@ -1,6 +1,6 @@
 export class BookEndPoint {
   static getBook(isbn: string) {
-    return `/aladin/${isbn}`;
+    return `/aladin/detail?isbn=${isbn}`;
   }
 
   static getBookList(keyword: string) {

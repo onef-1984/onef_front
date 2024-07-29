@@ -9,13 +9,16 @@ import ModalWrapper from "../ModalWrapper";
 import { Item } from "@/types/book.types";
 import { useState } from "react";
 import { setValue } from "@/hooks/useSicilian/bookSearch";
+import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 
 export default function BookSearchModal() {
+  const [toggle, setToggle] = useSideMenuToggle();
   const [bookSearchModalState, setBookSearchModalState] = useBookSearchModalToggle();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [book, setBook] = useSelectedBook();
 
   const handleClose = () => {
+    setToggle(false);
     setBookSearchModalState((prev) => !prev);
     setBook({} as Item);
     setValue({ keyword: "" });
@@ -30,7 +33,7 @@ export default function BookSearchModal() {
 
             {searchKeyword ? (
               Object.keys(book).length ? (
-                <BookSearchDetail />
+                <BookSearchDetail onClose={handleClose} />
               ) : (
                 <BookSearchResult searchKeyword={searchKeyword} />
               )

@@ -7,7 +7,7 @@ import { formatAuthor } from "@/utils/formatAuthor";
 import DoubleButton from "@/components/clickable/DoubleButton";
 import { useRouter } from "next/router";
 
-export default function BookSearchDetail() {
+export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
   const [book, setBook] = useSelectedBook();
   const router = useRouter();
 
@@ -15,7 +15,7 @@ export default function BookSearchDetail() {
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
       <div className={styles.detail}>
         <div className={styles.imageWrapper}>
-          <Image fill src={book.cover} alt="표지" />
+          <Image fill src={book.cover} sizes="144px" alt="표지" />
         </div>
 
         <div className={styles.detailInfo}>
@@ -37,6 +37,7 @@ export default function BookSearchDetail() {
         onClick={[
           () => setBook({} as Item),
           () => {
+            onClose();
             router.push(`/report/${book.isbn13}/edit`);
           },
         ]}
