@@ -10,6 +10,7 @@ import Button from "@/components/clickable/Button";
 import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
+import Label from "@/components/forms/Label";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -38,26 +39,20 @@ export default function SignUp() {
         inputWrapper={signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
           <InputWrapper
             inputName={inputName}
-            input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+            label={
+              <Label
+                errorMessage={errorState[htmlFor]}
+                htmlFor={htmlFor}
+                type={type}
+                input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+              />
+            }
             errorMessage={errorState[htmlFor]}
-            htmlFor={htmlFor}
-            type={type}
             key={htmlFor}
           />
         ))}
         button={<Button disabled={isPending}>회원가입</Button>}
-      >
-        {signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
-          <InputWrapper
-            inputName={inputName}
-            input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
-            errorMessage={errorState[htmlFor]}
-            htmlFor={htmlFor}
-            type={type}
-            key={htmlFor}
-          />
-        ))}
-      </Form>
+      />
     </div>
   );
 }

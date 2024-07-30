@@ -8,7 +8,7 @@ import BookSearchForm from "./BookSearchForm";
 import ModalWrapper from "../ModalWrapper";
 import { Item } from "@/types/book.types";
 import { useState } from "react";
-import { setValue } from "@/hooks/useSicilian/bookSearch";
+import { initValue, setValue } from "@/hooks/useSicilian/bookSearch";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 
 export default function BookSearchModal() {
@@ -21,7 +21,7 @@ export default function BookSearchModal() {
     setToggle(false);
     setBookSearchModalState((prev) => !prev);
     setBook({} as Item);
-    setValue({ keyword: "" });
+    setValue(initValue);
   };
 
   return (

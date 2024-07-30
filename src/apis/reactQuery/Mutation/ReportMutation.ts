@@ -10,4 +10,8 @@ export class ReportMutation extends MutationFn {
   postReport() {
     return (data: CreateReport | undefined) => this.mutationFn<{ id: string }>("/report", "post", data);
   }
+
+  deleteReport() {
+    return (reportId: string) => this.mutationFn(`/report/${reportId}`, "delete");
+  }
 }

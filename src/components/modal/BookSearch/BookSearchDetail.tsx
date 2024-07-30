@@ -6,6 +6,7 @@ import { Item } from "@/types/book.types";
 import { formatAuthor } from "@/utils/formatAuthor";
 import DoubleButton from "@/components/clickable/DoubleButton";
 import { useRouter } from "next/router";
+import Button from "@/components/clickable/Button";
 
 export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
   const [book, setBook] = useSelectedBook();
@@ -33,14 +34,22 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
       </div>
 
       <DoubleButton
-        text={["취소", "리뷰 작성"]}
-        onClick={[
-          () => setBook({} as Item),
-          () => {
-            onClose();
-            router.push(`/report/${book.isbn13}/edit`);
-          },
-        ]}
+        button1={
+          <Button type="button" color="white" onClick={() => setBook({} as Item)}>
+            취소
+          </Button>
+        }
+        button2={
+          <Button
+            type="button"
+            onClick={() => {
+              onClose();
+              router.push(`/report/${book.isbn13}/edit`);
+            }}
+          >
+            리뷰 작성
+          </Button>
+        }
       />
     </div>
   );

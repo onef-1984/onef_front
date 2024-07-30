@@ -1,21 +1,17 @@
+import { FormEvent, ReactNode } from "react";
 import Button from "./Button";
 import styles from "./Clickable.module.css";
 
 type DoubleButtonProps = {
-  text: [string, string];
-  onClick: [() => void, () => void];
+  button1: ReactNode;
+  button2: ReactNode;
 };
 
-export default function DoubleButton({ text, onClick }: DoubleButtonProps) {
+export default function DoubleButton({ button1, button2 }: DoubleButtonProps) {
   return (
     <div className={styles.doubleButton}>
-      <Button type="button" color="white" onClick={onClick[0]}>
-        {text[0]}
-      </Button>
-
-      <Button type="button" color="primary" onClick={onClick[1]}>
-        {text[1]}
-      </Button>
+      {button1}
+      {button2}
     </div>
   );
 }

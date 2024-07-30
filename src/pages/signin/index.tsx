@@ -6,11 +6,11 @@ import { signInArray } from "@/constants/sign/signArray";
 import Link from "next/link";
 import Form from "@/components/forms/Form";
 import styles from "@/styles/Sign.module.css";
-import Clickable from "@/components/clickable/Clickable";
 import Button from "@/components/clickable/Button";
 import { SignValidate } from "@/constants/sign/signValidate";
 import pick from "@/utils/pick";
 import Logo from "@/components/logo/Logo";
+import Label from "@/components/forms/Label";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
@@ -35,18 +35,21 @@ export default function SignIn() {
 
       <Form
         className={styles.form}
-        inputWrapper={signInArray.map(({ inputName, htmlFor, type, placeholder }) => {
-          return (
-            <InputWrapper
-              inputName={inputName}
-              errorMessage={errorState[htmlFor]}
-              htmlFor={htmlFor}
-              type={type}
-              key={htmlFor}
-              input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
-            />
-          );
-        })}
+        inputWrapper={signInArray.map(({ inputName, htmlFor, type, placeholder }) => (
+          <InputWrapper
+            inputName={inputName}
+            errorMessage={errorState[htmlFor]}
+            label={
+              <Label
+                errorMessage={errorState[htmlFor]}
+                htmlFor={htmlFor}
+                type={type}
+                input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+              />
+            }
+            key={htmlFor}
+          />
+        ))}
         button={<Button disabled={isPending}>로그인</Button>}
         onSubmit={handleSubmit((data) => mutate(data))}
       />

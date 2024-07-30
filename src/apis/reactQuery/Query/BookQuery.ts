@@ -1,4 +1,3 @@
-import { GetReport } from "@/types/report.types";
 import { QueryFn } from "./QueryFn";
 import { BookEndPoint } from "@/apis/endpoints/book";
 import { GetBookList, Item } from "@/types/book.types";
@@ -24,6 +23,7 @@ export class BookQuery extends QueryFn {
     return {
       queryKey: [...this.queryKey, isbn13],
       queryFn: this.queryFn<Item>(BookEndPoint.getBook(isbn13)),
+      enabled: !!isbn13,
     };
   }
 }

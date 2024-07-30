@@ -1,5 +1,12 @@
-export type UtilFnPick = <T extends Record<string, any>, K extends Array<keyof T>>(obj: T, keys: K) => T;
-export type UtilFnOmit = UtilFnPick;
+export type UtilFnPick = <T extends Record<string, any>, K extends Array<keyof T>>(
+  obj: T,
+  keys: K
+) => Pick<T, K[number]>;
+export type UtilFnOmit = <T extends Record<string, any>, K extends Array<keyof T>>(
+  obj: T,
+  keys: K
+) => Omit<T, K[number]>;
+
 export type Roll<T> = { [k in keyof T]: T[k] } & {};
 
 export type TimeStamp = {

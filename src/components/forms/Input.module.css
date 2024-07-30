@@ -1,4 +1,45 @@
 .root {
+  font-size: 1.6rem;
+  display: flex;
+  flex: 1;
+  gap: 0.4rem;
+  flex-direction: column;
+}
+
+.inputName {
+  font-weight: 500;
+}
+
+.label {
+  color: var(--brown-90);
+  width: 100%;
+  padding: 1.25rem 1.6rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--gray-30);
+  display: flex;
+  justify-content: space-between;
+}
+
+.label:focus-within {
+  border: 1px solid var(--brown-40);
+}
+
+.labelError {
+  border: 1px solid var(--error);
+}
+
+.button {
+  background-color: transparent;
+  border: 0;
+  flex: 0 0 1.6rem;
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 1.4rem;
+}
+
+.input {
   font-size: 1.4rem;
   border: 0;
   color: var(--brown-90);
@@ -7,6 +48,10 @@
   flex: 1;
 }
 
-.root:placeholder {
+.input:placeholder {
   color: var(--gary-30);
+}
+
+.markdown {
+  width: 100%;
 }

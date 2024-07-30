@@ -5,9 +5,15 @@ import { SlNote } from "react-icons/sl";
 import { HiOutlineShare } from "react-icons/hi2";
 import styles from "./Report.module.css";
 import clsx from "clsx";
+import { useMutation } from "@tanstack/react-query";
+import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
+import { useRouter } from "next/router";
+import { useReportMutation } from "@/hooks/useMutation/useReportMutation";
 
 export default function ReportHeader() {
   const { report, user, book, subInfo } = useReviewAdaptor();
+
+  const { deleteReportMutate } = useReportMutation();
 
   return (
     <section
@@ -40,7 +46,12 @@ export default function ReportHeader() {
               <button type="button">
                 <SlNote />
               </button>
-              <button type="button">
+              <button
+                type="button"
+                onClick={() => {
+                  deleteReportMutate();
+                }}
+              >
                 <BsTrash3 />
               </button>
             </>
