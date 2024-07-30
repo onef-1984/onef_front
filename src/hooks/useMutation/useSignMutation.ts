@@ -11,7 +11,7 @@ export const useSignMutation = (url: string) => {
     mutationFn: authQuery.postSign(url),
     onSuccess: (data) => {
       alert(data.message);
-      router.push("/dashboard");
+      router.push("/");
     },
     onError: (error: AxiosError<{ statusCode: number; message: string }>) => {
       alert(error.response?.data.message ?? "server error");

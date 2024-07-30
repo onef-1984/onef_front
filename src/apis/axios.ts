@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api",
-  // baseURL: "https://onef.co.kr/api",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 5 * 1000,
   withCredentials: true,
 });

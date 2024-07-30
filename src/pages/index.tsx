@@ -1,9 +1,5 @@
-import Header from "@/components/header/Header";
+import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 
 export default function Home() {
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <LayoutWrapper>a</LayoutWrapper>;
 }
