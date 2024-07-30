@@ -7,12 +7,26 @@ import MarkdownEditor from "@/components/forms/MarkdownEditor";
 import { handleSubmit, initValue, register, setValue } from "@/hooks/useSicilian/report";
 import TagInputWrapper from "@/components/forms/TagInputWrapper";
 import { useReportMutation } from "@/hooks/useMutation/useReportMutation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
 
 export default function EditForm() {
-  const { postReportMutate, back } = useReportMutation();
+  const { postReportMutate, patchReportMutate, back } = useReportMutation();
 
   const [tagList, setTagList] = useState<Array<string>>([]);
+
+  const {
+    report: { title, content, tags },
+    isPending,
+  } = useReviewAdaptor();
+
+  useEffect(() => {
+    setValue({
+      title,
+      content,
+    });
+    setTagList(tags);
+  }, [isPending]);
 
   return (
     <Form
@@ -20,7 +34,9 @@ export default function EditForm() {
       onSubmit={handleSubmit((data) => {
         console.log({ ...data, tags: tagList });
 
-        postReportMutate({ ...data, tags: tagList });
+        const reqData = { ...data, tags: tagList };
+
+        title ? patchReportMutate(reqData) : postReportMutate(reqData);
       })}
       inputWrapper={
         <>

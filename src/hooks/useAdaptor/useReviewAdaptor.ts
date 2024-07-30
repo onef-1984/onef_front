@@ -8,10 +8,11 @@ export const useReviewAdaptor = () => {
   const reviewId = useRouteId();
 
   const reportQuery = new ReportQuery(reviewId as string);
-  const { data, error } = useQuery(reportQuery.getReport());
+  const { data, error, isPending } = useQuery(reportQuery.getReport());
 
   return {
     error,
+    isPending,
     report: {
       id: data?.id ?? "",
       title: data?.title ?? "",

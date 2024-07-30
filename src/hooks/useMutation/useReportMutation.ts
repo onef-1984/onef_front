@@ -1,15 +1,15 @@
 import { BookQuery } from "@/apis/reactQuery/Query/BookQuery";
 import { useRouteId } from "../useRouteId";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { BookMutation } from "@/apis/reactQuery/Mutation/BookMutation";
-import { Item } from "@/types/book.types";
 import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
 import { CreateReport } from "@/types/report.types";
 import { useRouter } from "next/router";
-import { FormEvent } from "react";
 
 export const useReportMutation = () => {
   const { push, back } = useRouter();
+
+  const queryClient = useQueryClient();
 
   // isbn13 값을 가져옴
   const isbn = useRouteId() as string;
@@ -42,8 +42,20 @@ export const useReportMutation = () => {
     onSuccess: () => {
       alert("리뷰가 삭제되었습니다.");
       push("/");
+      queryClient.invalidateQueries({ queryKey: ["report", reportId] });
     },
   });
 
-  return { data, postReportMutate, deleteReportMutate, back };
+  const { mutate: patchReportMutate } = useMutation({
+    mutationFn: async (data: Partial<CreateReport>) => {
+      await reportMutation.patchReport()(reportId, data);
+    },
+    onSuccess: () => {
+      alert("리뷰가 수정되었습니다.");
+      push(`/report/${reportId}`);
+      queryClient.invalidateQueries({ queryKey: ["report", reportId] });
+    },
+  });
+
+  return { data, postReportMutate, deleteReportMutate, patchReportMutate, back };
 };
