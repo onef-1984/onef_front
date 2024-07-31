@@ -11,7 +11,7 @@
   flex-direction: column;
   gap: 4rem;
 
-  margin: 0 auto;
+  margin: 5rem auto 0;
   padding: 1.6rem;
   max-width: 720px;
   width: 100%;
@@ -28,4 +28,9 @@
 
 .tag::placeholder {
   font-weight: 500;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: bold;
 }

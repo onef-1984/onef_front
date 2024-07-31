@@ -1,6 +1,7 @@
+import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
+import ReportHeader from "@/components/report/ReportHeader";
 import EditForm from "@/components/reportEdit/EditForm";
-import EditHeader from "@/components/reportEdit/EditHeader";
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
@@ -15,6 +16,7 @@ export default function Edit() {
 
   const {
     report: { title, content, tags },
+    book,
     isPending,
   } = useReportAdaptor();
 
@@ -26,9 +28,21 @@ export default function Edit() {
     setTagList(tags);
   }, [isPending]);
 
+  const headerContent = {
+    title: book.title,
+    subTitle: `저자 : ${book.author}`,
+    line1: `출판사 : ${book.publisher}`,
+    line2: `카테고리 : ${book.categoryName}`,
+    line3: `출간일 : ${book.pubDate}`,
+  };
+
+  console.log(book);
+
   return (
     <LayoutWrapper>
-      <EditHeader />
+      <GlassyBackground image={book.cover}>
+        <ReportHeader content={headerContent} />
+      </GlassyBackground>
       <MutationContext.Provider
         value={(reqData) => {
           mutate(reqData);

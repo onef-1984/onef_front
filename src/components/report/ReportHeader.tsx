@@ -1,66 +1,37 @@
-import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
-import { useIsMyReview } from "@/hooks/useIsMyReview";
-import { BsTrash3 } from "react-icons/bs";
-import { SlNote } from "react-icons/sl";
-import { HiOutlineShare } from "react-icons/hi2";
-import styles from "./Report.module.css";
-import clsx from "clsx";
-import { useRouter } from "next/router";
-import GlassyBackground from "../glassyBackground/GlassyBackground";
-import { useDeleteReportMutation } from "@/hooks/useMutation/report/useDeleteReportMutation";
+import styles from "./ReportHeader.module.css";
+import ReportButton from "./ReportButton";
 
-export default function ReportHeader() {
-  const { report, user, book } = useReportAdaptor();
-  const { push } = useRouter();
-  const { mutate } = useDeleteReportMutation();
-
+export default function ReportHeader({
+  content,
+  button,
+}: {
+  button?: React.ReactNode;
+  content: {
+    title: string;
+    subTitle: string;
+    line1: string;
+    line2: string;
+    line3: string;
+  };
+}) {
   return (
-    <GlassyBackground image={book.cover}>
-      <div className={clsx(styles.reportInfo, styles.reportSize)}>
+    <div className={styles.root}>
+      <div className={styles.reportInfo}>
         <div>
-          <h2 className={styles.reportTitle}>{report.title}</h2>
-          <p>by. {user.nickname}</p>
+          <h2 className={styles.reportTitle}>{content.title}</h2>
+          <p>{content.subTitle}</p>
         </div>
 
         <hr />
 
         <div>
-          <p>{book.title}</p>
-          <p>{book.author}</p>
-          <p>
-            {book.publisher} ∙ {book.itemPage}p
-          </p>
+          <p>{content.line1}</p>
+          <p>{content.line2}</p>
+          <p>{content.line3}</p>
         </div>
       </div>
 
-      <div className={styles.icons}>
-        {useIsMyReview() ? (
-          <>
-            <button
-              type="button"
-              onClick={() => {
-                push(`/report/${report.id}/edit`);
-              }}
-            >
-              <SlNote />
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                mutate();
-              }}
-            >
-              <BsTrash3 />
-            </button>
-          </>
-        ) : (
-          ""
-        )}
-
-        <button type="button">
-          <HiOutlineShare />
-        </button>
-      </div>
-    </GlassyBackground>
+      {button}
+    </div>
   );
 }

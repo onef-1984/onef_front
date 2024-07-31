@@ -24,7 +24,7 @@ export default function EditForm() {
       })}
       inputWrapper={
         <>
-          <Input {...register("title")} placeholder={"제목을 입력해 주세요"} />
+          <Input {...register("title")} placeholder={"제목을 입력해 주세요"} className={styles.title} />
           <MarkdownEditor {...register("content")} />
           <TagInputWrapper
             tagList={tagList}
