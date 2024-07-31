@@ -18,7 +18,8 @@ export type GetReport = Roll<
   Omit<Required<CreateReport>, "isbn13"> & {
     id: string;
     book: Item;
-    user: User;
+    user: Pick<User, "nickname" | "id">;
+    favoriteCount: number;
   } & TimeStamp
 >;
 export type GetReportList = { report: Array<GetReport> };

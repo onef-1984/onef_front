@@ -1,6 +1,5 @@
 import { CreateReport } from "@/types/report.types";
 import { MutationFn } from "./MutationFn";
-import { Item } from "@/types/book.types";
 
 export class ReportMutation extends MutationFn {
   constructor() {
@@ -11,8 +10,8 @@ export class ReportMutation extends MutationFn {
     return (data: CreateReport | undefined) => this.mutationFn<{ id: string }>("/report", "post", data);
   }
 
-  patchReport() {
-    return (reportId: string, data: Partial<CreateReport>) => this.mutationFn(`/report/${reportId}`, "patch", data);
+  putReport() {
+    return (reportId: string, data: Partial<CreateReport>) => this.mutationFn(`/report/${reportId}`, "put", data);
   }
 
   deleteReport() {

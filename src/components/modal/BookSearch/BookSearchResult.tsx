@@ -4,6 +4,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import styles from "./BookSearchModal.module.css";
 import clsx from "clsx";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import { useSelectedBook } from "@/hooks/useCaroKann/useSelectedBook";
+import CardResultBox from "@/components/card/CardResultBox";
 
 type BookSearchResultProps = {
   searchKeyword: string;
@@ -14,6 +16,8 @@ export default function BookSearchResult({ searchKeyword }: BookSearchResultProp
   const { data, fetchNextPage } = useInfiniteQuery(bookQuery.getBookList(searchKeyword));
   const { isVisible, setIsVisible, myRef } = useIntersectionObserver();
 
+  const [book, setBook] = useSelectedBook();
+
   if (isVisible) {
     fetchNextPage();
     setIsVisible(false);
@@ -21,7 +25,11 @@ export default function BookSearchResult({ searchKeyword }: BookSearchResultProp
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
-      {data?.pages?.map((page) => page.items?.map((book) => <Card key={book.isbn13} {...book} />))}
+      {data?.pages?.map((page) =>
+        page.items?.map((book) => (
+          <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
+        ))
+      )}
 
       <p ref={myRef}></p>
     </div>

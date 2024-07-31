@@ -27,6 +27,7 @@
 
 .closeButton {
   font-size: 2rem;
+  width: 2rem;
   align-self: flex-end;
   margin-bottom: 2rem;
 }

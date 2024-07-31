@@ -44,7 +44,7 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={() => {
               onClose();
-              router.push(`/report/${book.isbn13}/edit`);
+              router.push(`/report/${book.isbn13}/create`);
             }}
           >
             리뷰 작성

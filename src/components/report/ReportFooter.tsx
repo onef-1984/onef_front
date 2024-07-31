@@ -1,9 +1,9 @@
-import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
+import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import styles from "./Report.module.css";
 import Tag from "../tag/Tag";
 
 export default function ReportFooter() {
-  const { report } = useReviewAdaptor();
+  const { report } = useReportAdaptor();
 
   return (
     <section className={styles.reportSize}>

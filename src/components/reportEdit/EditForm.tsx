@@ -6,37 +6,21 @@ import Form from "@/components/forms/Form";
 import MarkdownEditor from "@/components/forms/MarkdownEditor";
 import { handleSubmit, initValue, register, setValue } from "@/hooks/useSicilian/report";
 import TagInputWrapper from "@/components/forms/TagInputWrapper";
-import { useReportMutation } from "@/hooks/useMutation/useReportMutation";
-import { useEffect, useState } from "react";
-import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
+import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { MutationContext } from "@/hooks/useContext/useMutationContext";
 
 export default function EditForm() {
-  const { postReportMutate, patchReportMutate, back } = useReportMutation();
-
-  const [tagList, setTagList] = useState<Array<string>>([]);
-
-  const {
-    report: { title, content, tags },
-    isPending,
-  } = useReviewAdaptor();
-
-  useEffect(() => {
-    setValue({
-      title,
-      content,
-    });
-    setTagList(tags);
-  }, [isPending]);
+  const [tagList, setTagList] = useReportTagList();
+  const { back } = useRouter();
+  const mutate = useContext(MutationContext);
 
   return (
     <Form
       className={styles.form}
       onSubmit={handleSubmit((data) => {
-        console.log({ ...data, tags: tagList });
-
-        const reqData = { ...data, tags: tagList };
-
-        title ? patchReportMutate(reqData) : postReportMutate(reqData);
+        mutate({ ...data, tags: tagList });
       })}
       inputWrapper={
         <>
@@ -67,6 +51,7 @@ export default function EditForm() {
               color="white"
               onClick={() => {
                 back();
+                setTagList([]);
                 setValue(initValue);
               }}
             >

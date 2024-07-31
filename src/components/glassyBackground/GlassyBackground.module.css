@@ -1,0 +1,16 @@
+.root {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.blur {
+  backdrop-filter: blur(1rem);
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 28rem;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5rem;
+}

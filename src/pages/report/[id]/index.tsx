@@ -2,11 +2,11 @@ import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import ReportFooter from "@/components/report/ReportFooter";
 import ReportHeader from "@/components/report/ReportHeader";
 import ReportMain from "@/components/report/ReportMain";
-import { useReviewAdaptor } from "@/hooks/useAdaptor/useReviewAdaptor";
+import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import { useRouter } from "next/router";
 
 export default function Review() {
-  const { error } = useReviewAdaptor();
+  const { error } = useReportAdaptor();
   const router = useRouter();
 
   if (error) {

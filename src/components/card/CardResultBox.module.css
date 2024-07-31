@@ -1,0 +1,39 @@
+.describe {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  overflow: hidden;
+  height: 100%;
+  padding: 1.4rem;
+  flex: 1;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.author {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.description {
+  word-wrap: break-word;
+  white-space: break-spaces;
+
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
