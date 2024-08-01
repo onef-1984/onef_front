@@ -17,9 +17,7 @@ export const usePutReportMutation = () => {
   const reportMutation = new ReportMutation();
 
   const { mutate } = useMutation({
-    mutationFn: async (data: Partial<CreateReport>) => {
-      await reportMutation.putReport()(reportId, data);
-    },
+    mutationFn: reportMutation.putReport(reportId),
     onSuccess: () => {
       alert("리뷰가 수정되었습니다.");
       setTagList([]);

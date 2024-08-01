@@ -14,7 +14,7 @@ export const useDeleteReportMutation = () => {
   const reportMutation = new ReportMutation();
 
   const { mutate } = useMutation({
-    mutationFn: () => reportMutation.deleteReport()(reportId),
+    mutationFn: reportMutation.deleteReport(reportId),
     onSuccess: () => {
       alert("리뷰가 삭제되었습니다.");
       push("/");
