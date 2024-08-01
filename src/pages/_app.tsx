@@ -1,15 +1,15 @@
 import "@/styles/reset.css";
 import "@/styles/globals.css";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 
-const pretendard = localFont({
-  src: "../../public/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
-});
+// const pretendard = localFont({
+//   src: "../../public/fonts/PretendardVariable.woff2",
+//   display: "swap",
+//   weight: "45 920",
+// });
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -26,9 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <main className={pretendard.className}>
-        <Component {...pageProps} />
-      </main>
+      <Component {...pageProps} />
     </QueryClientProvider>
   );
 }
