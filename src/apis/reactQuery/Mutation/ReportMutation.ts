@@ -10,11 +10,11 @@ export class ReportMutation extends MutationFn {
     return (data: CreateReport | undefined) => this.mutationFn<{ id: string }>("/report", "post", data);
   }
 
-  putReport() {
-    return (reportId: string, data: Partial<CreateReport>) => this.mutationFn(`/report/${reportId}`, "put", data);
+  putReport(reportId: string) {
+    return (data: Partial<CreateReport>) => this.mutationFn(`/report/${reportId}`, "put", data);
   }
 
-  deleteReport() {
-    return (reportId: string) => this.mutationFn(`/report/${reportId}`, "delete");
+  deleteReport(reportId: string) {
+    return () => this.mutationFn(`/report/${reportId}`, "delete");
   }
 }

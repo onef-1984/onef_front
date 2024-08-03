@@ -42,6 +42,7 @@
 .input {
   font-size: 1.4rem;
   border: 0;
+  width: 100%;
   color: var(--brown-90);
   background: inherit;
   outline: none;
