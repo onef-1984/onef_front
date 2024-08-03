@@ -1,83 +1,43 @@
 import fetcher from "@/apis/axios";
+import ImageInput from "@/components/forms/ImageInput";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { useUserAdaptor } from "@/hooks/useAdaptor/useUserAdaptor";
+import { useProfileImageMutation } from "@/hooks/useMutation/useProfileImageMutation";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Home() {
-  //   const [value, setValue] = useState<File>();
-  //   const [imageUrl, setImageUrl] = useState<string>("");
+  const [files, setFiles] = useState<FileList>();
+  const { data, mutate } = useProfileImageMutation();
+  const { user } = useUserAdaptor();
 
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const imageFile = e.target.files?.[0];
+  const handleSubmit = (files: FileList | undefined) => (e: FormEvent) => {
+    e.preventDefault();
 
-  //   setValue(imageFile);
-  // };
-
-  // const handleClick = async () => {
-  //   if (!value) return;
-
-  //   const formData = new FormData();
-  //   formData.append("image", value);
-
-  //   try {
-  //     const data = await fetcher<{ imageUrl: string }>({
-  //       method: "post",
-  //       url: "/image/single-upload",
-  //       data: formData,
-  //     });
-
-  //     setImageUrl(data.imageUrl);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  const [value, setValue] = useState<FileList>();
-  const [imageUrl, setImageUrl] = useState<string[]>([]);
-
-  const handleMultiChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files!;
-
-    setValue(imageFile);
-  };
-
-  const handleMultiClick = async () => {
-    if (!value) return;
+    if (!files) return;
 
     const formData = new FormData();
-    Array.from(value).forEach((file) => {
+    Array.from(files).forEach((file) => {
       formData.append("images", file);
     });
 
-    try {
-      const data = await fetcher<{ imageUrl: string[] }>({
-        method: "post",
-        url: "/image/multi-upload",
-        data: formData,
-      });
-
-      console.log(data.imageUrl);
-
-      setImageUrl(data.imageUrl);
-    } catch (error) {
-      console.error(error);
-    }
+    mutate(formData);
   };
 
   return (
     <LayoutWrapper>
-      {/* <input type="file" onChange={handleChange} />
-      <button type="button" onClick={handleClick}>
-        팀 버튼
-      </button>
-      <img src={imageUrl} alt="이미지" /> */}
-      <input type="file" accept=".jpeg, .jpg, .png" onChange={handleMultiChange} />
-      <button type="button" onClick={handleMultiClick}>
-        팀 버튼
-      </button>
+      <form
+        style={{
+          display: "block",
+          height: "50rem",
+          width: "100%",
+          backgroundColor: "white",
+        }}
+        onSubmit={handleSubmit(files)}
+      >
+        <ImageInput setFiles={setFiles} initialValue={user.profileImage} file={files?.[0]} />
 
-      {imageUrl.map((url) => (
-        <img src={url} alt="이미지" key={url} />
-      ))}
+        <button>팀 버튼</button>
+      </form>
     </LayoutWrapper>
   );
 }

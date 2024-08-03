@@ -1,11 +1,16 @@
 .root {
+  position: relative;
+}
+
+.button {
   width: 3.2rem;
   height: 3.2rem;
   font-size: 3.2rem;
   border-radius: 50%;
   overflow: hidden;
-  position: relative;
+  border: 1px solid var(--gray-20);
 
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

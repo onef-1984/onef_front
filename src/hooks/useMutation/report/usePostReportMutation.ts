@@ -29,7 +29,6 @@ export const usePostReportMutation = () => {
     },
     onSuccess: (data: any, variable: any) => {
       alert("리뷰가 작성되었습니다.");
-      console.log(data, variable);
       push(`/report/${data}`);
       setValue(initValue);
       setTagList([]);

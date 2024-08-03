@@ -7,7 +7,7 @@ export class UserQuery extends QueryFn {
     super();
   }
 
-  queryKey = ["report"];
+  queryKey = ["user"];
 
   getMe() {
     return {

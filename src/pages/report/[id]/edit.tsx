@@ -36,8 +36,6 @@ export default function Edit() {
     line3: `출간일 : ${book.pubDate}`,
   };
 
-  console.log(book);
-
   return (
     <LayoutWrapper>
       <GlassyBackground image={book.cover}>

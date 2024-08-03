@@ -9,4 +9,12 @@ export class AuthMutation extends MutationFn {
   postSign(url: string) {
     return (data: any) => this.mutationFn<Response>(url, "post", data);
   }
+
+  deleteSignOut() {
+    return () => this.mutationFn<Response>("/auth/signout", "delete");
+  }
+
+  patchProfile() {
+    return (data: { profileImage: string }) => this.mutationFn<Response>("/user/profile", "patch", data);
+  }
 }
