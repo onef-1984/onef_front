@@ -2,20 +2,17 @@ import { BookMutation } from "@/apis/reactQuery/Mutation/BookMutation";
 import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
 import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
-import { useRouteId } from "@/hooks/useRouteId";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { initValue, setValue } from "@/hooks/useSicilian/report";
 import { CreateReport } from "@/types/report.types";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
 export const usePostReportMutation = () => {
-  const { push } = useRouter();
-
   const bookMutation = new BookMutation();
   const reportMutation = new ReportMutation();
 
   // isbn13 값을 가져옴
-  const isbn13 = useRouteId() as string;
+  const { id: isbn13, push } = useRouterAdv();
   const { data } = useBookAdaptor({ isbn13 });
 
   const [tagList, setTagList] = useReportTagList();

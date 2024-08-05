@@ -5,14 +5,14 @@ import ReportFooter from "@/components/report/ReportFooter";
 import ReportHeader from "@/components/report/ReportHeader";
 import ReportMain from "@/components/report/ReportMain";
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
-import { useRouter } from "next/router";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 
 export default function Review() {
   const { error, report, user, book } = useReportAdaptor();
-  const router = useRouter();
+  const { back } = useRouterAdv();
 
   if (error) {
-    router.push("/");
+    back();
     alert("존재하지 않는 게시글입니다");
   }
 

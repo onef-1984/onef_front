@@ -5,13 +5,11 @@ import EditForm from "@/components/reportEdit/EditForm";
 import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { usePostReportMutation } from "@/hooks/useMutation/report/usePostReportMutation";
-import { useRouteId } from "@/hooks/useRouteId";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 
 export default function Create() {
   const { mutate } = usePostReportMutation();
-
-  const isbn13 = useRouteId() as string;
-
+  const { id: isbn13 } = useRouterAdv();
   const { book } = useBookAdaptor({ isbn13 });
 
   const headerContent = {

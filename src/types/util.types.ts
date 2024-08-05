@@ -18,3 +18,8 @@ export type Response = {
   statusCode: number;
   message: string;
 };
+
+export type OrderBy = "createdAt" | "userLiked";
+
+export type SearchType = "report" | "book" | "user" | "tag";
+export type UserLikedCount = { userLiked: number };

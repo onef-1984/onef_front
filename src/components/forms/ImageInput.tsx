@@ -1,6 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./ImageInput.module.css";
-import clsx from "clsx";
 import { LuPen } from "react-icons/lu";
 
 type ImageInputProps = {
@@ -38,21 +37,12 @@ export default function ImageInput({ multiple = false, initialValue, setFiles, f
   return (
     <label
       htmlFor="image"
-      className={clsx(styles.root)}
+      className={styles.root}
       style={{
-        width: "100%",
-        height: "100%",
         backgroundImage: `url(${preview})`,
       }}
     >
-      <input
-        id="image"
-        type="file"
-        style={{ display: "none" }}
-        multiple={multiple}
-        accept=".jpeg, .jpg, .png"
-        onChange={handleChange}
-      />
+      <input id="image" type="file" multiple={multiple} accept=".jpeg, .jpg, .png" onChange={handleChange} />
 
       <div className={styles.hoverCover}>
         <LuPen />

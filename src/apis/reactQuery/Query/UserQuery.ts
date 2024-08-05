@@ -1,5 +1,4 @@
 import { QueryFn } from "./QueryFn";
-import { UserEndPoint } from "@/apis/endpoints/user";
 import { User } from "@/types/auth.types";
 
 export class UserQuery extends QueryFn {
@@ -12,7 +11,14 @@ export class UserQuery extends QueryFn {
   getMe() {
     return {
       queryKey: [...this.queryKey],
-      queryFn: this.queryFn<User>(UserEndPoint.getMe()),
+      queryFn: this.queryFn<User>("user/me"),
+    };
+  }
+
+  getUser(userId: string) {
+    return {
+      queryKey: [...this.queryKey, userId],
+      queryFn: this.queryFn<User>(`user/${userId}`),
     };
   }
 }

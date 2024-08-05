@@ -2,18 +2,18 @@ import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
 import { ImageMutation } from "@/apis/reactQuery/Mutation/ImageMutation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useProfileImageMutation = () => {
+export const useProfileMutation = () => {
   const queryClient = useQueryClient();
   const imageMutation = new ImageMutation();
   const authMutation = new AuthMutation();
 
-  const { data, mutate } = useMutation({
-    mutationFn: async (formData: FormData) => {
+  const { mutate } = useMutation({
+    mutationFn: async ({ formData, nickname }: { formData: FormData; nickname: string }) => {
       const { imageUrl } = await imageMutation.postImages("multi-upload")(formData);
 
-      await authMutation.patchProfile()({ profileImage: imageUrl[0] });
+      await authMutation.patchProfile()({ profileImage: imageUrl[0], nickname });
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
@@ -21,5 +21,5 @@ export const useProfileImageMutation = () => {
     },
   });
 
-  return { data, mutate };
+  return { mutate };
 };

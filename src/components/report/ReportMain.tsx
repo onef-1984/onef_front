@@ -10,5 +10,5 @@ const MDPreview = dynamic(() => import("@uiw/react-markdown-preview"), { ssr: fa
 export default function ReportMain() {
   const { report } = useReportAdaptor();
 
-  return <MDPreview className={clsx(styles.reportMain, styles.reportSize)} source={report.content} />;
+  return <MDPreview className={clsx(styles.reportMain, styles.reportSize)} source={report.content}></MDPreview>;
 }

@@ -1,6 +1,6 @@
 import { User } from "./auth.types";
 import { Item } from "./book.types";
-import { Roll } from "./util.types";
+import { Roll, UserLikedCount } from "./util.types";
 
 export type TimeStamp = {
   createdAt: string;
@@ -19,7 +19,7 @@ export type GetReport = Roll<
     id: string;
     book: Item;
     user: Pick<User, "nickname" | "id">;
-    favoriteCount: number;
+    _count: UserLikedCount;
   } & TimeStamp
 >;
-export type GetReportList = { report: Array<GetReport> };
+export type GetReportList = { hasNext: boolean; items: Array<GetReport> };

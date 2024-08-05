@@ -1,16 +1,12 @@
-import { useRouteId } from "../../useRouteId";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
-
-import { useRouter } from "next/router";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 
 export const useDeleteReportMutation = () => {
-  const { push } = useRouter();
+  const { push, id: reportId } = useRouterAdv();
 
   const queryClient = useQueryClient();
 
-  const reportId = useRouteId() as string;
   const reportMutation = new ReportMutation();
 
   const { mutate } = useMutation({

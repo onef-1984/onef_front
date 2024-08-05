@@ -7,13 +7,13 @@ import MarkdownEditor from "@/components/forms/MarkdownEditor";
 import { handleSubmit, initValue, register, setValue } from "@/hooks/useSicilian/report";
 import TagInputWrapper from "@/components/forms/TagInputWrapper";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
-import { useRouter } from "next/router";
 import { useContext } from "react";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 
 export default function EditForm() {
   const [tagList, setTagList] = useReportTagList();
-  const { back } = useRouter();
+  const { back } = useRouterAdv();
   const mutate = useContext(MutationContext);
 
   return (

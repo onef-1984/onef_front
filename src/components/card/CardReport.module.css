@@ -1,0 +1,77 @@
+.root {
+  width: 100%;
+  height: 15rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  border-radius: 1.2rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.describe {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  justify-content: space-between;
+
+  color: var(--primary);
+
+  overflow: hidden;
+  height: 100%;
+  flex: 1;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.bookTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-text-white);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.userLike {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.like {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: center;
+
+  & svg {
+    color: var(--error);
+  }
+}

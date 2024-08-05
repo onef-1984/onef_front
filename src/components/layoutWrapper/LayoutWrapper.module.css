@@ -3,11 +3,12 @@
 
   & > main {
     overflow: scroll;
-    height: calc(100vh - 97px);
+    height: calc(100vh - 65px);
     flex: 1;
+    scrollbar-width: none;
 
     @media (max-width: 768px) {
-      height: calc(100vh - 65px);
+      height: calc(100vh - 57px);
     }
   }
 }

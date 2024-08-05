@@ -1,19 +1,16 @@
 import { useSignOutMutation } from "@/hooks/useMutation/useSignOutMutation";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 type HeaderPopProps = {
   onClick: () => void;
 };
 
 export default function HeaderPop({ onClick }: HeaderPopProps) {
-  const { push } = useRouter();
   const { mutate } = useSignOutMutation();
 
   return (
     <>
-      <button type="button" onClick={() => push("/profileEdit")}>
-        내 프로필 수정
-      </button>
+      <Link href="/myInfo">내 프로필 수정</Link>
 
       <hr />
 

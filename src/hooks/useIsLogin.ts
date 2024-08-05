@@ -1,7 +1,7 @@
-import { useUserAdaptor } from "./useAdaptor/useUserAdaptor";
+import { useWhoAmIAdaptor } from "./useAdaptor/useWhoAmIAdaptor";
 
 export const useIsLogin = () => {
-  const { user } = useUserAdaptor();
+  const { user } = useWhoAmIAdaptor();
 
   return user?.email ? true : false;
 };

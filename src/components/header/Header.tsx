@@ -1,4 +1,4 @@
-import { useUserAdaptor } from "@/hooks/useAdaptor/useUserAdaptor";
+import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/useWhoAmIAdaptor";
 import Logo from "../logo/Logo";
 import Link from "next/link";
 import styles from "./Header.module.css";
@@ -7,7 +7,7 @@ import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import HeaderProfileImage from "./HeaderProfileImage";
 
 export default function Header() {
-  const { isPending, isError, user } = useUserAdaptor();
+  const { isPending, isError, user } = useWhoAmIAdaptor();
   const [toggle, setToggle] = useSideMenuToggle();
 
   return (

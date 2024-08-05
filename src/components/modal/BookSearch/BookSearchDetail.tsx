@@ -7,10 +7,11 @@ import { formatAuthor } from "@/utils/formatAuthor";
 import DoubleButton from "@/components/clickable/DoubleButton";
 import { useRouter } from "next/router";
 import Button from "@/components/clickable/Button";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 
 export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
   const [book, setBook] = useSelectedBook();
-  const router = useRouter();
+  const { push } = useRouterAdv();
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
@@ -44,7 +45,7 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={() => {
               onClose();
-              router.push(`/report/${book.isbn13}/create`);
+              push(`/report/${book.isbn13}/create`);
             }}
           >
             리뷰 작성

@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRouteId } from "../useRouteId";
 import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import { formatDate } from "@/utils/formatDate";
 import { formatAuthor } from "@/utils/formatAuthor";
+import { useRouterAdv } from "../useRouterAdv";
 
 export const useReportAdaptor = () => {
-  const reviewId = useRouteId();
+  const { id: reviewId } = useRouterAdv();
 
-  const reportQuery = new ReportQuery(reviewId as string);
-  const { data, error, isPending } = useQuery(reportQuery.getReport());
+  const reportQuery = new ReportQuery();
+  const { data, error, isPending } = useQuery(reportQuery.getReport(reviewId));
 
   return {
     error,
@@ -18,7 +18,7 @@ export const useReportAdaptor = () => {
       title: data?.title ?? "",
       content: data?.content ?? "",
       tags: data?.tags ?? [],
-      favoriteCount: data?.favoriteCount ?? 0,
+      _count: data?._count.userLiked ?? 0,
       date: formatDate(data?.updatedAt),
     },
     user: {
