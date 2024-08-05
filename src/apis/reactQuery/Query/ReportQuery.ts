@@ -33,7 +33,7 @@ export class ReportQuery extends QueryFn {
       ),
       initialPageParam: 0,
       getNextPageParam: (lastPage: GetReportList, allPages: any, lastPageParam: number) =>
-        lastPage.hasNext ? lastPageParam + 1 : undefined,
+        lastPage.hasNext ? lastPageParam + 12 : undefined,
     };
   }
 }

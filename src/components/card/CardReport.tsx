@@ -2,7 +2,7 @@ import styles from "./CardReport.module.css";
 import GlassyBackground from "../glassyBackground/GlassyBackground";
 import { IoHeartSharp } from "react-icons/io5";
 import Link from "next/link";
-import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { formatBookTitle } from "@/utils/formatBookTitle";
 
 type CardReportProps = {
   cover: string;
@@ -21,7 +21,7 @@ export default function CardReport({ cover, title, bookTitle, id, user, likeCoun
         <div className={styles.describe}>
           <div>
             <p className={styles.title}>{title}</p>
-            <p className={styles.bookTitle}>{bookTitle}</p>
+            <p className={styles.bookTitle}>{formatBookTitle(bookTitle)}</p>
           </div>
 
           <div className={styles.userLike}>

@@ -8,3 +8,51 @@
     flex: 0 0 10rem;
   }
 }
+
+.searchUser {
+  font-size: 3.2rem;
+  font-weight: 700;
+
+  & span {
+    color: var(--primary-text);
+  }
+
+  & hr {
+    border: none;
+    height: 0.1rem;
+    background-color: var(--black);
+    width: 100%;
+  }
+
+  @media (max-width: 786px) {
+    font-size: 2.8rem;
+  }
+}
+
+.binderContainer {
+  container: test / inline-size;
+}
+
+.searchBinder {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@container test (max-width: 1000px) {
+  .searchBinder {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container test (max-width: 700px) {
+  .searchBinder {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container test (max-width: 480px) {
+  .searchBinder {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

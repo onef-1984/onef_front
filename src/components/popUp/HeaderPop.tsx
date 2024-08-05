@@ -10,7 +10,7 @@ export default function HeaderPop({ onClick }: HeaderPopProps) {
 
   return (
     <>
-      <Link href="/myInfo">내 프로필 수정</Link>
+      <Link href="/my/info">내 프로필 수정</Link>
 
       <hr />
 

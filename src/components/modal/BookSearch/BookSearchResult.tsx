@@ -5,6 +5,7 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { useSelectedBook } from "@/hooks/useCaroKann/useSelectedBook";
 import CardResultBox from "@/components/card/CardResultBox";
 import { useInfiniteBookListAdaptor } from "@/hooks/useAdaptor/useInfiniteBookListAdaptor";
+import { useEffect } from "react";
 
 type BookSearchResultProps = {
   searchKeyword: string;
@@ -16,10 +17,12 @@ export default function BookSearchResult({ searchKeyword }: BookSearchResultProp
 
   const [_, setBook] = useSelectedBook();
 
-  if (isVisible) {
-    fetchNextPage();
-    setIsVisible(false);
-  }
+  useEffect(() => {
+    if (isVisible) {
+      fetchNextPage();
+      setIsVisible(false);
+    }
+  }, [isVisible]);
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>

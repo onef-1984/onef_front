@@ -1,4 +1,4 @@
-import { ErrorState, handleSubmit, setValue, register } from "@/hooks/useSicilian/reportSearch";
+import { handleSubmit, setValue, register } from "@/hooks/useSicilian/reportSearch";
 import Label from "@/components/forms/Label";
 import Input from "@/components/forms/Input";
 import Button from "@/components/clickable/Button";

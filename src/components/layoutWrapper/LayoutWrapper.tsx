@@ -1,8 +1,7 @@
-import { MouseEvent, ReactNode } from "react";
+import { ReactNode } from "react";
 import Header from "../header/Header";
 import SideMenu from "../sideMenu/SideMenu";
 import styles from "./LayoutWrapper.module.css";
-import ModalWrapper from "../modal/ModalWrapper";
 import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
 import BookSearchModal from "../modal/BookSearch/BookSearchModal";
 

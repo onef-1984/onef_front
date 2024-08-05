@@ -6,10 +6,11 @@ import ReportHeader from "@/components/report/ReportHeader";
 import ReportMain from "@/components/report/ReportMain";
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { useEffect } from "react";
 
 export default function Review() {
   const { error, report, user, book } = useReportAdaptor();
-  const { back } = useRouterAdv();
+  const { back, push, id } = useRouterAdv();
 
   if (error) {
     back();

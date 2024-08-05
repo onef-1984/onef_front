@@ -24,6 +24,20 @@
   margin-left: 0;
 }
 
+.menu {
+  margin-top: 6rem;
+  padding: 1.6rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+
+  & > :is(button, a) {
+    color: var(--brown-70);
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+
 .closeButton {
   display: none;
   border: none;
@@ -36,5 +50,14 @@
 
   @media (max-width: 420px) {
     padding: 1.6rem;
+  }
+}
+
+.label {
+  height: 4rem;
+  align-items: center;
+
+  & > input {
+    height: 2rem;
   }
 }

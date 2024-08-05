@@ -14,6 +14,8 @@ export default function ReportFooter() {
       </div>
 
       <p>{report.date}</p>
+
+      <p></p>
     </section>
   );
 }
