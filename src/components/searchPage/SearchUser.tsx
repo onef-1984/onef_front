@@ -10,11 +10,9 @@ export default function SearchUser() {
   } = useUserAdaptor(userId);
 
   return (
-    <>
-      <div className={styles.searchUser}>
-        <span>{nickname}</span> 님이 작성한 리뷰
-        <hr />
-      </div>
-    </>
+    <div className={styles.searchUser}>
+      <span>{nickname}</span> 님이 작성한 리뷰
+      <hr />
+    </div>
   );
 }

@@ -1,0 +1,9 @@
+.root {
+  width: fit-content;
+  position: relative;
+  align-self: flex-end;
+}
+
+.optionButton {
+  font-size: 1.6rem;
+}

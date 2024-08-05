@@ -34,7 +34,6 @@ export default function SideMenu() {
           <form
             noValidate
             onSubmit={handleSubmit((data) => {
-              console.log(data);
               push({ pathname: "/search", query: { keyword: data.keyword } }, "/search");
             })}
           >

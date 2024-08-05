@@ -5,19 +5,22 @@ import SearchUser from "@/components/searchPage/SearchUser";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { SearchType } from "@/types/util.types";
 import styles from "@/styles/Search.module.css";
-import SearchBinder from "@/components/searchPage/SearchBinder";
 import SearchBook from "@/components/searchPage/searchBook";
 import SearchResult from "@/components/searchPage/SearchResult";
+import SearchTitle from "@/components/searchPage/SearchTitle";
+import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 
 export default function Search() {
-  const { searchType } = useRouterAdv();
+  const { searchType, keyword } = useRouterAdv();
 
-  const search = (searchType: SearchType) => {
+  const searchTitle = (searchType: SearchType) => {
     switch (searchType) {
       case "report":
         return <SearchBar />;
+
       case "user":
         return <SearchUser />;
+
       case "book":
         return <SearchBook />;
     }
@@ -26,7 +29,11 @@ export default function Search() {
   return (
     <LayoutWrapper>
       <div className={styles.root}>
-        {search(searchType)}
+        {searchTitle(searchType)}
+
+        {!keyword && <SearchTitle />}
+
+        <SearchOptionButton />
 
         <SearchResult />
       </div>

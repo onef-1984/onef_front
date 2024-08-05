@@ -11,7 +11,7 @@ export const usePopUpToggle = () => {
     document.addEventListener("click", (e) => {
       const { tagName } = e.target as HTMLElement;
 
-      if (tagName !== "IMG") {
+      if (!(tagName === "IMG" || tagName === "svg")) {
         setToggle(false);
       }
     });

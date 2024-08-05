@@ -11,11 +11,9 @@ export default function SearchBook() {
   } = useBookAdaptor({ isbn13 });
 
   return (
-    <>
-      <div className={styles.searchUser}>
-        <span>{`"${formatBookTitle(title)}"`}</span> 을 읽고 작성된 리뷰
-        <hr />
-      </div>
-    </>
+    <div className={styles.searchUser}>
+      <span>{`"${formatBookTitle(title)}"`}</span> 을 읽고 작성된 리뷰
+      <hr />
+    </div>
   );
 }
