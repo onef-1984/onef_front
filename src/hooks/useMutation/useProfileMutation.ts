@@ -1,9 +1,9 @@
 import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
 import { ImageMutation } from "@/apis/reactQuery/Mutation/ImageMutation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 
 export const useProfileMutation = () => {
-  const queryClient = useQueryClient();
+  const queryClient = new QueryClient();
   const imageMutation = new ImageMutation();
   const authMutation = new AuthMutation();
 

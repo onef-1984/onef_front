@@ -1,5 +1,4 @@
 import styles from "./ReportHeader.module.css";
-import ReportButton from "./ReportButton";
 
 export default function ReportHeader({
   content,

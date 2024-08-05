@@ -1,3 +1,4 @@
+import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import ReportButton from "@/components/report/ReportButton";
@@ -6,16 +7,32 @@ import ReportHeader from "@/components/report/ReportHeader";
 import ReportMain from "@/components/report/ReportMain";
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { useEffect } from "react";
+import { QueryClient } from "@tanstack/react-query";
+import { GetServerSidePropsContext } from "next";
+
+export async function getServerSideProps({ query: { id } }: GetServerSidePropsContext) {
+  const queryClient = new QueryClient();
+  const reportQuery = new ReportQuery();
+
+  let res;
+
+  try {
+    res = await queryClient.fetchQuery(reportQuery.getReport(id as string));
+  } catch {}
+
+  if (!res) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default function Review() {
-  const { error, report, user, book } = useReportAdaptor();
-  const { back, push, id } = useRouterAdv();
-
-  if (error) {
-    back();
-    alert("존재하지 않는 게시글입니다");
-  }
+  const { report, user, book } = useReportAdaptor();
 
   const content = {
     title: report.title,

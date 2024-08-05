@@ -18,7 +18,7 @@ const useIntersectionObserver = () => {
     return () => {
       observer.disconnect();
     };
-  }, [isVisible]);
+  }, []);
 
   return { isVisible, setIsVisible, myRef };
 };

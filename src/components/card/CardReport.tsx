@@ -3,31 +3,22 @@ import GlassyBackground from "../glassyBackground/GlassyBackground";
 import { IoHeartSharp } from "react-icons/io5";
 import Link from "next/link";
 import { formatBookTitle } from "@/utils/formatBookTitle";
+import { GetReport } from "@/types/report.types";
 
-type CardReportProps = {
-  cover: string;
-  title: string;
-  bookTitle: string;
-  id: string;
-  content: string;
-  user: string;
-  likeCount: number;
-};
-
-export default function CardReport({ cover, title, bookTitle, id, user, likeCount }: CardReportProps) {
+export default function CardReport(item: GetReport) {
   return (
-    <Link className={styles.root} type="button" href={`/report/${id}`}>
-      <GlassyBackground className={styles.root} image={cover}>
+    <Link className={styles.root} type="button" href={`/report/${item.id}`}>
+      <GlassyBackground className={styles.root} image={item.book.cover}>
         <div className={styles.describe}>
           <div>
-            <p className={styles.title}>{title}</p>
-            <p className={styles.bookTitle}>{formatBookTitle(bookTitle)}</p>
+            <p className={styles.title}>{item.title}</p>
+            <p className={styles.bookTitle}>{formatBookTitle(item.book.title)}</p>
           </div>
 
           <div className={styles.userLike}>
-            <p>by. {user}</p>
+            <p>by. {item.user.nickname}</p>
             <div className={styles.like}>
-              {likeCount} <IoHeartSharp />
+              {item._count.userLiked} <IoHeartSharp />
             </div>
           </div>
         </div>

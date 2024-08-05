@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 export const useBookAdaptor = ({ isbn13 }: { isbn13: string }) => {
   // isbn13에 해당하는 책 정보를 가져옴
   const bookQuery = new BookQuery();
-  const { data } = useQuery(bookQuery.getBook(isbn13));
+  const { data } = useQuery(bookQuery.getBookByIsbn(isbn13));
 
   return {
     data,

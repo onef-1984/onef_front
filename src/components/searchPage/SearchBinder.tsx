@@ -1,23 +1,10 @@
-import CardReport from "../card/CardReport";
 import styles from "./Search.module.css";
+import { ReactNode } from "react";
 
-export default function SearchBinder({ items }: { items: Array<any> }) {
+export default function SearchBinder({ children }: { children: ReactNode }) {
   return (
     <div className={styles.binderContainer}>
-      <div className={styles.searchBinder}>
-        {items.map((item) => (
-          <CardReport
-            key={`${item.id}+${item.title}`}
-            user={item.user.nickname}
-            likeCount={item._count.userLiked}
-            id={item.id}
-            title={item.title}
-            bookTitle={item.book.title}
-            cover={item.book.cover}
-            content={item.content}
-          />
-        ))}
-      </div>
+      <div className={styles.searchBinder}>{children}</div>
     </div>
   );
 }

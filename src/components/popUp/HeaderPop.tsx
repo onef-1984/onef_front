@@ -1,4 +1,5 @@
 import { useSignOutMutation } from "@/hooks/useMutation/useSignOutMutation";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
 
 type HeaderPopProps = {
@@ -7,6 +8,7 @@ type HeaderPopProps = {
 
 export default function HeaderPop({ onClick }: HeaderPopProps) {
   const { mutate } = useSignOutMutation();
+  const { push, asPath } = useRouterAdv();
 
   return (
     <>
@@ -17,9 +19,9 @@ export default function HeaderPop({ onClick }: HeaderPopProps) {
       <button
         type="button"
         onClick={() => {
-          onClick();
-
           mutate();
+          onClick();
+          push(asPath);
         }}
       >
         로그아웃

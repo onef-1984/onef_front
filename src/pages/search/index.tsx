@@ -1,4 +1,3 @@
-import CardReport from "@/components/card/CardReport";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import SearchBar from "@/components/searchPage/SearchBar";
 import SearchUser from "@/components/searchPage/SearchUser";
@@ -9,6 +8,7 @@ import SearchBook from "@/components/searchPage/searchBook";
 import SearchResult from "@/components/searchPage/SearchResult";
 import SearchTitle from "@/components/searchPage/SearchTitle";
 import SearchOptionButton from "@/components/clickable/SearchOptionButton";
+import SearchTag from "@/components/searchPage/SearchTag";
 
 export default function Search() {
   const { searchType, keyword } = useRouterAdv();
@@ -23,6 +23,9 @@ export default function Search() {
 
       case "book":
         return <SearchBook />;
+
+      case "tag":
+        return <SearchTag />;
     }
   };
 
@@ -31,7 +34,7 @@ export default function Search() {
       <div className={styles.root}>
         {searchTitle(searchType)}
 
-        {!keyword && <SearchTitle />}
+        {!keyword && <SearchTitle>전체 리뷰</SearchTitle>}
 
         <SearchOptionButton />
 

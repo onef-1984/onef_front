@@ -1,11 +1,12 @@
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "./Search.module.css";
-import { ReactNode } from "react";
 
-export default function SearchTitle({ children }: { children?: ReactNode }) {
+export default function SearchTag() {
+  const { keyword: tag } = useRouterAdv();
+
   return (
     <div className={styles.searchUser}>
-      {children}
+      <span>#{tag}</span> 태그가 달린 리뷰
       <hr />
     </div>
   );

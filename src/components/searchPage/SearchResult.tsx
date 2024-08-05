@@ -1,29 +1,26 @@
 import { useInfiniteReportSearchListAdaptor } from "@/hooks/useAdaptor/useInfiniteReportSearchListAdaptor";
-import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "usehooks-ts";
 import { useEffect } from "react";
+import CardReport from "../card/CardReport";
 import SearchBinder from "./SearchBinder";
 
 export default function SearchResult() {
-  const { pages, fetchNextPage, hasNext } = useInfiniteReportSearchListAdaptor();
-  const { isVisible, setIsVisible, myRef } = useIntersectionObserver();
+  const { pages, fetchNextPage } = useInfiniteReportSearchListAdaptor();
+  const { isIntersecting, ref } = useIntersectionObserver();
 
   useEffect(() => {
-    if (isVisible && hasNext !== false) {
+    if (isIntersecting) {
       fetchNextPage();
-      setIsVisible(false);
     }
-  }, [isVisible]);
-
-  const a = pages
-    ?.map((page) => {
-      return [...page.items];
-    })
-    .flat();
+  }, [isIntersecting]);
 
   return (
     <>
-      {a && <SearchBinder items={a} />}
-      <p ref={myRef}></p>
+      <SearchBinder>
+        {pages?.map((page) => page?.items.map((item) => <CardReport key={item.id} {...item} />))}
+      </SearchBinder>
+
+      {pages && <p ref={ref}></p>}
     </>
   );
 }

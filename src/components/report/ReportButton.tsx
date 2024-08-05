@@ -7,31 +7,31 @@ import { useDeleteReportMutation } from "@/hooks/useMutation/report/useDeleteRep
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import Link from "next/link";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { IoHeartOutline } from "react-icons/io5";
 
 export default function ReportButton() {
   const { mutate } = useDeleteReportMutation();
   const { report } = useReportAdaptor();
   const { id: reportId } = useRouterAdv();
 
+  const isMyReview = useIsMyReview();
+
   return (
     <div className={styles.icons}>
-      {useIsMyReview() ? (
+      {isMyReview ? (
         <>
           <Link href="/report/[id]/edit" as={`/report/${report.id}/edit`}>
             <SlNote />
           </Link>
 
-          <button
-            type="button"
-            onClick={() => {
-              mutate();
-            }}
-          >
+          <button type="button" onClick={() => mutate()}>
             <BsTrash3 />
           </button>
         </>
       ) : (
-        ""
+        <button type="button">
+          <IoHeartOutline />
+        </button>
       )}
 
       <button type="button" onClick={() => navigator.clipboard.writeText(`https://onef.co.kr/report/${reportId}`)}>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./Tag.module.css";
 
 type TagProps = {
@@ -5,5 +6,10 @@ type TagProps = {
 };
 
 export default function Tag({ children }: TagProps) {
-  return <span className={styles.root}>{`#${children}`}</span>;
+  return (
+    <Link
+      href={{ pathname: "/search", query: { searchType: "tag", keyword: children } }}
+      className={styles.root}
+    >{`#${children}`}</Link>
+  );
 }

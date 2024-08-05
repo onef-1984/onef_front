@@ -18,7 +18,7 @@ export class BookQuery extends QueryFn {
     };
   }
 
-  getBook(isbn13: string) {
+  getBookByIsbn(isbn13: string) {
     return {
       queryKey: [...this.queryKey, isbn13],
       queryFn: this.queryFn<Item>(`/aladin/detail?isbn=${isbn13}`),
