@@ -4,6 +4,8 @@ import { IoHeartSharp } from "react-icons/io5";
 import Link from "next/link";
 import { formatBookTitle } from "@/utils/formatBookTitle";
 import { GetReport } from "@/types/report.types";
+import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function CardReport(item: GetReport) {
   return (

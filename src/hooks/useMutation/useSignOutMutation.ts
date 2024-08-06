@@ -8,7 +8,7 @@ export const useSignOutMutation = () => {
   const { mutate } = useMutation({
     mutationFn: authMutation.deleteSignOut(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.resetQueries({ queryKey: ["user"] });
     },
   });
 

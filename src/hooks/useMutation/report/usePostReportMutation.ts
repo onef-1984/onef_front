@@ -6,6 +6,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { initValue, setValue } from "@/hooks/useSicilian/report";
 import { CreateReport } from "@/types/report.types";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export const usePostReportMutation = () => {
   const bookMutation = new BookMutation();
@@ -25,7 +26,7 @@ export const usePostReportMutation = () => {
       return id;
     },
     onSuccess: (data: any, variable: any) => {
-      alert("리뷰가 작성되었습니다.");
+      toast.success("리뷰가 작성되었습니다.");
       push(`/report/${data}`);
       setValue(initValue);
       setTagList([]);

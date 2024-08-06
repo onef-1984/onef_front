@@ -6,7 +6,6 @@ import ReportFooter from "@/components/report/ReportFooter";
 import ReportHeader from "@/components/report/ReportHeader";
 import ReportMain from "@/components/report/ReportMain";
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
-import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { QueryClient } from "@tanstack/react-query";
 import { GetServerSidePropsContext } from "next";
 

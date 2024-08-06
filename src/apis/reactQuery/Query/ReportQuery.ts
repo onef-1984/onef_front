@@ -27,7 +27,7 @@ export class ReportQuery extends QueryFn {
     searchType: SearchType;
   }) {
     return {
-      queryKey: ["report", keyword, orderBy],
+      queryKey: ["report", orderBy, keyword ? keyword : "all"],
       queryFn: this.infiniteQueryFn<GetReportList>(
         `/report/search?take=12&searchType=${searchType}&keyword=${keyword}&orderBy=${orderBy}`
       ),
