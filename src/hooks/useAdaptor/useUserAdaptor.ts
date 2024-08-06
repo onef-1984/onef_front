@@ -13,6 +13,8 @@ export const useUserAdaptor = (userId: string) => {
       email: data?.email ?? "",
       nickname: data?.nickname ?? "",
       profileImage: data?.profileImage ?? "",
+      role: data?.role ?? "USER",
+      bio: data?.bio ?? "",
     },
   };
 };
