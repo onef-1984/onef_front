@@ -20,7 +20,7 @@ export default function ReportButton() {
     <div className={styles.icons}>
       {isMyReview ? (
         <>
-          <Link href="/report/[id]/edit" as={`/report/${report.id}/edit`}>
+          <Link href={report.id ? `/report/${report.id}/edit` : "/report"}>
             <SlNote />
           </Link>
 
@@ -29,9 +29,7 @@ export default function ReportButton() {
           </button>
         </>
       ) : (
-        <button type="button">
-          <IoHeartOutline />
-        </button>
+        ""
       )}
 
       <button type="button" onClick={() => navigator.clipboard.writeText(`https://onef.co.kr/report/${reportId}`)}>

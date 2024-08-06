@@ -36,4 +36,18 @@ export class ReportQuery extends QueryFn {
         lastPage.hasNext ? lastPageParam + 12 : undefined,
     };
   }
+
+  getUserLatestReportList(userId: string) {
+    return {
+      queryKey: [...this.queryKey, "user", "latest"],
+      queryFn: this.queryFn<GetReportList>(`/report/search?take=4&searchType=user&keyword=${userId}&orderBy=createdAt`),
+    };
+  }
+
+  checkReportLike(reportId: string) {
+    return {
+      queryKey: [...this.queryKey, reportId, "like"],
+      queryFn: this.queryFn<{ isLiked: boolean }>(`/report/${reportId}/like`),
+    };
+  }
 }

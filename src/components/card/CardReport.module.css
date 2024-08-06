@@ -72,6 +72,6 @@
   justify-content: center;
 
   & svg {
-    color: var(--error);
+    color: var(--pink-40);
   }
 }

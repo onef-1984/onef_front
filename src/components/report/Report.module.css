@@ -37,3 +37,20 @@
     }
   }
 }
+
+.reportFooter {
+  display: flex;
+  gap: 6rem;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+}
+
+.likeButton {
+  flex: 0 0 6rem;
+}

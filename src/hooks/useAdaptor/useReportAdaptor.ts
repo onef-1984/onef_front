@@ -18,7 +18,7 @@ export const useReportAdaptor = () => {
       title: data?.title ?? "",
       content: data?.content ?? "",
       tags: data?.tags ?? [],
-      _count: data?._count.userLiked ?? 0,
+      likeCount: data?._count.userLiked ?? 0,
       date: formatDate(data?.updatedAt),
     },
     user: {

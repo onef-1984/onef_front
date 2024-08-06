@@ -1,12 +1,12 @@
 .root {
-  display: inline-block;
-  background-color: var(--brown-70);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
-  color: var(--primary);
+
   font-weight: 700;
   border-radius: 0.8rem;
-  padding: 1.25rem 1.6rem;
-  font-size: 1.6rem;
   text-align: center;
 }
 
@@ -14,10 +14,48 @@
   background: var(--gray-50);
 }
 
+/* color */
+
+.primary {
+  background: var(--brown-70);
+  color: var(--primary);
+}
+
 .white {
   background: var(--white);
   border: 1px solid var(--brown-70);
   color: var(--brown-70);
+}
+
+.like {
+  border: 1px solid var(--pink-20);
+
+  & svg {
+    color: var(--pink-40);
+  }
+}
+
+.like.disabled {
+  background: var(--primary);
+}
+
+/* size */
+.small {
+  font-size: 1.2rem;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+}
+
+.medium {
+  font-size: 1.6rem;
+  gap: 0.8rem;
+  padding: 1.25rem 1.6rem;
+}
+
+.large {
+  font-size: 2rem;
+  gap: 1.2rem;
+  padding: 1.6rem 2rem;
 }
 
 .doubleButton {

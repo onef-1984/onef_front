@@ -1,11 +1,9 @@
 import styles from "./CardReport.module.css";
 import GlassyBackground from "../glassyBackground/GlassyBackground";
-import { IoHeartSharp } from "react-icons/io5";
+import { IoHeart } from "react-icons/io5";
 import Link from "next/link";
 import { formatBookTitle } from "@/utils/formatBookTitle";
 import { GetReport } from "@/types/report.types";
-import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function CardReport(item: GetReport) {
   return (
@@ -20,7 +18,7 @@ export default function CardReport(item: GetReport) {
           <div className={styles.userLike}>
             <p>by. {item.user.nickname}</p>
             <div className={styles.like}>
-              {item._count.userLiked} <IoHeartSharp />
+              {item._count.userLiked} <IoHeart />
             </div>
           </div>
         </div>

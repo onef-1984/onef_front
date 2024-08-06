@@ -1,6 +1,5 @@
 import "@/styles/reset.css";
 import "@/styles/globals.css";
-import "react-toastify/dist/ReactToastify.css";
 import { QueryClient, QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { useState } from "react";

@@ -1,5 +1,6 @@
 import { CreateReport } from "@/types/report.types";
 import { MutationFn } from "./MutationFn";
+import { Response } from "@/types/util.types";
 
 export class ReportMutation extends MutationFn {
   constructor() {
@@ -16,5 +17,9 @@ export class ReportMutation extends MutationFn {
 
   deleteReport(reportId: string) {
     return () => this.mutationFn(`/report/${reportId}`, "delete");
+  }
+
+  reportLike(reportId: string) {
+    return (method: "post" | "delete") => this.mutationFn<Response>(`/report/${reportId}/like`, method);
   }
 }

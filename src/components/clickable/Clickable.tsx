@@ -5,9 +5,12 @@ import clsx from "clsx";
 interface ClickableProps {
   children: ReactNode;
   disabled?: boolean;
-  color?: "primary" | "white";
+  color?: "primary" | "white" | "like";
+  size?: "small" | "medium" | "large";
 }
 
-export default function Clickable({ children, disabled, color }: ClickableProps) {
-  return <span className={clsx(styles.root, disabled && styles.disabled, color && styles[color])}>{children}</span>;
+export default function Clickable({ children, disabled, color = "primary", size = "medium" }: ClickableProps) {
+  return (
+    <span className={clsx(styles.root, disabled && styles.disabled, styles[color], styles[size])}>{children}</span>
+  );
 }
