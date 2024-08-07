@@ -7,7 +7,7 @@ import { GetReport } from "@/types/report.types";
 
 export default function CardReport(item: GetReport) {
   return (
-    <Link className={styles.root} type="button" href={`/report/${item.id}`}>
+    <Link className={styles.root} href={`/report/${item.id}`}>
       <GlassyBackground className={styles.root} image={item.book.cover}>
         <div className={styles.describe}>
           <div>
