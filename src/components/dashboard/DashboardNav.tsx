@@ -1,6 +1,6 @@
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "./DashboardNav.module.css";
-import { IoHeart } from "react-icons/io5";
+import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import clsx from "clsx";
 
 export default function DashboardNav() {

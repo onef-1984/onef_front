@@ -1,5 +1,5 @@
-import { IoEyeOffOutline } from "react-icons/io5";
-import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline } from "@react-icons/all-files/io5/IoEyeOffOutline";
+import { IoEyeOutline } from "@react-icons/all-files/io5/IoEyeOutline";
 import { ReactNode } from "react";
 import useToggle from "@/hooks/useToggle";
 import styles from "./Input.module.css";

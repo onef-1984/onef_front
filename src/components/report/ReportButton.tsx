@@ -2,12 +2,11 @@ import { useIsMyReview } from "@/hooks/useIsMyReview";
 import styles from "./Report.module.css";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
-import { HiOutlineShare } from "react-icons/hi2";
+import { HiOutlineShare } from "@react-icons/all-files/hi/HiOutlineShare";
 import { useDeleteReportMutation } from "@/hooks/useMutation/report/useDeleteReportMutation";
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
-import Link from "next/link";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { IoHeartOutline } from "react-icons/io5";
+import Link from "next/link";
 
 export default function ReportButton() {
   const { mutate } = useDeleteReportMutation();

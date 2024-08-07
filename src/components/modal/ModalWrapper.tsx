@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
-import { Dispatch, MouseEvent, ReactNode, SetStateAction } from "react";
+import { MouseEvent, ReactNode } from "react";
 import styles from "./ModalWrapper.module.css";
-import { MdClose } from "react-icons/md";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
 import clsx from "clsx";
 
 type ModalProps = {

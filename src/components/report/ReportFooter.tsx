@@ -6,8 +6,8 @@ import clsx from "clsx";
 import { useIsMyReview } from "@/hooks/useIsMyReview";
 import { useIsLogin } from "@/hooks/useIsLogin";
 import { useIsLikedReport } from "@/hooks/useAdaptor/useIsLikedReport";
-import { IoHeartOutline } from "react-icons/io5";
-import { IoHeart } from "react-icons/io5";
+import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
+import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
 
 export default function ReportFooter() {

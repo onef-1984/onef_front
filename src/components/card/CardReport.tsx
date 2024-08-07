@@ -1,6 +1,6 @@
 import styles from "./CardReport.module.css";
 import GlassyBackground from "../glassyBackground/GlassyBackground";
-import { IoHeart } from "react-icons/io5";
+import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import Link from "next/link";
 import { formatBookTitle } from "@/utils/formatBookTitle";
 import { GetReport } from "@/types/report.types";
