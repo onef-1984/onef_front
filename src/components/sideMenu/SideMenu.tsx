@@ -3,10 +3,8 @@ import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModal
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
-import Link from "next/link";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { useIsLikedReport } from "@/hooks/useAdaptor/useIsLikedReport";
 import { useIsLogin } from "@/hooks/useIsLogin";
 
 export default function SideMenu() {
@@ -17,48 +15,46 @@ export default function SideMenu() {
   const isLogin = useIsLogin();
 
   return (
-    <>
-      <aside className={clsx(styles.root, toggle && styles.open)}>
-        <button type="button" className={styles.closeButton} onClick={() => setToggle((prev) => !prev)}>
-          <IoClose />
+    <aside className={clsx(styles.root, toggle && styles.open)}>
+      <button type="button" className={styles.closeButton} onClick={() => setToggle((prev) => !prev)}>
+        <IoClose />
+      </button>
+
+      <menu className={styles.menu}>
+        <button
+          type="button"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setToggle(false);
+            push("/search");
+          }}
+        >
+          리뷰 검색
         </button>
 
-        <menu className={styles.menu}>
-          <button
-            type="button"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setToggle(false);
-              push("/search");
-            }}
-          >
-            리뷰 검색
-          </button>
+        {isLogin && (
+          <>
+            <button
+              type="button"
+              style={{ cursor: "pointer" }}
+              onClick={() => setBookSearchModalState((prev) => !prev)}
+            >
+              리뷰 작성
+            </button>
 
-          {isLogin && (
-            <>
-              <button
-                type="button"
-                style={{ cursor: "pointer" }}
-                onClick={() => setBookSearchModalState((prev) => !prev)}
-              >
-                리뷰 작성
-              </button>
-
-              <button
-                type="button"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setToggle(false);
-                  push(`/dashboard/${user.nickname}`);
-                }}
-              >
-                마이 페이지
-              </button>
-            </>
-          )}
-        </menu>
-      </aside>
-    </>
+            <button
+              type="button"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setToggle(false);
+                push(`/dashboard/${user.nickname}`);
+              }}
+            >
+              마이 페이지
+            </button>
+          </>
+        )}
+      </menu>
+    </aside>
   );
 }

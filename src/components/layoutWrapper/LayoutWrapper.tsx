@@ -11,10 +11,10 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <div className={styles.root}>
-        <SideMenu />
-        <main>{children}</main>
-      </div>
+
+      <SideMenu />
+
+      <main className={styles.main}>{children}</main>
 
       {bookSearchModalState && <BookSearchModal />}
     </>
