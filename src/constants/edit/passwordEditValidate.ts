@@ -1,8 +1,8 @@
 export const passwordEditValidate = () => {
   const oldPassword = {
     required: { required: true, message: "비밀번호를 입력해주세요" },
-    minLength: { value: 8, message: "비밀번호는 8자 이상이어야 합니다" },
-    maxLength: { value: 16, message: "비밀번호는 16자 이하여야 합니다" },
+    minLength: { number: 8, message: "비밀번호는 8자 이상이어야 합니다" },
+    maxLength: { number: 16, message: "비밀번호는 16자 이하여야 합니다" },
     RegExp: [
       {
         RegExp: new RegExp("^[^\\s]+$"),
