@@ -8,9 +8,9 @@ import HeaderProfileImage from "./HeaderProfileImage";
 import { useIsLogin } from "@/hooks/useIsLogin";
 
 export default function Header() {
-  const { isPending, isError, user } = useWhoAmIAdaptor();
+  const { user } = useWhoAmIAdaptor();
   const isLogin = useIsLogin();
-  const [toggle, setToggle] = useSideMenuToggle();
+  const [_, setToggle] = useSideMenuToggle();
 
   return (
     <header className={styles.root}>
