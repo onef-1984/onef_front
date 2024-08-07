@@ -5,11 +5,16 @@ import styles from "./SideMenu.module.css";
 import clsx from "clsx";
 import Link from "next/link";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/useWhoAmIAdaptor";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { useIsLikedReport } from "@/hooks/useAdaptor/useIsLikedReport";
+import { useIsLogin } from "@/hooks/useIsLogin";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useSideMenuToggle();
   const [_, setBookSearchModalState] = useBookSearchModalToggle();
   const { isError, user } = useWhoAmIAdaptor();
+  const { push } = useRouterAdv();
+  const isLogin = useIsLogin();
 
   return (
     <>
@@ -19,8 +24,18 @@ export default function SideMenu() {
         </button>
 
         <menu className={styles.menu}>
-          <Link href="/search">리뷰 검색</Link>
-          {!isError && (
+          <button
+            type="button"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setToggle(false);
+              push("/search");
+            }}
+          >
+            리뷰 검색
+          </button>
+
+          {isLogin && (
             <>
               <button
                 type="button"
@@ -30,7 +45,16 @@ export default function SideMenu() {
                 리뷰 작성
               </button>
 
-              <Link href={`/dashboard/${user.nickname}`}>마이 페이지</Link>
+              <button
+                type="button"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setToggle(false);
+                  push(`/dashboard/${user.nickname}`);
+                }}
+              >
+                마이 페이지
+              </button>
             </>
           )}
         </menu>

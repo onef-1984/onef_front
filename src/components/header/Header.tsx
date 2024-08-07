@@ -5,9 +5,11 @@ import styles from "./Header.module.css";
 import { LuMenu } from "react-icons/lu";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import HeaderProfileImage from "./HeaderProfileImage";
+import { useIsLogin } from "@/hooks/useIsLogin";
 
 export default function Header() {
   const { isPending, isError, user } = useWhoAmIAdaptor();
+  const isLogin = useIsLogin();
   const [toggle, setToggle] = useSideMenuToggle();
 
   return (
@@ -27,9 +29,7 @@ export default function Header() {
       </h1>
 
       <div className={styles.headerRightBox}>
-        {isPending ? (
-          ""
-        ) : isError ? (
+        {!isLogin ? (
           <div className={styles.signLink}>
             <Link href="/signin">로그인</Link>
             <Link href="/signup">회원가입</Link>

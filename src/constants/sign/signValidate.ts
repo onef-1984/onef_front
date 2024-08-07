@@ -1,6 +1,6 @@
 export const SignValidate = () => {
   const email = {
-    required: true,
+    required: { required: true, message: "이메일을 입력해주세요" },
     RegExp: {
       RegExp: new RegExp("^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"),
       message: "이메일 형식과 맞지 않습니다",
@@ -8,9 +8,9 @@ export const SignValidate = () => {
   };
 
   const password = {
-    required: true,
-    minLength: 8,
-    maxLength: 16,
+    required: { required: true, message: "비밀번호를 입력해주세요" },
+    minLength: { value: 8, message: "비밀번호는 8자 이상이어야 합니다" },
+    maxLength: { value: 16, message: "비밀번호는 16자 이하여야 합니다" },
     RegExp: [
       {
         RegExp: new RegExp("^[^\\s]+$"),
@@ -32,9 +32,9 @@ export const SignValidate = () => {
   };
 
   const nickname = {
-    required: true,
-    minLength: 2,
-    maxLength: 8,
+    required: { required: true, message: "닉네임을 입력해주세요" },
+    minLength: { value: 2, message: "닉네임은 2자 이상이어야 합니다" },
+    maxLength: { value: 10, message: "닉네임은 10자 이하여야 합니다" },
   };
 
   return { email, nickname, password, passwordCheck };
