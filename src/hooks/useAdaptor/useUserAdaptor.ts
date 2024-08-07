@@ -1,9 +1,9 @@
 import { UserQuery } from "@/apis/reactQuery/Query/UserQuery";
 import { useQuery } from "@tanstack/react-query";
 
-export const useUserAdaptor = (userId: string) => {
+export const useUserAdaptor = (userNickname: string) => {
   const userQuery = new UserQuery();
-  const { data, isError, isPending } = useQuery(userQuery.getUser(userId));
+  const { data, isError, isPending } = useQuery(userQuery.getUser(userNickname));
 
   return {
     isPending,

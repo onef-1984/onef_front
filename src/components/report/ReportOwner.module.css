@@ -1,0 +1,16 @@
+.root {
+  max-width: 720px;
+  width: 100%;
+  margin: 15rem auto 5rem;
+  background: var(--white);
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+  border-radius: 1.6rem;
+}
+
+.recentReview {
+  font-size: 1.6rem;
+  font-weight: 600;
+}

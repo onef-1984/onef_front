@@ -1,10 +1,16 @@
 import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useRouterAdv } from "../useRouterAdv";
+import { OrderBy, SearchType } from "@/types/util.types";
 
-export const useInfiniteReportSearchListAdaptor = () => {
-  const { keyword, orderBy, searchType } = useRouterAdv();
-
+export const useInfiniteReportSearchListAdaptor = ({
+  keyword,
+  orderBy,
+  searchType,
+}: {
+  keyword: string;
+  orderBy: OrderBy;
+  searchType: SearchType;
+}) => {
   const reportQuery = new ReportQuery();
   const { data, fetchNextPage } = useInfiniteQuery(reportQuery.getReportListBySearch({ keyword, orderBy, searchType }));
 

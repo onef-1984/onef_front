@@ -3,6 +3,7 @@ import PasswordEdit from "@/components/profileEdit/PasswordEdit";
 import ProfileEdit from "@/components/profileEdit/ProfileEdit";
 import ProfileEditWrapper from "@/components/profileEdit/ProfileEditWrapper";
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const accessToken = context.req.cookies.accessToken;
@@ -23,13 +24,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function Home() {
   return (
-    <LayoutWrapper>
-      <ProfileEditWrapper title="프로필 수정">
-        <ProfileEdit />
-      </ProfileEditWrapper>
-      <ProfileEditWrapper title="비밀번호 수정">
-        <PasswordEdit />
-      </ProfileEditWrapper>
-    </LayoutWrapper>
+    <>
+      <Head>
+        <title>onef - 프로필 수정</title>
+      </Head>
+      <LayoutWrapper>
+        <ProfileEditWrapper title="프로필 수정">
+          <ProfileEdit />
+        </ProfileEditWrapper>
+        <ProfileEditWrapper title="비밀번호 수정">
+          <PasswordEdit />
+        </ProfileEditWrapper>
+      </LayoutWrapper>
+    </>
   );
 }

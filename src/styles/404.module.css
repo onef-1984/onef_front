@@ -1,0 +1,20 @@
+.root {
+  font-family: bagelFet;
+  font-size: 6rem;
+  text-align: center;
+  line-height: 1.2;
+  margin: 20dvh auto;
+  color: var(--brown-70);
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+.button {
+  font-family: Pretendard;
+  font-weight: 900;
+  width: 25rem;
+}

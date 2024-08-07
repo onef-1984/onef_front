@@ -4,22 +4,28 @@ import Input from "@/components/forms/Input";
 import DoubleButton from "@/components/clickable/DoubleButton";
 import Form from "@/components/forms/Form";
 import MarkdownEditor from "@/components/forms/MarkdownEditor";
-import { handleSubmit, initValue, register, setValue } from "@/hooks/useSicilian/report";
+import { FormState, handleSubmit, initValue, register, setValue } from "@/hooks/useSicilian/report";
 import TagInputWrapper from "@/components/forms/TagInputWrapper";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useContext } from "react";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import toast from "react-hot-toast";
 
 export default function EditForm() {
   const [tagList, setTagList] = useReportTagList();
   const { back } = useRouterAdv();
   const mutate = useContext(MutationContext);
+  const formState = FormState();
 
   return (
     <Form
       className={styles.form}
       onSubmit={handleSubmit((data) => {
+        if (tagList.length > 10) return toast.error("태그는 최대 10개까지 입력 가능합니다.");
+        if (data.content.length > 1984) return toast.error("내용은 1984자 이하로 입력해주세요.");
+        if (data.content.length < 84) return toast.error("내용은 84자 이상 입력해주세요.");
+
         mutate({ ...data, tags: tagList });
       })}
       inputWrapper={
@@ -29,7 +35,7 @@ export default function EditForm() {
           <TagInputWrapper
             tagList={tagList}
             setTagList={setTagList}
-            value={register("tags").value}
+            value={formState.tags}
             setValue={setValue}
             input={({ handleKeyDown, handleKeyUp }) =>
               Input({

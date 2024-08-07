@@ -39,8 +39,10 @@ export class ReportQuery extends QueryFn {
 
   getUserLatestReportList(userId: string) {
     return {
-      queryKey: [...this.queryKey, "user", "latest"],
-      queryFn: this.queryFn<GetReportList>(`/report/search?take=4&searchType=user&keyword=${userId}&orderBy=createdAt`),
+      queryKey: [...this.queryKey, userId, "user", "latest"],
+      queryFn: this.queryFn<GetReportList>(
+        `/report/search?take=5&skip=0&searchType=user&keyword=${userId}&orderBy=createdAt`
+      ),
     };
   }
 

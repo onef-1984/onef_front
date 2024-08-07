@@ -28,6 +28,13 @@
   font-weight: 45 920;
 }
 
+@font-face {
+  font-family: "BagelFet";
+  src: url("/fonts/BagelFatOne-Regular.ttf") format("truetype");
+  display: swap;
+  font-weight: 400;
+}
+
 html {
   font-family: "Pretendard", sans-serif;
   background-color: var(--primary);

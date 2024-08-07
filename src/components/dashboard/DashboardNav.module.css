@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  border-top: 1px solid var(--gray-50);
+  justify-content: center;
+  gap: 10rem;
+
+  & > button {
+    width: 7rem;
+    height: 5rem;
+    color: var(--gray-50);
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+button.active {
+  margin-top: -1px;
+  border-top: 2px solid var(--black);
+  color: var(--black);
+  font-weight: 700;
+}

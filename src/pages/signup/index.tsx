@@ -11,6 +11,7 @@ import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
 import Label from "@/components/forms/Label";
+import Head from "next/head";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -19,40 +20,46 @@ export default function SignUp() {
   const validator = handleValidate(SignValidate());
 
   return (
-    <div className={styles.root}>
-      <section className={styles.logoLink}>
-        <h1 className={styles.logo}>
-          <Logo />
-        </h1>
+    <>
+      <Head>
+        <title>onef - 회원가입</title>
+      </Head>
 
-        <p className={styles.notice}>
-          이미 회원이신가요?{" "}
-          <Link href="/signin" className={styles.link}>
-            로그인하기
-          </Link>
-        </p>
-      </section>
+      <div className={styles.root}>
+        <section className={styles.logoLink}>
+          <h1 className={styles.logo}>
+            <Logo />
+          </h1>
 
-      <Form
-        className={styles.form}
-        onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
-        inputWrapper={signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
-          <InputWrapper
-            inputName={inputName}
-            label={
-              <Label
-                errorMessage={errorState[htmlFor]}
-                htmlFor={htmlFor}
-                type={type}
-                input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
-              />
-            }
-            errorMessage={errorState[htmlFor]}
-            key={htmlFor}
-          />
-        ))}
-        button={<Button disabled={isPending}>회원가입</Button>}
-      />
-    </div>
+          <p className={styles.notice}>
+            이미 회원이신가요?{" "}
+            <Link href="/signin" className={styles.link}>
+              로그인하기
+            </Link>
+          </p>
+        </section>
+
+        <Form
+          className={styles.form}
+          onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
+          inputWrapper={signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
+            <InputWrapper
+              inputName={inputName}
+              label={
+                <Label
+                  errorMessage={errorState[htmlFor]}
+                  htmlFor={htmlFor}
+                  type={type}
+                  input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+                />
+              }
+              errorMessage={errorState[htmlFor]}
+              key={htmlFor}
+            />
+          ))}
+          button={<Button disabled={isPending}>회원가입</Button>}
+        />
+      </div>
+    </>
   );
 }

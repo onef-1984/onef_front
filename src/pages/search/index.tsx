@@ -1,6 +1,5 @@
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import SearchBar from "@/components/searchPage/SearchBar";
-import SearchUser from "@/components/searchPage/SearchUser";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { SearchType } from "@/types/util.types";
 import styles from "@/styles/Search.module.css";
@@ -9,17 +8,15 @@ import SearchResult from "@/components/searchPage/SearchResult";
 import SearchTitle from "@/components/searchPage/SearchTitle";
 import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import SearchTag from "@/components/searchPage/SearchTag";
+import Head from "next/head";
 
 export default function Search() {
-  const { searchType, keyword } = useRouterAdv();
+  const { keyword, orderBy, searchType } = useRouterAdv();
 
   const searchTitle = (searchType: SearchType) => {
     switch (searchType) {
       case "report":
         return <SearchBar />;
-
-      case "user":
-        return <SearchUser />;
 
       case "book":
         return <SearchBook />;
@@ -30,16 +27,22 @@ export default function Search() {
   };
 
   return (
-    <LayoutWrapper>
-      <div className={styles.root}>
-        {searchTitle(searchType)}
+    <>
+      <Head>
+        <title>onef - 리뷰 검색</title>
+      </Head>
 
-        {!keyword && <SearchTitle>전체 리뷰</SearchTitle>}
+      <LayoutWrapper>
+        <div className={styles.root}>
+          {searchTitle(searchType)}
 
-        <SearchOptionButton />
+          {!keyword && <SearchTitle>전체 리뷰</SearchTitle>}
 
-        <SearchResult />
-      </div>
-    </LayoutWrapper>
+          <SearchOptionButton />
+
+          <SearchResult keyword={keyword} orderBy={orderBy} searchType={searchType} />
+        </div>
+      </LayoutWrapper>
+    </>
   );
 }

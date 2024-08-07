@@ -15,10 +15,10 @@ export class UserQuery extends QueryFn {
     };
   }
 
-  getUser(userId: string) {
+  getUser(userNickname: string) {
     return {
-      queryKey: [...this.queryKey, userId],
-      queryFn: this.queryFn<User>(`user/${userId}`),
+      queryKey: [...this.queryKey, userNickname],
+      queryFn: this.queryFn<User>(`user/${userNickname}`),
     };
   }
 }

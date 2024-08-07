@@ -1,10 +1,10 @@
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 
 export default function SearchOptionPop() {
-  const { query, push } = useRouterAdv();
+  const { query, push, location } = useRouterAdv();
 
   const handleClick = (orderBy: string) => () => {
-    push({ pathname: "/search", query: { ...query, orderBy } }, "/search");
+    push({ pathname: location, query: { ...query, orderBy } }, location);
   };
 
   return (

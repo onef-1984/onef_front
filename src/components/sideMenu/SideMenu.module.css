@@ -34,7 +34,7 @@
   & > :is(button, a) {
     color: var(--brown-70);
     font-size: 1.6rem;
-    font-weight: 500;
+    font-weight: 700;
   }
 }
 

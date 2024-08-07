@@ -18,7 +18,7 @@ export default function ReportFooter() {
   const { mutate, isPending } = useReportLikesMutation();
 
   return (
-    <section className={clsx(styles.reportSize, styles.reportFooter)}>
+    <section className={clsx(styles.reportFooter)}>
       <div>
         <div className={styles.tags}>
           {report.tags.map((item, index) => {

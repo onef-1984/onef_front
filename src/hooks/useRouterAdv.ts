@@ -10,5 +10,7 @@ export const useRouterAdv = () => {
   const orderBy = typeof query.orderBy === "string" ? (query.orderBy as OrderBy) : "createdAt";
   const searchType = typeof query.searchType === "string" ? (query.searchType as SearchType) : "report";
 
-  return { push, back, asPath, query, id, keyword, orderBy, searchType };
+  const location = asPath.split("?")[0];
+
+  return { push, back, asPath, location, query, id, keyword, orderBy, searchType };
 };

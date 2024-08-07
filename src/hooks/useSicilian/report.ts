@@ -1,6 +1,6 @@
 import { playDragon } from "sicilian";
 
-export const { initValue, register, setValue, FormState, handleSubmit } = playDragon({
+export const { initValue, register, setValue, FormState, handleSubmit, handleValidate } = playDragon({
   title: "",
   content: "",
   tags: "",
