@@ -12,7 +12,7 @@ export default function SearchResult() {
     if (isIntersecting) {
       fetchNextPage();
     }
-  }, [isIntersecting]);
+  }, [isIntersecting, fetchNextPage]);
 
   return (
     <>

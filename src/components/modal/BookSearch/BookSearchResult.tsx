@@ -22,7 +22,7 @@ export default function BookSearchResult({ searchKeyword }: BookSearchResultProp
       fetchNextPage();
       setIsVisible(false);
     }
-  }, [isVisible]);
+  }, [isVisible, fetchNextPage, setIsVisible]);
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>

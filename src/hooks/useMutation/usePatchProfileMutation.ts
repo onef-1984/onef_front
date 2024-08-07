@@ -3,7 +3,7 @@ import { ImageMutation } from "@/apis/reactQuery/Mutation/ImageMutation";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-export const useProfileMutation = () => {
+export const usePatchProfileMutation = () => {
   const queryClient = useQueryClient();
   const imageMutation = new ImageMutation();
   const authMutation = new AuthMutation();

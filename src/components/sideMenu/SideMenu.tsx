@@ -1,12 +1,12 @@
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
-import styles from "./SideMenu.module.css";
-import clsx from "clsx";
-import { IoClose } from "react-icons/io5";
 import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
-import Label from "../forms/Label";
-import Input from "../forms/Input";
+import { IoClose } from "react-icons/io5";
 import { handleSubmit, register } from "@/hooks/useSicilian/reportSearch";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import styles from "./SideMenu.module.css";
+import clsx from "clsx";
+import Label from "../forms/Label";
+import Input from "../forms/Input";
 import Link from "next/link";
 
 export default function SideMenu() {
@@ -18,7 +18,7 @@ export default function SideMenu() {
     <>
       <aside className={clsx(styles.root, toggle && styles.open)}>
         <button type="button" className={styles.closeButton} onClick={() => setToggle((prev) => !prev)}>
-          <IoClose style={{ fontSize: "2.55rem" }} />
+          <IoClose />
         </button>
 
         <menu className={styles.menu}>
@@ -26,9 +26,7 @@ export default function SideMenu() {
             리뷰 작성
           </button>
           <Link href="/my/reports">내 리뷰</Link>
-
           <Link href="/my/liked">좋아요한 리뷰</Link>
-          <br />
           <br />
           <br />
           <form

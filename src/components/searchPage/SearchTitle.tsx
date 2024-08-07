@@ -1,4 +1,3 @@
-import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "./Search.module.css";
 import { ReactNode } from "react";
 

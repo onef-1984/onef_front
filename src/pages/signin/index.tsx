@@ -35,6 +35,7 @@ export default function SignIn() {
 
       <Form
         className={styles.form}
+        onSubmit={handleSubmit((data) => mutate(data))}
         inputWrapper={signInArray.map(({ inputName, htmlFor, type, placeholder }) => (
           <InputWrapper
             inputName={inputName}
@@ -51,7 +52,6 @@ export default function SignIn() {
           />
         ))}
         button={<Button disabled={isPending}>로그인</Button>}
-        onSubmit={handleSubmit((data) => mutate(data))}
       />
     </div>
   );

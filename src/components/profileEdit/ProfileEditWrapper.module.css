@@ -1,0 +1,23 @@
+.root {
+  margin: 0 2.4rem;
+
+  @media (max-width: 768px) {
+    margin: 0 1.6rem;
+  }
+}
+
+.wrapper {
+  max-width: 109.6rem;
+  width: 100%;
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: var(--white);
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+}
+
+.title {
+  font-size: 2.4rem;
+}

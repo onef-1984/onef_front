@@ -18,4 +18,9 @@ export class AuthMutation extends MutationFn {
     return (data: { profileImage?: string; nickname: string; bio?: string }) =>
       this.mutationFn<Response>("/user/profile", "patch", data);
   }
+
+  patchPassword() {
+    return (data: { oldPassword: string; newPassword: string }) =>
+      this.mutationFn<Response>("/user/password", "patch", data);
+  }
 }

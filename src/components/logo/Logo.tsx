@@ -6,7 +6,7 @@ import styles from "./Logo.module.css";
 export default function Logo() {
   return (
     <Link href="/" className={styles.root}>
-      <Image fill priority src={logo} alt="logo" />
+      <Image fill draggable={false} priority src={logo} alt="logo" />
     </Link>
   );
 }
