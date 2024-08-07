@@ -13,6 +13,7 @@ export const useWhoAmIAdaptor = () => {
       email: data?.email ?? "",
       nickname: data?.nickname ?? "",
       profileImage: data?.profileImage ?? "",
+      bio: data?.bio ?? "",
     },
   };
 };

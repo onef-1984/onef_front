@@ -17,8 +17,6 @@ export default function ReportFooter() {
   const { isLiked } = useIsLikedReport();
   const { mutate, isPending } = useReportLikesMutation();
 
-  console.log(isPending || (isLogin ? isMyReport : true));
-
   return (
     <section className={clsx(styles.reportSize, styles.reportFooter)}>
       <div>
