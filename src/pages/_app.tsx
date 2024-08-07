@@ -24,14 +24,20 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>onef</title>
-        <meta name="description" content="쉽고 간편한 여행 리뷰, 지금 바로 작성해보세요!" />
-        <link rel="icon" href="/icons/favicon.png" />
+        <meta
+          name="description"
+          content="Onef는 독후감을 쓰고 공유할 수 있는 플랫폼입니다. 독서 후 느낀 점을 기록하고 다른 사용자와 교류하세요."
+        />
+        <link rel="icon" href="/images/favicon.png" />
 
         <meta property="og:url" content="https://onef.co.kr" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="onef" />
-        <meta property="og:description" content="쉽고 간편한 여행 리뷰, 지금 바로 작성해보세요!" />
-        <meta property="og:image" content="https://github.com/Odagada/Trimo-FE/blob/develop/public/logos/preview.png" />
+        <meta
+          property="og:description"
+          content="Onef는 독후감을 쓰고 공유할 수 있는 플랫폼입니다. 독서 후 느낀 점을 기록하고 다른 사용자와 교류하세요."
+        />
+        <meta property="og:image" content="https://onef.co.kr/api/image/preview.webp" />
       </Head>
 
       <QueryClientProvider client={queryClient}>

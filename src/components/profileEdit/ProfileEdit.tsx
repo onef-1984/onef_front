@@ -32,7 +32,7 @@ export default function ProfileEdit() {
       });
     }
 
-    if (user.bio === formState.bio.replace(/\n\s*\n/g, "\n") && user.nickname === formState.nickname)
+    if (user.bio === formState.bio.replace(/\n\s*\n/g, "\n") && user.nickname === formState.nickname && !files)
       return toast.error("변경사항이 없습니다.");
 
     mutate({ formData, nickname, bio });
