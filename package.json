@@ -24,7 +24,7 @@
     "react-icons": "^5.2.1",
     "react-markdown": "^9.0.1",
     "sharp": "^0.33.4",
-    "sicilian": "^1.1.9",
+    "sicilian": "^1.1.10",
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
