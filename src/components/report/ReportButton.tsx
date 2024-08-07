@@ -7,6 +7,7 @@ import { useDeleteReportMutation } from "@/hooks/useMutation/report/useDeleteRep
 import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function ReportButton() {
   const { mutate } = useDeleteReportMutation();
@@ -31,7 +32,13 @@ export default function ReportButton() {
         ""
       )}
 
-      <button type="button" onClick={() => navigator.clipboard.writeText(`https://onef.co.kr/report/${reportId}`)}>
+      <button
+        type="button"
+        onClick={() => {
+          navigator.clipboard.writeText(`https://onef.co.kr/report/${reportId}`);
+          toast.success("클립보드에 링크가 복사되었습니다.");
+        }}
+      >
         <HiOutlineShare />
       </button>
     </div>

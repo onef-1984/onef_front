@@ -50,6 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 color: "#363636",
                 fontWeight: "bold",
                 fontFamily: "Pretendard",
+                fontSize: "1.4rem",
               },
             }}
           />

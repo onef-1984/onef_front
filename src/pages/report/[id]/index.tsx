@@ -9,6 +9,7 @@ import ReportMain from "@/components/report/ReportMain";
 import toast from "react-hot-toast";
 import Head from "next/head";
 import ReportOwner from "@/components/report/ReportOwner";
+import { useEffect } from "react";
 
 export default function Review() {
   const { report, user, book, error } = useReportAdaptor();
