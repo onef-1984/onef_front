@@ -27,9 +27,10 @@ export default function Review() {
     line2: book.author,
     line3: `${book.publisher} ∙ ${book.itemPage}p`,
   };
+
   useEffect(() => {
-    window.scrollTo({ top: -1, behavior: "smooth" });
-  });
+    window.scrollTo({ top: 1, behavior: "smooth" });
+  }, [report]);
 
   return (
     <>
