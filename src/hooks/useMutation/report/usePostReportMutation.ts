@@ -5,12 +5,13 @@ import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { initValue, setValue } from "@/hooks/useSicilian/report";
 import { CreateReport } from "@/types/report.types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export const usePostReportMutation = () => {
   const bookMutation = new BookMutation();
   const reportMutation = new ReportMutation();
+  const queryClient = useQueryClient();
 
   // isbn13 값을 가져옴
   const { id: isbn13, push } = useRouterAdv();
@@ -30,6 +31,7 @@ export const usePostReportMutation = () => {
       push(`/report/${data}`);
       setValue(initValue);
       setTagList([]);
+      queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
     },
     onError: (error) => {
       console.error(error);
