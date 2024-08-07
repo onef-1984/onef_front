@@ -9,8 +9,7 @@
   transition: all 0.2s ease-in-out;
 
   @media (max-width: 768px) {
-    position: absolute;
-    z-index: 1;
+    z-index: 3;
     top: 0;
     margin-left: -22rem;
     height: 100dvh;
