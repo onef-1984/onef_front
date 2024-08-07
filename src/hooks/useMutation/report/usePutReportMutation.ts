@@ -18,7 +18,7 @@ export const usePutReportMutation = () => {
       toast.success("리뷰가 수정되었습니다.");
       setTagList([]);
       setValue(initValue);
-      queryClient.invalidateQueries({ queryKey: ["report"] });
+      queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       push(`/report/${reportId}`);
     },
   });

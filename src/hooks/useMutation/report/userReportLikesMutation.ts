@@ -12,7 +12,7 @@ export const useReportLikesMutation = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: reportMutation.reportLike(reportId),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["report", reportId] });
+      queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       toast.success(data.message);
     },
     onError: (error) => {

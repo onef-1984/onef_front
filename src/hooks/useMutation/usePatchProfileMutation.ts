@@ -16,7 +16,7 @@ export const usePatchProfileMutation = () => {
     },
     onSuccess: () => {
       toast.success("프로필이 변경되었습니다.");
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["user"], refetchType: "all" });
     },
     onError: (error) => {
       toast.error(error.message);
