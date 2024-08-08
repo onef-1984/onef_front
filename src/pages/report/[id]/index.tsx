@@ -56,9 +56,9 @@ export default function Review() {
         >
           <ReportMain />
           <ReportFooter />
-        </div>
 
-        <ReportOwner userNickname={user.nickname} userId={user.id} reportId={report.id} />
+          <ReportOwner userNickname={user.nickname} userId={user.id} reportId={report.id} />
+        </div>
       </LayoutWrapper>
     </>
   );

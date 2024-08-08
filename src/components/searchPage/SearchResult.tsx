@@ -23,6 +23,8 @@ export default function SearchResult({
     }
   }, [isIntersecting, fetchNextPage]);
 
+  console.log(pages);
+
   return (
     <>
       <SearchBinder>

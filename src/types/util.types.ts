@@ -21,5 +21,5 @@ export type Response = {
 
 export type OrderBy = "createdAt" | "userLiked";
 
-export type SearchType = "report" | "book" | "user" | "tag";
+export type SearchType = "report" | "book" | "user" | "tag" | "userLiked";
 export type UserLikedCount = { userLiked: number };

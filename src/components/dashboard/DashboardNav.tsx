@@ -4,23 +4,20 @@ import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import clsx from "clsx";
 
 export default function DashboardNav() {
-  const { orderBy, push, location, query } = useRouterAdv();
+  const { push, location, query, searchType } = useRouterAdv();
 
-  const handleClick = (orderBy: string) => () => {
-    push({ pathname: location, query: { ...query, orderBy } }, location);
+  const handleClick = (searchType: string) => () => {
+    push({ pathname: location, query: { ...query, searchType } }, location);
   };
 
   return (
     <div className={styles.root}>
-      <button
-        className={clsx(orderBy === "createdAt" && styles.active)}
-        type="button"
-        onClick={handleClick("createdAt")}
-      >
+      <button className={clsx(searchType === "user" && styles.active)} type="button" onClick={handleClick("user")}>
         게시글
       </button>
+
       <button
-        className={clsx(orderBy === "userLiked" && styles.active)}
+        className={clsx(searchType === "userLiked" && styles.active)}
         type="button"
         onClick={handleClick("userLiked")}
       >

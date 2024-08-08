@@ -1,3 +1,4 @@
+import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
@@ -8,7 +9,7 @@ import styles from "@/styles/Dashboard.module.css";
 import Head from "next/head";
 
 export default function Dashboard() {
-  const { id: userNickname, orderBy } = useRouterAdv();
+  const { id: userNickname, orderBy, searchType } = useRouterAdv();
   const { user } = useUserAdaptor(userNickname);
 
   return (
@@ -19,10 +20,16 @@ export default function Dashboard() {
       <LayoutWrapper>
         <div className={styles.root}>
           <DashboardHeader userNickname={userNickname} />
-
+          <br />
           <DashboardNav />
 
-          <SearchResult keyword={user.id} orderBy={orderBy} searchType="user" />
+          <SearchOptionButton />
+
+          <SearchResult
+            keyword={user.id}
+            orderBy={orderBy}
+            searchType={searchType === "report" ? "user" : searchType}
+          />
         </div>
       </LayoutWrapper>
     </>
