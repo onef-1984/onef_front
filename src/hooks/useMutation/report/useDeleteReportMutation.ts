@@ -4,7 +4,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { toast } from "react-hot-toast";
 
 export const useDeleteReportMutation = () => {
-  const { back, id: reportId } = useRouterAdv();
+  const { push, id: reportId } = useRouterAdv();
 
   const queryClient = useQueryClient();
   const reportMutation = new ReportMutation();
@@ -14,7 +14,7 @@ export const useDeleteReportMutation = () => {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       toast.success("리포트가 삭제되었습니다.");
-      back();
+      push("/search");
     },
   });
 

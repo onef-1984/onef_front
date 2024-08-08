@@ -57,4 +57,11 @@
 
 .markdown {
   width: 100%;
+
+  @media (max-width: 420px) {
+    & > div:first-child {
+      height: 5rem !important;
+      gap: 1rem;
+    }
+  }
 }

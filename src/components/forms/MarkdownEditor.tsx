@@ -1,12 +1,9 @@
 import dynamic from "next/dynamic";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
-import { FocusEvent, useEffect, useState } from "react";
+import { FocusEvent } from "react";
 import styles from "./Input.module.css";
-import { ICommand } from "@uiw/react-md-editor";
-
 import { useMDEditorCommands } from "@/hooks/useMDEditorCommands";
-
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 type EditorProps = {

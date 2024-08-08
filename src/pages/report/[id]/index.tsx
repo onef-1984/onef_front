@@ -15,10 +15,12 @@ export default function Review() {
   const { report, user, book, error } = useReportAdaptor();
   const { push } = useRouterAdv();
 
-  if (error) {
-    toast.error("리뷰를 찾을 수 없습니다.");
-    push("/404");
-  }
+  useEffect(() => {
+    if (error) {
+      toast.error("리뷰를 찾을 수 없습니다.");
+      push("/404");
+    }
+  }, []);
 
   const content = {
     title: report.title,
