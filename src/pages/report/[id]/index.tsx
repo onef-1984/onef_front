@@ -32,7 +32,7 @@ export default function Review() {
 
   useEffect(() => {
     window.scrollTo({ top: 1, behavior: "smooth" });
-  }, [report]);
+  }, [book.title]);
 
   return (
     <>
