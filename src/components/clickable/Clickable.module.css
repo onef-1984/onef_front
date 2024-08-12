@@ -29,6 +29,7 @@
 
 .like {
   border: 1px solid var(--pink-20);
+  color: var(black);
 
   & svg {
     color: var(--pink-40);

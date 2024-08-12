@@ -27,10 +27,10 @@ export default function BookSearchForm({ setSearchKeyword }: BookSearchFormProps
         label={
           <Label
             htmlFor={keyword}
-            input={(type) => Input({ ...register(keyword), type, placeholder: "책 제목을 입력해주세요" })}
-          ></Label>
+            input={() => Input({ ...register(keyword), placeholder: "책 제목을 입력해주세요" })}
+          />
         }
-      ></InputWrapper>
+      />
 
       <Button className={styles.button}>검색</Button>
     </form>

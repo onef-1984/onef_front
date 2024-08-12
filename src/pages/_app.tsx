@@ -27,19 +27,13 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>onef</title>
-        <meta
-          name="description"
-          content="Onef는 독후감을 쓰고 공유할 수 있는 플랫폼입니다. 독서 후 느낀 점을 기록하고 다른 사용자와 교류하세요."
-        />
+        <meta name="description" content="책을 읽고 영원을 기록하다" />
         <link rel="icon" href="/images/favicon.png" />
 
         <meta property="og:url" content="https://onef.co.kr" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="onef" />
-        <meta
-          property="og:description"
-          content="Onef는 독후감을 쓰고 공유할 수 있는 플랫폼입니다. 독서 후 느낀 점을 기록하고 다른 사용자와 교류하세요."
-        />
+        <meta property="og:description" content="책을 읽고 영원을 기록하다" />
         <meta property="og:image" content="https://onef.co.kr/api/image/preview.webp" />
       </Head>
 
