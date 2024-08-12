@@ -1,4 +1,4 @@
-import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
+import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";

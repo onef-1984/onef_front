@@ -6,6 +6,7 @@
   --primary-text: #c89b51;
   --error: #d6173a;
 
+  --brown-10: #fff8f3;
   --brown-20: #c89b51;
   --brown-30: #a47e41;
   --brown-40: #6a522b;
@@ -40,4 +41,20 @@ html {
   background-color: var(--primary);
   font-size: 62.5%;
   color: var(--black);
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: var(--brown-70);
+}
+
+.slick-initialized .slick-slide {
+  display: flex;
+  height: 18rem;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    flex: 1;
+  }
 }

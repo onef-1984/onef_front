@@ -52,4 +52,18 @@ export class ReportQuery extends QueryFn {
       queryFn: this.queryFn<{ isLiked: boolean }>(`/report/${reportId}/like`),
     };
   }
+
+  getMostLikedReportList() {
+    return {
+      queryKey: [...this.queryKey, "mostLiked"],
+      queryFn: this.queryFn<GetReportList>("/report/most-liked"),
+    };
+  }
+
+  getRecentReportList() {
+    return {
+      queryKey: [...this.queryKey, "recent"],
+      queryFn: this.queryFn<GetReportList>("/report/recent"),
+    };
+  }
 }

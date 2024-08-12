@@ -17,7 +17,7 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
       <div className={styles.detail}>
         <div className={styles.imageWrapper}>
-          <Image fill src={book.cover} sizes="144px" alt="표지" />
+          <Image fill src={book.cover} sizes="144px" draggable="false" alt="표지" />
         </div>
 
         <div className={styles.detailInfo}>

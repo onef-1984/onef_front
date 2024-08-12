@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  padding-top: 5rem;
+
+  @media (max-width: 768px) {
+    gap: 4rem;
+  }
+}

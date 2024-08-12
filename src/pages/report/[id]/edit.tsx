@@ -3,7 +3,7 @@ import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import ReportHeader from "@/components/report/ReportHeader";
 import EditForm from "@/components/reportEdit/EditForm";
 import { headerContent } from "@/constants/reportEdit/headerContent";
-import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
+import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";

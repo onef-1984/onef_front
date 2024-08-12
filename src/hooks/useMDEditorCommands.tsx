@@ -42,7 +42,6 @@ export const useMDEditorCommands = () => {
         if (input.files) {
           const file = input.files[0];
           const imageUrl = await uploadImage(file);
-          console.log(imageUrl);
           api.replaceSelection(`![](${imageUrl})`);
         }
       };
@@ -57,6 +56,7 @@ export const useMDEditorCommands = () => {
     commands.then((a) => {
       setCommand(a.getCommands());
     });
+
     extraCommands.then((a) => {
       setExtraCommand(a.getExtraCommands());
     });

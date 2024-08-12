@@ -14,7 +14,7 @@ export default function Card({
   return (
     <button type="button" className={styles.root} onClick={onClick}>
       <div className={styles.imageWrapper}>
-        <Image fill sizes="33vw" src={item.cover} alt={`${item.title} 표지`} />
+        <Image fill sizes="33vw" src={item.cover} alt={`${item.title} 표지`} draggable="false" />
       </div>
 
       {cardBox}

@@ -1,11 +1,11 @@
-import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
+import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import styles from "./Report.module.css";
 import Tag from "../tag/Tag";
 import Button from "../clickable/Button";
 import clsx from "clsx";
 import { useIsMyReview } from "@/hooks/useIsMyReview";
 import { useIsLogin } from "@/hooks/useIsLogin";
-import { useIsLikedReport } from "@/hooks/useAdaptor/useIsLikedReport";
+import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport";
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";

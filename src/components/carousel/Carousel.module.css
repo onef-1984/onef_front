@@ -1,0 +1,47 @@
+.root {
+  width: 109.4rem;
+  margin: 0 auto;
+
+  @media (max-width: 1400px) {
+    width: calc(100% - 10rem);
+  }
+}
+
+.title {
+  padding: 0 1rem;
+  font-size: 2.4rem;
+  font-weight: 900;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-left: 1rem;
+    padding: 0;
+  }
+}
+
+.card {
+  padding: 0 1rem;
+}
+
+.mobileRoot {
+  display: flex;
+  align-items: center;
+  overflow-y: scroll;
+  scrollbar-width: none !important;
+
+  height: 18rem;
+  gap: 1rem;
+
+  & > div {
+    width: 25rem;
+    flex: 0 0 25rem;
+  }
+
+  & > div:first-child {
+    margin-left: 1rem;
+  }
+
+  & > div:last-child {
+    margin-right: 1rem;
+  }
+}

@@ -11,7 +11,7 @@ export default function SearchOptionButton() {
   return (
     <div className={styles.root}>
       <button className={styles.optionButton} type="button" onClick={handleToggle}>
-        <Image src={optionImg} alt="option 버튼 이미지" width={16} height={16} />
+        <Image src={optionImg} alt="option 버튼 이미지" width={16} height={16} draggable="false" />
       </button>
 
       {toggle && (

@@ -1,4 +1,4 @@
-import { useWhoAmIAdaptor } from "./useAdaptor/useWhoAmIAdaptor";
+import { useWhoAmIAdaptor } from "./useAdaptor/user/useWhoAmIAdaptor";
 
 export const useIsLogin = () => {
   const { user } = useWhoAmIAdaptor();

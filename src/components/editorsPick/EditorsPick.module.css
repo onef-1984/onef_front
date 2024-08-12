@@ -1,0 +1,155 @@
+.editorsPickContainer {
+  container: editorsPickContainer / inline-size;
+  width: 100%;
+  padding: 0 1.6rem;
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1096px;
+  margin: 0 auto;
+  height: 20rem;
+  padding: 1.6rem;
+  border-radius: 2.6rem;
+  background-color: var(--brown-10);
+}
+
+.editorsPick {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 25rem;
+  height: 10rem;
+}
+
+.link {
+  display: block;
+  overflow: hidden;
+  height: 16.8rem;
+  width: 55%;
+}
+
+.report {
+  overflow: hidden;
+  height: 16.8rem;
+  width: 100%;
+  border-radius: 2rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+  height: 100%;
+  text-align: center;
+  color: var(--primary);
+}
+
+.title {
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+.nickname {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.description {
+  word-break: keep-all;
+  white-space: pre-wrap;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.buttonLike {
+  display: block;
+  background: var(--primary);
+  color: var(--black);
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.8rem;
+  font-weight: 700;
+  border-radius: 0.4rem;
+}
+
+@container editorsPickContainer (min-width: 801px) {
+  .editorsPick {
+    background-image: url("/images/editorsPick2.png");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+  }
+}
+
+@container editorsPickContainer (max-width: 800px) {
+  .root {
+    height: 26rem;
+    border-radius: 2.6rem;
+    flex-direction: column;
+    /* justify-content: normal; */
+    position: relative;
+
+    background-image: url("/images/editorsPick2.png");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+  }
+
+  .editorsPick {
+    width: 100%;
+    position: relative;
+    top: 3rem;
+    z-index: 1;
+  }
+
+  .image {
+    width: 20rem;
+    height: 8rem;
+  }
+
+  .link {
+    width: 100%;
+    height: 14rem;
+  }
+
+  .report {
+    width: 100%;
+    height: 14rem;
+  }
+
+  .content {
+    gap: 0.8rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+}
+
+@container editorsPickContainer (max-width: 500px) {
+  .root {
+    height: 24rem;
+    background-size: contain;
+  }
+
+  .editorsPick {
+    width: 100%;
+    position: relative;
+    top: 2rem;
+    z-index: 1;
+  }
+
+  .image {
+    width: 15rem;
+    height: 6rem;
+  }
+}

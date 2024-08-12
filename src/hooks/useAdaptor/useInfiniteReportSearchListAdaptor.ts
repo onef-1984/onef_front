@@ -14,5 +14,7 @@ export const useInfiniteReportSearchListAdaptor = ({
   const reportQuery = new ReportQuery();
   const { data, fetchNextPage } = useInfiniteQuery(reportQuery.getReportListBySearch({ keyword, orderBy, searchType }));
 
-  return { pages: data?.pages, fetchNextPage };
+  const pages = data?.pages ?? [];
+
+  return { pages, fetchNextPage };
 };

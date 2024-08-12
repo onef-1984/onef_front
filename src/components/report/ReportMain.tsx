@@ -1,4 +1,4 @@
-import { useReportAdaptor } from "../../hooks/useAdaptor/useReportAdaptor";
+import { useReportAdaptor } from "../../hooks/useAdaptor/report/useReportAdaptor";
 import styles from "./Report.module.css";
 import dynamic from "next/dynamic";
 import "@uiw/react-md-editor/markdown-editor.css";

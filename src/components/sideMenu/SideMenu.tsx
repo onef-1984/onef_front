@@ -3,7 +3,7 @@ import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModal
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
-import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/useWhoAmIAdaptor";
+import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useIsLogin } from "@/hooks/useIsLogin";
 

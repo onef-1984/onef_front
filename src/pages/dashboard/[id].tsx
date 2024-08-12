@@ -3,7 +3,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import SearchResult from "@/components/searchPage/SearchResult";
-import { useUserAdaptor } from "@/hooks/useAdaptor/useUserAdaptor";
+import { useUserAdaptor } from "@/hooks/useAdaptor/user/useUserAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "@/styles/Dashboard.module.css";
 import Head from "next/head";

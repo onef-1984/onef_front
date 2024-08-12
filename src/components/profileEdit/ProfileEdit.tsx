@@ -6,7 +6,7 @@ import Input from "@/components/forms/Input";
 import { register, setValue, handleSubmit, ErrorState, FormState } from "@/hooks/useSicilian/profileEdit";
 import Form from "@/components/forms/Form";
 import { useEffect, useState } from "react";
-import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/useWhoAmIAdaptor";
+import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { usePatchProfileMutation } from "@/hooks/useMutation/usePatchProfileMutation";
 import Textarea from "../forms/Textarea";
 import styles from "./ProfileEdit.module.css";

@@ -1,0 +1,16 @@
+.root {
+  position: relative;
+  max-width: 720px;
+  height: 24rem;
+  width: 90%;
+  overflow: hidden;
+  margin: 0 auto;
+
+  @media (max-width: 786px) {
+    height: 30vw;
+  }
+}
+
+.image {
+  object-fit: contain;
+}

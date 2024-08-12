@@ -1,15 +1,11 @@
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
-import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Head from "next/head";
-import { useEffect } from "react";
+import HomeCarousel from "@/components/homeCarousel/HomeCarousel";
+import EyeCatch from "@/components/eyeCatch/EyeCatch";
+import EditorsPick from "@/components/editorsPick/EditorsPick";
+import styles from "@/styles/Index.module.css";
 
 export default function Home() {
-  const { push } = useRouterAdv();
-
-  useEffect(() => {
-    push("/search");
-  });
-
   return (
     <>
       <Head>
@@ -17,7 +13,11 @@ export default function Home() {
       </Head>
 
       <LayoutWrapper>
-        <></>
+        <div className={styles.root}>
+          <EyeCatch />
+          <EditorsPick />
+          <HomeCarousel />
+        </div>
       </LayoutWrapper>
     </>
   );

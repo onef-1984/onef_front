@@ -4,7 +4,7 @@ import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import { HiOutlineShare } from "@react-icons/all-files/hi/HiOutlineShare";
 import { useDeleteReportMutation } from "@/hooks/useMutation/report/useDeleteReportMutation";
-import { useReportAdaptor } from "@/hooks/useAdaptor/useReportAdaptor";
+import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
 import toast from "react-hot-toast";

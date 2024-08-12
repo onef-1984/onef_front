@@ -1,4 +1,4 @@
-import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/useWhoAmIAdaptor";
+import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import Logo from "../logo/Logo";
 import Link from "next/link";
 import styles from "./Header.module.css";

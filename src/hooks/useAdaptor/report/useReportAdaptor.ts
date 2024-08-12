@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import { formatDate } from "@/utils/formatDate";
 import { formatAuthor } from "@/utils/formatAuthor";
-import { useRouterAdv } from "../useRouterAdv";
+import { useRouterAdv } from "../../useRouterAdv";
 
 export const useReportAdaptor = () => {
   const { id: reviewId } = useRouterAdv();
