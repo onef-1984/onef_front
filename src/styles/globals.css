@@ -43,6 +43,10 @@ html {
   color: var(--black);
 }
 
+svg {
+  color: var(--black);
+}
+
 .slick-prev:before,
 .slick-next:before {
   color: var(--brown-70);
