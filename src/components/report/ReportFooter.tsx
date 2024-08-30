@@ -9,6 +9,7 @@ import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
+import { Map } from "../util/Map";
 
 export default function ReportFooter() {
   const { report } = useReportAdaptor();
@@ -21,11 +22,15 @@ export default function ReportFooter() {
     <section className={clsx(styles.reportFooter)}>
       <div>
         <div className={styles.tags}>
-          {report.tags.map((item, index) => {
-            return <Tag key={index}>{item}</Tag>;
-          })}
+          <Map each={report.tags}>
+            {(item, index) => {
+              return <Tag key={index}>{item}</Tag>;
+            }}
+          </Map>
         </div>
+
         <br />
+
         <p>{report.date}</p>
       </div>
 

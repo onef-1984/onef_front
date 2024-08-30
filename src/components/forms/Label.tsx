@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import useToggle from "@/hooks/useToggle";
 import styles from "./Input.module.css";
 import clsx from "clsx";
+import { Show } from "../util/Show";
 
 type LabelProps = {
   input: (type: string) => ReactNode;
@@ -28,11 +29,13 @@ export default function Label({ htmlFor, input, type = "text", errorMessage, cla
       {input(toggleType)}
 
       {/* 눈깔 찌르기 */}
-      {isPassword(type) && (
+      <Show when={isPassword(type)}>
         <button className={styles.button} type="button" onClick={handleToggleType}>
-          {isPassword(toggleType) ? <IoEyeOffOutline /> : <IoEyeOutline />}
+          <Show when={isPassword(toggleType)} fallback={<IoEyeOutline />}>
+            <IoEyeOffOutline />
+          </Show>
         </button>
-      )}
+      </Show>
     </label>
   );
 }

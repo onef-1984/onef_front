@@ -1,5 +1,7 @@
 import { Dispatch, KeyboardEvent, ReactNode, SetStateAction } from "react";
 import Tag from "../tag/Tag";
+import { Show } from "../util/Show";
+import { Map } from "../util/Map";
 
 type TagInputWrapperProps = {
   tagList: Array<string>;
@@ -55,14 +57,13 @@ export default function TagInputWrapper({ tagList, setTagList, value, setValue, 
     <div>
       <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
         <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
-          {tagList.map((tag, index) => (
-            <Tag key={index}>{tag}</Tag>
-          ))}
+          <Map each={tagList}>{(tag, index) => <Tag key={index}>{tag}</Tag>}</Map>
         </div>
 
         {input({ handleKeyUp, handleKeyDown })}
       </div>
-      {tagList.length > 10 ? "태그는 최대 10개까지 입력 가능합니다." : ""}
+
+      <Show when={tagList.length > 10}>태그는 최대 10개까지 입력 가능합니다.</Show>
     </div>
   );
 }

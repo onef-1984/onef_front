@@ -5,6 +5,7 @@ import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./ReportOwner.module.css";
 import { formatReportArray } from "@/utils/formatReportArray";
+import { Map } from "../util/Map";
 
 export default function ReportOwner({
   userNickname,
@@ -28,10 +29,12 @@ export default function ReportOwner({
         <p className={styles.recentReview}>최근 리뷰</p>
         <br />
         <SearchBinder>
-          {items.map((item) => {
-            if (!item) return;
-            return <CardReport key={item.id} {...item} />;
-          })}
+          <Map each={items}>
+            {(item) => {
+              if (!item) return;
+              return <CardReport key={item.id} {...item} />;
+            }}
+          </Map>
         </SearchBinder>
       </div>
     </div>

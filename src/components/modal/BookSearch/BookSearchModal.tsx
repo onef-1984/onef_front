@@ -10,6 +10,7 @@ import { Item } from "@/types/book.types";
 import { useState } from "react";
 import { initValue, setValue } from "@/hooks/useSicilian/bookSearch";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
+import { Show } from "@/components/util/Show";
 
 export default function BookSearchModal() {
   const [toggle, setToggle] = useSideMenuToggle();
@@ -25,24 +26,18 @@ export default function BookSearchModal() {
   };
 
   return (
-    <>
-      {bookSearchModalState && (
-        <ModalWrapper onClose={handleClose} size={styles.modalWrapperSize}>
-          <div className={styles.root}>
-            <BookSearchForm setSearchKeyword={setSearchKeyword} />
+    <Show when={bookSearchModalState}>
+      <ModalWrapper onClose={handleClose} size={styles.modalWrapperSize}>
+        <div className={styles.root}>
+          <BookSearchForm setSearchKeyword={setSearchKeyword} />
 
-            {searchKeyword ? (
-              Object.keys(book).length ? (
-                <BookSearchDetail onClose={handleClose} />
-              ) : (
-                <BookSearchResult searchKeyword={searchKeyword} />
-              )
-            ) : (
-              <BookSearchNull />
-            )}
-          </div>
-        </ModalWrapper>
-      )}
-    </>
+          <Show when={!!searchKeyword} fallback={<BookSearchNull />}>
+            <Show when={!!Object.keys(book).length} fallback={<BookSearchResult searchKeyword={searchKeyword} />}>
+              <BookSearchDetail onClose={handleClose} />
+            </Show>
+          </Show>
+        </div>
+      </ModalWrapper>
+    </Show>
   );
 }

@@ -8,6 +8,7 @@ import { handleSubmit, register, handleValidate, ErrorState } from "@/hooks/useS
 import { usePatchPasswordMutation } from "@/hooks/useMutation/usePatchPasswordMutation";
 import { passwordEditValidate } from "@/constants/edit/passwordEditValidate";
 import { passwordEditArray } from "@/constants/edit/passwordEditArray";
+import { Map } from "../util/Map";
 
 export default function PasswordEdit() {
   const { mutate } = usePatchPasswordMutation();
@@ -20,8 +21,8 @@ export default function PasswordEdit() {
       className={styles.root}
       onSubmit={handleSubmit((data) => mutate(data))}
       inputWrapper={
-        <>
-          {passwordEditArray.map(({ inputName, htmlFor }) => (
+        <Map each={passwordEditArray}>
+          {({ inputName, htmlFor }) => (
             <InputWrapper
               key={inputName}
               inputName={inputName}
@@ -30,12 +31,12 @@ export default function PasswordEdit() {
                 <Label
                   errorMessage={errorState[htmlFor]}
                   htmlFor={htmlFor}
-                  input={() => Input({ ...register(htmlFor, validator[htmlFor]) })}
+                  input={() => <Input {...register(htmlFor, validator[htmlFor])} />}
                 />
               }
             />
-          ))}
-        </>
+          )}
+        </Map>
       }
       button={<Button className={styles.button}>변경</Button>}
     />

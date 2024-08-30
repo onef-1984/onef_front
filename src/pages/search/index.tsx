@@ -9,6 +9,7 @@ import SearchTitle from "@/components/searchPage/SearchTitle";
 import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import SearchTag from "@/components/searchPage/SearchTag";
 import Head from "next/head";
+import { Show } from "@/components/util/Show";
 
 export default function Search() {
   const { keyword, orderBy, searchType } = useRouterAdv();
@@ -36,7 +37,9 @@ export default function Search() {
         <div className={styles.root}>
           {searchTitle(searchType)}
 
-          {!keyword && <SearchTitle>전체 리뷰</SearchTitle>}
+          <Show when={!keyword}>
+            <SearchTitle>전체 리뷰</SearchTitle>
+          </Show>
 
           <SearchOptionButton />
 

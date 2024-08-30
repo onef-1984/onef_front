@@ -56,12 +56,12 @@ export default function ProfileEdit() {
             <div className={styles.emailNicknameContainer}>
               <InputWrapper
                 inputName={"이메일"}
-                label={<Label htmlFor="email" input={() => Input({ ...register("email"), disabled: true })}></Label>}
+                label={<Label htmlFor="email" input={() => <Input {...register("email")} disabled={true} />}></Label>}
               />
 
               <InputWrapper
                 inputName={"닉네임"}
-                label={<Label htmlFor="nickname" input={() => Input({ ...register("nickname") })}></Label>}
+                label={<Label htmlFor="nickname" input={() => <Input {...register("nickname")} />}></Label>}
               />
             </div>
           </div>

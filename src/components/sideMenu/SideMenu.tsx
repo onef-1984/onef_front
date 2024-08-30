@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useIsLogin } from "@/hooks/useIsLogin";
+import { Show } from "../util/Show";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useSideMenuToggle();
@@ -32,28 +33,22 @@ export default function SideMenu() {
           리뷰 검색
         </button>
 
-        {isLogin && (
-          <>
-            <button
-              type="button"
-              style={{ cursor: "pointer" }}
-              onClick={() => setBookSearchModalState((prev) => !prev)}
-            >
-              리뷰 작성
-            </button>
+        <Show when={isLogin}>
+          <button type="button" style={{ cursor: "pointer" }} onClick={() => setBookSearchModalState((prev) => !prev)}>
+            리뷰 작성
+          </button>
 
-            <button
-              type="button"
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                setToggle(false);
-                push(`/dashboard/${user.nickname}`);
-              }}
-            >
-              마이 페이지
-            </button>
-          </>
-        )}
+          <button
+            type="button"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setToggle(false);
+              push(`/dashboard/${user.nickname}`);
+            }}
+          >
+            마이 페이지
+          </button>
+        </Show>
       </menu>
     </aside>
   );

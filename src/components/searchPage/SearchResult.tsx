@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import CardReport from "../card/CardReport";
 import SearchBinder from "./SearchBinder";
 import { OrderBy, SearchType } from "@/types/util.types";
+import { Show } from "../util/Show";
+import { Map } from "../util/Map";
 
 export default function SearchResult({
   keyword,
@@ -26,10 +28,14 @@ export default function SearchResult({
   return (
     <>
       <SearchBinder>
-        {pages?.map((page) => page?.items.map((item) => <CardReport key={item.id} {...item} />))}
+        <Map each={pages}>
+          {(page) => <Map each={page?.items}>{(item) => <CardReport key={item.id} {...item} />}</Map>}
+        </Map>
       </SearchBinder>
 
-      {pages && <p ref={ref}></p>}
+      <Show when={!!pages}>
+        <p ref={ref}></p>
+      </Show>
     </>
   );
 }

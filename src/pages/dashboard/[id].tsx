@@ -17,6 +17,7 @@ export default function Dashboard() {
       <Head>
         <title>onef - {userNickname}</title>
       </Head>
+
       <LayoutWrapper>
         <div className={styles.root}>
           <DashboardHeader userNickname={userNickname} />

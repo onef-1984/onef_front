@@ -6,6 +6,7 @@ import { LuMenu } from "react-icons/lu";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import HeaderProfileImage from "./HeaderProfileImage";
 import { useIsLogin } from "@/hooks/useIsLogin";
+import { Show } from "../util/Show";
 
 export default function Header() {
   const { user } = useWhoAmIAdaptor();
@@ -29,14 +30,12 @@ export default function Header() {
       </h1>
 
       <div className={styles.headerRightBox}>
-        {!isLogin ? (
+        <Show when={!isLogin} fallback={<HeaderProfileImage {...user} />}>
           <div className={styles.signLink}>
             <Link href="/signin">로그인</Link>
             <Link href="/signup">회원가입</Link>
           </div>
-        ) : (
-          <HeaderProfileImage {...user} />
-        )}
+        </Show>
       </div>
     </header>
   );

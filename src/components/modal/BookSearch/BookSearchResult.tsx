@@ -6,6 +6,7 @@ import { useSelectedBook } from "@/hooks/useCaroKann/useSelectedBook";
 import CardResultBox from "@/components/card/CardResultBox";
 import { useInfiniteBookListAdaptor } from "@/hooks/useAdaptor/useInfiniteBookListAdaptor";
 import { useEffect } from "react";
+import { Map } from "@/components/util/Map";
 
 type BookSearchResultProps = {
   searchKeyword: string;
@@ -26,11 +27,15 @@ export default function BookSearchResult({ searchKeyword }: BookSearchResultProp
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
-      {pages?.map((page) =>
-        page.items?.map((book) => (
-          <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
-        ))
-      )}
+      <Map each={pages}>
+        {(page) => (
+          <Map each={page.items}>
+            {(book) => (
+              <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
+            )}
+          </Map>
+        )}
+      </Map>
 
       <p ref={myRef}></p>
     </div>
