@@ -12,6 +12,7 @@ import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
 import Label from "@/components/forms/Label";
 import Head from "next/head";
+import { Map } from "@/components/util/Map";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -42,21 +43,27 @@ export default function SignUp() {
         <Form
           className={styles.form}
           onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
-          inputWrapper={signUpArray.map(({ inputName, htmlFor, type, placeholder }) => (
-            <InputWrapper
-              inputName={inputName}
-              label={
-                <Label
+          inputWrapper={
+            <Map each={signUpArray}>
+              {({ inputName, htmlFor, type, placeholder }) => (
+                <InputWrapper
+                  inputName={inputName}
+                  label={
+                    <Label
+                      errorMessage={errorState[htmlFor]}
+                      htmlFor={htmlFor}
+                      type={type}
+                      input={(type) => (
+                        <Input {...register(htmlFor, validator[htmlFor])} type={type} placeholder={placeholder} />
+                      )}
+                    />
+                  }
                   errorMessage={errorState[htmlFor]}
-                  htmlFor={htmlFor}
-                  type={type}
-                  input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+                  key={htmlFor}
                 />
-              }
-              errorMessage={errorState[htmlFor]}
-              key={htmlFor}
-            />
-          ))}
+              )}
+            </Map>
+          }
           button={<Button disabled={isPending}>회원가입</Button>}
         />
       </div>

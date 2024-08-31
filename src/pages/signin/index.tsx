@@ -12,6 +12,7 @@ import pick from "@/utils/pick";
 import Logo from "@/components/logo/Logo";
 import Label from "@/components/forms/Label";
 import Head from "next/head";
+import { Map } from "@/components/util/Map";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
@@ -24,6 +25,7 @@ export default function SignIn() {
       <Head>
         <title>onef - 로그인</title>
       </Head>
+
       <div className={styles.root}>
         <section className={styles.logoLink}>
           <h1 className={styles.logo}>
@@ -41,21 +43,27 @@ export default function SignIn() {
         <Form
           className={styles.form}
           onSubmit={handleSubmit((data) => mutate(data))}
-          inputWrapper={signInArray.map(({ inputName, htmlFor, type, placeholder }) => (
-            <InputWrapper
-              inputName={inputName}
-              errorMessage={errorState[htmlFor]}
-              label={
-                <Label
+          inputWrapper={
+            <Map each={signInArray}>
+              {({ inputName, htmlFor, type, placeholder }) => (
+                <InputWrapper
+                  inputName={inputName}
+                  label={
+                    <Label
+                      errorMessage={errorState[htmlFor]}
+                      htmlFor={htmlFor}
+                      type={type}
+                      input={(type) => (
+                        <Input {...register(htmlFor, validator[htmlFor])} type={type} placeholder={placeholder} />
+                      )}
+                    />
+                  }
                   errorMessage={errorState[htmlFor]}
-                  htmlFor={htmlFor}
-                  type={type}
-                  input={(type) => Input({ ...register(htmlFor, validator[htmlFor]), type, placeholder })}
+                  key={htmlFor}
                 />
-              }
-              key={htmlFor}
-            />
-          ))}
+              )}
+            </Map>
+          }
           button={<Button disabled={isPending}>로그인</Button>}
         />
       </div>
