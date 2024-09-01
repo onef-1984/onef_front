@@ -31,7 +31,7 @@ export default function PasswordEdit() {
                 <Label
                   errorMessage={errorState[htmlFor]}
                   htmlFor={htmlFor}
-                  input={() => <Input {...register(htmlFor, validator[htmlFor])} />}
+                  Input={() => <Input {...register(htmlFor, validator[htmlFor])} />}
                 />
               }
             />

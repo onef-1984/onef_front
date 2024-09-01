@@ -13,6 +13,7 @@ import Logo from "@/components/logo/Logo";
 import Label from "@/components/forms/Label";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
+import Textarea from "@/components/forms/Textarea";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -53,7 +54,7 @@ export default function SignUp() {
                       errorMessage={errorState[htmlFor]}
                       htmlFor={htmlFor}
                       type={type}
-                      input={(type) => (
+                      Input={(type) => (
                         <Input {...register(htmlFor, validator[htmlFor])} type={type} placeholder={placeholder} />
                       )}
                     />

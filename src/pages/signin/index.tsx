@@ -53,7 +53,7 @@ export default function SignIn() {
                       errorMessage={errorState[htmlFor]}
                       htmlFor={htmlFor}
                       type={type}
-                      input={(type) => (
+                      Input={(type) => (
                         <Input {...register(htmlFor, validator[htmlFor])} type={type} placeholder={placeholder} />
                       )}
                     />

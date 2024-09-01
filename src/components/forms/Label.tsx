@@ -7,14 +7,14 @@ import clsx from "clsx";
 import { Show } from "../util/Show";
 
 type LabelProps = {
-  input: (type: string) => ReactNode;
+  Input: (type: string) => ReactNode;
   type?: string;
   errorMessage?: string;
   htmlFor: string;
   className?: string;
 };
 
-export default function Label({ htmlFor, input, type = "text", errorMessage, className }: LabelProps) {
+export default function Label({ htmlFor, Input, type = "text", errorMessage, className }: LabelProps) {
   // 비밀번호 타입인지 확인
   const isPassword = (type: string) => {
     return type === "password";
@@ -26,7 +26,7 @@ export default function Label({ htmlFor, input, type = "text", errorMessage, cla
   return (
     <label className={clsx(styles.label, errorMessage && styles.labelError, className)} htmlFor={htmlFor}>
       {/* 인풋 태그 */}
-      {input(toggleType)}
+      {Input(toggleType)}
 
       {/* 눈깔 찌르기 */}
       <Show when={isPassword(type)}>
