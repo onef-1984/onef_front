@@ -13,6 +13,7 @@ import Logo from "@/components/logo/Logo";
 import Label from "@/components/forms/Label";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
+import TypeToggle from "@/components/forms/TypeToggle";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
@@ -52,10 +53,18 @@ export default function SignIn() {
                     <Label
                       errorMessage={errorState[htmlFor]}
                       htmlFor={htmlFor}
-                      type={type}
-                      Input={(type) => (
-                        <Input {...register(htmlFor, validator[htmlFor])} type={type} placeholder={placeholder} />
-                      )}
+                      Input={
+                        <TypeToggle
+                          type={type}
+                          Input={(toggleType) => (
+                            <Input
+                              {...register(htmlFor, validator[htmlFor])}
+                              type={toggleType}
+                              placeholder={placeholder}
+                            />
+                          )}
+                        />
+                      }
                     />
                   }
                   errorMessage={errorState[htmlFor]}

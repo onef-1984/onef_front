@@ -14,6 +14,8 @@ import Label from "@/components/forms/Label";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
 import Textarea from "@/components/forms/Textarea";
+import TypeToggle from "@/components/forms/TypeToggle";
+import { Show } from "@/components/util/Show";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -53,10 +55,18 @@ export default function SignUp() {
                     <Label
                       errorMessage={errorState[htmlFor]}
                       htmlFor={htmlFor}
-                      type={type}
-                      Input={(type) => (
-                        <Input {...register(htmlFor, validator[htmlFor])} type={type} placeholder={placeholder} />
-                      )}
+                      Input={
+                        <TypeToggle
+                          type={type}
+                          Input={(toggleType) => (
+                            <Input
+                              {...register(htmlFor, validator[htmlFor])}
+                              type={toggleType}
+                              placeholder={placeholder}
+                            />
+                          )}
+                        />
+                      }
                     />
                   }
                   errorMessage={errorState[htmlFor]}

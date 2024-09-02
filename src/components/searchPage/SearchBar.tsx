@@ -24,10 +24,7 @@ export default function SearchBar() {
       inputWrapper={
         <InputWrapper
           label={
-            <Label
-              htmlFor="keyword"
-              Input={() => <Input {...register("keyword")} placeholder="검색어를 입력해주세요" />}
-            />
+            <Label htmlFor="keyword" Input={<Input {...register("keyword")} placeholder="검색어를 입력해주세요" />} />
           }
         ></InputWrapper>
       }

@@ -25,10 +25,7 @@ export default function BookSearchForm({ setSearchKeyword }: BookSearchFormProps
     >
       <InputWrapper
         label={
-          <Label
-            htmlFor={keyword}
-            Input={() => <Input {...register(keyword)} placeholder="책 제목을 입력해주세요" />}
-          />
+          <Label htmlFor={keyword} Input={<Input {...register(keyword)} placeholder="책 제목을 입력해주세요" />} />
         }
       />
 

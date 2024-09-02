@@ -56,12 +56,12 @@ export default function ProfileEdit() {
             <div className={styles.emailNicknameContainer}>
               <InputWrapper
                 inputName={"이메일"}
-                label={<Label htmlFor="email" Input={() => <Input {...register("email")} disabled={true} />}></Label>}
+                label={<Label htmlFor="email" Input={<Input {...register("email")} disabled={true} />}></Label>}
               />
 
               <InputWrapper
                 inputName={"닉네임"}
-                label={<Label htmlFor="nickname" Input={() => <Input {...register("nickname")} />}></Label>}
+                label={<Label htmlFor="nickname" Input={<Input {...register("nickname")} />}></Label>}
               />
             </div>
           </div>
@@ -70,20 +70,18 @@ export default function ProfileEdit() {
             inputName={"소개"}
             errorMessage={errorState.bio}
             label={
-              <>
-                <Label
-                  htmlFor="bio"
-                  errorMessage={errorState.bio}
-                  Input={() => (
-                    <Textarea
-                      {...register("bio", {
-                        maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다." },
-                      })}
-                      className={styles.textarea}
-                    />
-                  )}
-                />
-              </>
+              <Label
+                htmlFor="bio"
+                errorMessage={errorState.bio}
+                Input={
+                  <Textarea
+                    {...register("bio", {
+                      maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다." },
+                    })}
+                    className={styles.textarea}
+                  />
+                }
+              />
             }
           />
         </>
