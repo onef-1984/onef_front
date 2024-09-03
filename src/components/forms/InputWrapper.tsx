@@ -4,20 +4,23 @@ import clsx from "clsx";
 import { Show } from "../util/Show";
 
 interface InputWrapperProps {
-  label: ReactNode;
-  inputName?: string;
+  children: ReactNode;
   errorMessage?: string;
+  htmlFor?: string;
   className?: string;
+  inputName?: string;
 }
 
-export default function InputWrapper({ inputName, label, errorMessage, className }: InputWrapperProps) {
+export default function InputWrapper({ inputName, children, htmlFor, errorMessage, className }: InputWrapperProps) {
   return (
     <div className={clsx(styles.root, className)}>
       <Show when={!!inputName}>
         <span className={styles.inputName}>{inputName}</span>
       </Show>
 
-      {label}
+      <label className={clsx(styles.label, errorMessage && styles.labelError, className)} htmlFor={htmlFor}>
+        {children}
+      </label>
 
       <Show when={!!errorMessage}>
         <span className={styles.errorMessage}>{errorMessage}</span>

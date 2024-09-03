@@ -1,6 +1,5 @@
 import Button from "../clickable/Button";
 import InputWrapper from "../forms/InputWrapper";
-import Label from "../forms/Label";
 import Input from "@/components/forms/Input";
 import Form from "@/components/forms/Form";
 import styles from "./ProfileEdit.module.css";
@@ -23,18 +22,9 @@ export default function PasswordEdit() {
       inputWrapper={
         <Map each={passwordEditArray}>
           {({ inputName, htmlFor }) => (
-            <InputWrapper
-              key={inputName}
-              inputName={inputName}
-              errorMessage={errorState[htmlFor]}
-              label={
-                <Label
-                  errorMessage={errorState[htmlFor]}
-                  htmlFor={htmlFor}
-                  Input={<Input {...register(htmlFor, validator[htmlFor])} />}
-                />
-              }
-            />
+            <InputWrapper key={inputName} htmlFor={htmlFor} inputName={inputName} errorMessage={errorState[htmlFor]}>
+              <Input {...register(htmlFor, validator[htmlFor])} />
+            </InputWrapper>
           )}
         </Map>
       }

@@ -10,12 +10,9 @@ import Button from "@/components/clickable/Button";
 import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
-import Label from "@/components/forms/Label";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
-import Textarea from "@/components/forms/Textarea";
 import TypeToggle from "@/components/forms/TypeToggle";
-import { Show } from "@/components/util/Show";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -49,29 +46,14 @@ export default function SignUp() {
           inputWrapper={
             <Map each={signUpArray}>
               {({ inputName, htmlFor, type, placeholder }) => (
-                <InputWrapper
-                  inputName={inputName}
-                  label={
-                    <Label
-                      errorMessage={errorState[htmlFor]}
-                      htmlFor={htmlFor}
-                      Input={
-                        <TypeToggle
-                          type={type}
-                          Input={(toggleType) => (
-                            <Input
-                              {...register(htmlFor, validator[htmlFor])}
-                              type={toggleType}
-                              placeholder={placeholder}
-                            />
-                          )}
-                        />
-                      }
-                    />
-                  }
-                  errorMessage={errorState[htmlFor]}
-                  key={htmlFor}
-                />
+                <InputWrapper inputName={inputName} errorMessage={errorState[htmlFor]} htmlFor={htmlFor} key={htmlFor}>
+                  <TypeToggle
+                    type={type}
+                    Input={(toggleType) => (
+                      <Input {...register(htmlFor, validator[htmlFor])} type={toggleType} placeholder={placeholder} />
+                    )}
+                  />
+                </InputWrapper>
               )}
             </Map>
           }

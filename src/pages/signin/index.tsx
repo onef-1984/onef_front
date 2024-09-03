@@ -10,7 +10,6 @@ import Button from "@/components/clickable/Button";
 import { SignValidate } from "@/constants/sign/signValidate";
 import pick from "@/utils/pick";
 import Logo from "@/components/logo/Logo";
-import Label from "@/components/forms/Label";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
 import TypeToggle from "@/components/forms/TypeToggle";
@@ -47,29 +46,14 @@ export default function SignIn() {
           inputWrapper={
             <Map each={signInArray}>
               {({ inputName, htmlFor, type, placeholder }) => (
-                <InputWrapper
-                  inputName={inputName}
-                  label={
-                    <Label
-                      errorMessage={errorState[htmlFor]}
-                      htmlFor={htmlFor}
-                      Input={
-                        <TypeToggle
-                          type={type}
-                          Input={(toggleType) => (
-                            <Input
-                              {...register(htmlFor, validator[htmlFor])}
-                              type={toggleType}
-                              placeholder={placeholder}
-                            />
-                          )}
-                        />
-                      }
-                    />
-                  }
-                  errorMessage={errorState[htmlFor]}
-                  key={htmlFor}
-                />
+                <InputWrapper inputName={inputName} errorMessage={errorState[htmlFor]} htmlFor={htmlFor} key={htmlFor}>
+                  <TypeToggle
+                    type={type}
+                    Input={(toggleType) => (
+                      <Input {...register(htmlFor, validator[htmlFor])} type={toggleType} placeholder={placeholder} />
+                    )}
+                  />
+                </InputWrapper>
               )}
             </Map>
           }

@@ -1,5 +1,4 @@
 import { handleSubmit, setValue, register } from "@/hooks/useSicilian/reportSearch";
-import Label from "@/components/forms/Label";
 import Input from "@/components/forms/Input";
 import Button from "@/components/clickable/Button";
 import styles from "./Search.module.css";
@@ -22,11 +21,9 @@ export default function SearchBar() {
         push({ pathname: "/search", query: { ...query, keyword: data.keyword } }, "/search");
       })}
       inputWrapper={
-        <InputWrapper
-          label={
-            <Label htmlFor="keyword" Input={<Input {...register("keyword")} placeholder="검색어를 입력해주세요" />} />
-          }
-        ></InputWrapper>
+        <InputWrapper htmlFor="keyword">
+          <Input {...register("keyword")} placeholder="검색어를 입력해주세요" />
+        </InputWrapper>
       }
       button={<Button>검색</Button>}
     ></Form>

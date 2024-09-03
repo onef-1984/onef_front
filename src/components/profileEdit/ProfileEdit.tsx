@@ -1,7 +1,6 @@
 import Button from "../clickable/Button";
 import ImageInput from "../forms/ImageInput";
 import InputWrapper from "../forms/InputWrapper";
-import Label from "../forms/Label";
 import Input from "@/components/forms/Input";
 import { register, setValue, handleSubmit, ErrorState, FormState } from "@/hooks/useSicilian/profileEdit";
 import Form from "@/components/forms/Form";
@@ -48,42 +47,30 @@ export default function ProfileEdit() {
         <>
           <div className={styles.inputContainer}>
             <div className={styles.imageContainer}>
-              <InputWrapper
-                label={<ImageInput setFiles={setFiles} initialValue={user.profileImage} file={files?.[0]} />}
-              />
+              <InputWrapper>
+                <ImageInput setFiles={setFiles} initialValue={user.profileImage} file={files?.[0]} />
+              </InputWrapper>
             </div>
 
             <div className={styles.emailNicknameContainer}>
-              <InputWrapper
-                inputName={"이메일"}
-                label={<Label htmlFor="email" Input={<Input {...register("email")} disabled={true} />}></Label>}
-              />
+              <InputWrapper inputName={"이메일"} htmlFor="email">
+                <Input {...register("email")} disabled={true} />
+              </InputWrapper>
 
-              <InputWrapper
-                inputName={"닉네임"}
-                label={<Label htmlFor="nickname" Input={<Input {...register("nickname")} />}></Label>}
-              />
+              <InputWrapper inputName={"닉네임"} htmlFor="nickname">
+                <Input {...register("nickname")} />
+              </InputWrapper>
             </div>
           </div>
 
-          <InputWrapper
-            inputName={"소개"}
-            errorMessage={errorState.bio}
-            label={
-              <Label
-                htmlFor="bio"
-                errorMessage={errorState.bio}
-                Input={
-                  <Textarea
-                    {...register("bio", {
-                      maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다." },
-                    })}
-                    className={styles.textarea}
-                  />
-                }
-              />
-            }
-          />
+          <InputWrapper inputName={"소개"} errorMessage={errorState.bio} htmlFor="bio">
+            <Textarea
+              {...register("bio", {
+                maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다." },
+              })}
+              className={styles.textarea}
+            />
+          </InputWrapper>
         </>
       }
       button={<Button className={styles.button}>저장</Button>}
