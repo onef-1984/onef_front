@@ -1,7 +1,6 @@
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import styles from "./Report.module.css";
 import Tag from "../tag/Tag";
-import Button from "../clickable/Button";
 import clsx from "clsx";
 import { useIsMyReview } from "@/hooks/useIsMyReview";
 import { useIsLogin } from "@/hooks/useIsLogin";
@@ -10,6 +9,7 @@ import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
 import { Map } from "../util/Map";
+import Clickable from "../clickable/Clickable";
 
 export default function ReportFooter() {
   const { report } = useReportAdaptor();
@@ -34,18 +34,18 @@ export default function ReportFooter() {
         <p>{report.date}</p>
       </div>
 
-      <Button
+      <Clickable
+        color="like"
+        size="small"
+        type="button"
         disabled={isPending || (isLogin ? isMyReport : true)}
         onClick={() => {
           mutate(isLiked ? "delete" : "post");
         }}
         className={styles.likeButton}
-        type="button"
-        color="like"
-        size="small"
       >
         {report.likeCount} {isMyReport || isLiked ? <IoHeart /> : <IoHeartOutline />}
-      </Button>
+      </Clickable>
     </section>
   );
 }

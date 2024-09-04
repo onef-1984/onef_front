@@ -1,4 +1,4 @@
-import Button from "@/components/clickable/Button";
+import Clickable from "@/components/clickable/Clickable";
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "@/styles/404.module.css";
@@ -16,7 +16,7 @@ export default function Home() {
       <LayoutWrapper>
         <div className={styles.root}>
           Page Not Found
-          <Button
+          <Clickable
             className={styles.button}
             type="button"
             onClick={() => {
@@ -24,7 +24,7 @@ export default function Home() {
             }}
           >
             go to main page
-          </Button>
+          </Clickable>
         </div>
       </LayoutWrapper>
     </>

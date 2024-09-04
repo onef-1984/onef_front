@@ -6,13 +6,13 @@ import { signUpArray } from "@/constants/sign/signArray";
 import Link from "next/link";
 import Form from "@/components/forms/Form";
 import omit from "@/utils/omit";
-import Button from "@/components/clickable/Button";
 import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
 import TypeToggle from "@/components/forms/TypeToggle";
+import Clickable from "@/components/clickable/Clickable";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -57,7 +57,7 @@ export default function SignUp() {
               )}
             </Map>
           }
-          button={<Button disabled={isPending}>회원가입</Button>}
+          button={<Clickable disabled={isPending}>회원가입</Clickable>}
         />
       </div>
     </>

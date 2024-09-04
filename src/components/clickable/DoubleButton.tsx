@@ -1,5 +1,5 @@
-import { FormEvent, ReactNode } from "react";
-import Button from "./Button";
+import { ReactNode } from "react";
+
 import styles from "./Clickable.module.css";
 
 type DoubleButtonProps = {

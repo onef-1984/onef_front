@@ -1,10 +1,10 @@
-import Button from "@/components/clickable/Button";
 import InputWrapper from "@/components/forms/InputWrapper";
 import { FormState, register } from "@/hooks/useSicilian/bookSearch";
 import styles from "./BookSearchModal.module.css";
 import Input from "@/components/forms/Input";
 import { Dispatch, SetStateAction } from "react";
 import Form from "@/components/forms/Form";
+import Clickable from "@/components/clickable/Clickable";
 
 type BookSearchFormProps = {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
@@ -27,7 +27,7 @@ export default function BookSearchForm({ setSearchKeyword }: BookSearchFormProps
           <Input {...register(keyword)} placeholder="책 제목을 입력해주세요" />
         </InputWrapper>
       }
-      button={<Button className={styles.button}>검색</Button>}
+      button={<Clickable className={styles.button}>검색</Clickable>}
     />
   );
 }

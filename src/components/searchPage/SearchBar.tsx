@@ -1,11 +1,11 @@
 import { handleSubmit, setValue, register } from "@/hooks/useSicilian/reportSearch";
 import Input from "@/components/forms/Input";
-import Button from "@/components/clickable/Button";
 import styles from "./Search.module.css";
 import InputWrapper from "../forms/InputWrapper";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Form from "../forms/Form";
 import { useEffect } from "react";
+import Clickable from "../clickable/Clickable";
 
 export default function SearchBar() {
   const { keyword, push, query } = useRouterAdv();
@@ -25,7 +25,7 @@ export default function SearchBar() {
           <Input {...register("keyword")} placeholder="검색어를 입력해주세요" />
         </InputWrapper>
       }
-      button={<Button>검색</Button>}
+      button={<Clickable>검색</Clickable>}
     ></Form>
   );
 }

@@ -1,4 +1,3 @@
-import Button from "../clickable/Button";
 import InputWrapper from "../forms/InputWrapper";
 import Input from "@/components/forms/Input";
 import Form from "@/components/forms/Form";
@@ -8,6 +7,7 @@ import { usePatchPasswordMutation } from "@/hooks/useMutation/usePatchPasswordMu
 import { passwordEditValidate } from "@/constants/edit/passwordEditValidate";
 import { passwordEditArray } from "@/constants/edit/passwordEditArray";
 import { Map } from "../util/Map";
+import Clickable from "../clickable/Clickable";
 
 export default function PasswordEdit() {
   const { mutate } = usePatchPasswordMutation();
@@ -28,7 +28,7 @@ export default function PasswordEdit() {
           )}
         </Map>
       }
-      button={<Button className={styles.button}>변경</Button>}
+      button={<Clickable className={styles.button}>변경</Clickable>}
     />
   );
 }

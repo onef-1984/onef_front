@@ -1,5 +1,4 @@
 import styles from "./EditForm.module.css";
-import Button from "@/components/clickable/Button";
 import Input from "@/components/forms/Input";
 import DoubleButton from "@/components/clickable/DoubleButton";
 import Form from "@/components/forms/Form";
@@ -11,6 +10,7 @@ import { useContext } from "react";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import toast from "react-hot-toast";
+import Clickable from "../clickable/Clickable";
 
 export default function EditForm() {
   const [tagList, setTagList] = useReportTagList();
@@ -54,7 +54,7 @@ export default function EditForm() {
       button={
         <DoubleButton
           button1={
-            <Button
+            <Clickable
               type="button"
               color="white"
               onClick={() => {
@@ -64,9 +64,9 @@ export default function EditForm() {
               }}
             >
               취소
-            </Button>
+            </Clickable>
           }
-          button2={<Button>저장</Button>}
+          button2={<Clickable>저장</Clickable>}
         />
       }
     />

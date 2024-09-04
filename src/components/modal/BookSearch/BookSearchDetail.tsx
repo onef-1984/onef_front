@@ -5,9 +5,8 @@ import Image from "next/image";
 import { Item } from "@/types/book.types";
 import { formatAuthor } from "@/utils/formatAuthor";
 import DoubleButton from "@/components/clickable/DoubleButton";
-import { useRouter } from "next/router";
-import Button from "@/components/clickable/Button";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import Clickable from "@/components/clickable/Clickable";
 
 export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
   const [book, setBook] = useSelectedBook();
@@ -36,12 +35,12 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
 
       <DoubleButton
         button1={
-          <Button type="button" color="white" onClick={() => setBook({} as Item)}>
+          <Clickable type="button" color="white" onClick={() => setBook({} as Item)}>
             취소
-          </Button>
+          </Clickable>
         }
         button2={
-          <Button
+          <Clickable
             type="button"
             onClick={() => {
               onClose();
@@ -49,7 +48,7 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
             }}
           >
             리뷰 작성
-          </Button>
+          </Clickable>
         }
       />
     </div>

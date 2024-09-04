@@ -1,4 +1,3 @@
-import Button from "../clickable/Button";
 import ImageInput from "../forms/ImageInput";
 import InputWrapper from "../forms/InputWrapper";
 import Input from "@/components/forms/Input";
@@ -10,6 +9,7 @@ import { usePatchProfileMutation } from "@/hooks/useMutation/usePatchProfileMuta
 import Textarea from "../forms/Textarea";
 import styles from "./ProfileEdit.module.css";
 import toast from "react-hot-toast";
+import Clickable from "../clickable/Clickable";
 
 export default function ProfileEdit() {
   const [files, setFiles] = useState<FileList>();
@@ -73,7 +73,7 @@ export default function ProfileEdit() {
           </InputWrapper>
         </>
       }
-      button={<Button className={styles.button}>저장</Button>}
+      button={<Clickable className={styles.button}>저장</Clickable>}
     />
   );
 }
