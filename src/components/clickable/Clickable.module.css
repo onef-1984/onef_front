@@ -10,10 +10,6 @@
   text-align: center;
 }
 
-.disabled {
-  background: var(--gray-50);
-}
-
 /* color */
 
 .primary {
@@ -27,17 +23,18 @@
   color: var(--brown-70);
 }
 
+:is(.primary, .white):disabled {
+  background: var(--gray-50);
+}
+
 .like {
   border: 1px solid var(--pink-20);
   color: var(--black);
+  background: var(--primary);
 
   & svg {
     color: var(--pink-40);
   }
-}
-
-.like.disabled {
-  background: var(--primary);
 }
 
 /* size */
