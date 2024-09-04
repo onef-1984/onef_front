@@ -13,12 +13,12 @@ export default function Clickable<T extends ComponentType = typeof Button>({
 }: {
   Component?: T;
 } & ClickableProps<T>) {
-  const { color = "primary", size = "medium", className } = props;
-  const style = clsx(styles.root, styles[color], styles[size], className);
   const Render = Component ?? Button;
+  const { color = "primary", size = "medium", className, ...restProps } = props;
+  const style = clsx(styles.root, styles[color], styles[size], className);
 
   // @ts-expect-error
-  return <Render className={style} {...props} />;
+  return <Render className={style} {...restProps} />;
 }
 
 function Button({ children, ...buttonProps }: ButtonHTMLAttributes<HTMLButtonElement>) {
