@@ -11,13 +11,13 @@ import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
 import Head from "next/head";
 import { Map } from "@/components/util/Map";
-import TypeToggle from "@/components/forms/TypeToggle";
+import EyeButton from "@/components/forms/EyeButton";
 import Clickable from "@/components/clickable/Clickable";
+import { Show } from "@/components/util/Show";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
   const errorState = ErrorState();
-
   const validator = handleValidate(SignValidate());
 
   return (
@@ -45,16 +45,22 @@ export default function SignUp() {
           onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
           inputWrapper={
             <Map each={signUpArray}>
-              {({ inputName, htmlFor, type, placeholder }) => (
-                <InputWrapper inputName={inputName} errorMessage={errorState[htmlFor]} htmlFor={htmlFor} key={htmlFor}>
-                  <TypeToggle
-                    type={type}
-                    Input={(toggleType) => (
-                      <Input {...register(htmlFor, validator[htmlFor])} type={toggleType} placeholder={placeholder} />
-                    )}
-                  />
-                </InputWrapper>
-              )}
+              {({ inputName, htmlFor, type, placeholder }) => {
+                const inputProps = { ...register(htmlFor, validator[htmlFor]), placeholder, type };
+
+                return (
+                  <InputWrapper
+                    inputName={inputName}
+                    errorMessage={errorState[htmlFor]}
+                    htmlFor={htmlFor}
+                    key={htmlFor}
+                  >
+                    <Show when={type === "password"} fallback={<Input {...inputProps} />}>
+                      <EyeButton Input={(toggleType) => <Input {...inputProps} type={toggleType} />} />
+                    </Show>
+                  </InputWrapper>
+                );
+              }}
             </Map>
           }
           button={<Clickable disabled={isPending}>회원가입</Clickable>}

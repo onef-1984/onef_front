@@ -7,26 +7,23 @@ import styles from "./Input.module.css";
 
 type InputType = "text" | "password";
 
-type TypeToggleProps = {
+type EyeButtonProps = {
   Input: (type: InputType) => ReactNode;
-  type: InputType;
 };
 
-export default function TypeToggle({ type, Input }: TypeToggleProps) {
+export default function EyeButton({ Input }: EyeButtonProps) {
   // 비밀번호 타입 토글
-  const [toggleType, handleToggleType] = useToggle(type, "text");
+  const [toggleType, handleToggleType] = useToggle("password", "text");
 
   return (
     <>
       {Input(toggleType)}
 
-      <Show when={type === "password"}>
-        <button className={styles.button} type="button" onClick={handleToggleType}>
-          <Show when={toggleType === "text"} fallback={<IoEyeOutline />}>
-            <IoEyeOffOutline />
-          </Show>
-        </button>
-      </Show>
+      <button className={styles.button} type="button" onClick={handleToggleType}>
+        <Show when={toggleType === "text"} fallback={<IoEyeOutline />}>
+          <IoEyeOffOutline />
+        </Show>
+      </button>
     </>
   );
 }
