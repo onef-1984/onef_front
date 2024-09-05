@@ -1,7 +1,7 @@
 export const formatDate = (date: string | undefined) => {
   if (typeof date === "undefined") return "";
   else {
-    const utcDate = new Date("2024-07-28T09:17:51.619Z");
+    const utcDate = new Date(date);
     const formattedDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
 
     // 연, 월, 일 추출
