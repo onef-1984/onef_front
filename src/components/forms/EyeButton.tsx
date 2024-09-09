@@ -6,7 +6,6 @@ import { IoEyeOutline } from "@react-icons/all-files/io5/IoEyeOutline";
 import styles from "./Input.module.css";
 
 type InputType = "text" | "password";
-
 type EyeButtonProps = {
   Input: (type: InputType) => ReactNode;
 };

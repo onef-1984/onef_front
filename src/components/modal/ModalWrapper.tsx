@@ -31,6 +31,6 @@ export default function ModalWrapper({ children, onClose, size }: ModalProps) {
         {children}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

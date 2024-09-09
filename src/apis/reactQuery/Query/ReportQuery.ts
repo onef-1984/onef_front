@@ -29,7 +29,7 @@ export class ReportQuery extends QueryFn {
     return {
       queryKey: [...this.queryKey, orderBy, keyword ? keyword : "all", searchType],
       queryFn: this.infiniteQueryFn<GetReportList>(
-        `/report/search?take=12&searchType=${searchType}&keyword=${keyword}&orderBy=${orderBy}`
+        `/report/search?take=12&searchType=${searchType}&keyword=${keyword}&orderBy=${orderBy}`,
       ),
       initialPageParam: 0,
       getNextPageParam: (lastPage: GetReportList, allPages: any, lastPageParam: number) =>
@@ -41,7 +41,7 @@ export class ReportQuery extends QueryFn {
     return {
       queryKey: [...this.queryKey, userId, "user", "latest"],
       queryFn: this.queryFn<GetReportList>(
-        `/report/search?take=5&skip=0&searchType=user&keyword=${userId}&orderBy=createdAt`
+        `/report/search?take=5&skip=0&searchType=user&keyword=${userId}&orderBy=createdAt`,
       ),
     };
   }

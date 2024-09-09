@@ -41,7 +41,7 @@ export default function ProfileEdit() {
     <Form
       className={styles.root}
       onSubmit={handleSubmit((data) =>
-        onSubmit({ files, nickname: data.nickname, bio: data.bio.replace(/\n\s*\n/g, "\n") })
+        onSubmit({ files, nickname: data.nickname, bio: data.bio.replace(/\n\s*\n/g, "\n") }),
       )}
       inputWrapper={
         <>

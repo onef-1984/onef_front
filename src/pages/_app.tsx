@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
             retry: 0,
           },
         },
-      })
+      }),
   );
 
   return (

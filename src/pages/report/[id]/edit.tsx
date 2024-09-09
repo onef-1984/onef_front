@@ -30,7 +30,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Edit() {
-  // TODO : 레포트 수정 작업에 필요한 로직을 컴포넌트 외부로 분리해야 합니다
   const { mutate } = usePutReportMutation();
   const [tagList, setTagList] = useReportTagList();
 
@@ -57,6 +56,7 @@ export default function Edit() {
         <GlassyBackground image={book.cover}>
           <ReportHeader content={headerContent(book)} />
         </GlassyBackground>
+
         <MutationContext.Provider
           value={(reqData) => {
             mutate(reqData);

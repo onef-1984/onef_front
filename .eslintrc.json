@@ -1,3 +1,14 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["prettier"],
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "useTabs": false, // 스페이스를 사용
+        "tabWidth": 2, // 스페이스의 개수를 2로 설정
+        "printWidth": 120
+      }
+    ]
+  }
 }

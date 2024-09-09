@@ -46,7 +46,11 @@ export default function SignUp() {
           inputWrapper={
             <Map each={signUpArray}>
               {({ inputName, htmlFor, type, placeholder }) => {
-                const inputProps = { ...register(htmlFor, validator[htmlFor]), placeholder, type };
+                const inputProps = {
+                  ...register(htmlFor, validator[htmlFor]),
+                  placeholder,
+                  type,
+                };
 
                 return (
                   <InputWrapper
