@@ -47,9 +47,7 @@ export default function ProfileEdit() {
         <>
           <div className={styles.inputContainer}>
             <div className={styles.imageContainer}>
-              <InputWrapper>
-                <ImageInput setFiles={setFiles} initialValue={user.profileImage} file={files?.[0]} />
-              </InputWrapper>
+              <ImageInput setFiles={setFiles} initialValue={user.profileImage} file={files?.[0]} />
             </div>
 
             <div className={styles.emailNicknameContainer}>
