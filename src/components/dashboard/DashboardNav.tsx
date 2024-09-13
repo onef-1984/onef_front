@@ -12,7 +12,11 @@ export default function DashboardNav() {
 
   return (
     <div className={styles.root}>
-      <button className={clsx(searchType === "user" && styles.active)} type="button" onClick={handleClick("user")}>
+      <button
+        className={clsx((searchType === "user" || searchType === "report") && styles.active)}
+        type="button"
+        onClick={handleClick("user")}
+      >
         게시글
       </button>
 

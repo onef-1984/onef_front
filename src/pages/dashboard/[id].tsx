@@ -22,6 +22,7 @@ export default function Dashboard() {
         <div className={styles.root}>
           <DashboardHeader userNickname={userNickname} />
           <br />
+
           <DashboardNav />
 
           <SearchOptionButton />
