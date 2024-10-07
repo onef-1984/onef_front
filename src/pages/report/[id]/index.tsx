@@ -43,6 +43,7 @@ export default function Review() {
         <meta property="og:description" content={report.content} />
         <meta property="og:image" content={book.cover} />
       </Head>
+
       <LayoutWrapper>
         <GlassyBackground image={book.cover}>
           <ReportHeader content={content} button={<ReportButton />} />
