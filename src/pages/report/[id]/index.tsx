@@ -38,7 +38,11 @@ export default function Review() {
     <>
       <Head>
         <title>onef - {report.title}</title>
+
+        <meta name="description" content={report.content} />
+
         <meta property="og:url" content={`https://onef.co.kr/report/${report.id}`} />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={`onef - ${report.title}`} />
         <meta property="og:description" content={report.content} />
         <meta property="og:image" content={book.cover} />
