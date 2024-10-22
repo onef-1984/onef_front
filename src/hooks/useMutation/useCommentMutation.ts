@@ -6,7 +6,7 @@ import { useRouterAdv } from "../useRouterAdv";
 const useCommentMutation = ({ value, setValue }: { value: string; setValue: Dispatch<SetStateAction<string>> }) => {
   const queryClient = useQueryClient();
   const { parentId, depth, mutationFn, onSuccessBehavior } = useContext(CommentMutationContext);
-  const { push, pathWithoutHash} = useRouterAdv()
+  const { push, pathWithoutHash } = useRouterAdv();
 
   const { mutate, isPending } = useMutation({
     mutationFn: mutationFn(),
@@ -21,7 +21,7 @@ const useCommentMutation = ({ value, setValue }: { value: string; setValue: Disp
     },
     onSettled: (data) => {
       push(pathWithoutHash + `#${data?.id}`);
-    }
+    },
   });
 
   const handleSubmit: FormEventHandler = (e) => {

@@ -89,15 +89,15 @@ export default function Review() {
 
           <CommentContainer id={id} />
 
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </LayoutWrapper>
     </>

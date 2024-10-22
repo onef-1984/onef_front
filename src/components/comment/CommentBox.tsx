@@ -10,8 +10,6 @@ import { useDeleteCommentMutation } from "@/hooks/useMutation/useDeleteCommentMu
 import { Show } from "../util/Show";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 
-
-
 type CommentBoxType = "viewer" | "editor";
 
 export default function CommentBox({ commentData }: { commentData: ReportComment }) {
@@ -66,9 +64,8 @@ const CommentViewer = ({
   setCommentState: Dispatch<SetStateAction<CommentBoxType>>;
 }) => {
   const clickableProps = { type: "button", size: "small", color: "borderless", className: styles.button } as const;
-  const { handleClick} = useDeleteCommentMutation(commentData.id)
-  const {user} = useWhoAmIAdaptor()
-
+  const { handleClick } = useDeleteCommentMutation(commentData.id);
+  const { user } = useWhoAmIAdaptor();
 
   return (
     <div className={styles.root} id={commentData.id}>
@@ -80,22 +77,22 @@ const CommentViewer = ({
 
         <p>{commentData.comment}</p>
 
-  <div className={styles.button}>
-  <Show when={user.id === commentData.user.id}>
-          <Clickable
-            {...clickableProps}
-            onClick={() => {
-              setCommentState("editor");
-            }}
-          >
-            수정
-          </Clickable>
+        <div className={styles.button}>
+          <Show when={user.id === commentData.user.id}>
+            <Clickable
+              {...clickableProps}
+              onClick={() => {
+                setCommentState("editor");
+              }}
+            >
+              수정
+            </Clickable>
 
-          <Clickable {...clickableProps} onClick={handleClick}>
-            삭제
-          </Clickable></Show>
+            <Clickable {...clickableProps} onClick={handleClick}>
+              삭제
+            </Clickable>
+          </Show>
         </div>
-        
       </div>
     </div>
   );

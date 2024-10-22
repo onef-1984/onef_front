@@ -15,10 +15,9 @@ export const useDeleteCommentMutation = (id: string) => {
   });
 
   const handleClick = () => {
-    confirm("삭제하시겠습니까?")
-    mutate({parentId: id})
-  }
-
+    confirm("삭제하시겠습니까?");
+    mutate({ parentId: id });
+  };
 
   return { handleClick };
-}
+};

@@ -7,15 +7,16 @@ export class CommentMutation extends MutationFn {
   }
 
   postComment = () => {
-    return ({ parentId, value, depth }: { parentId: string; value: string; depth: number }) => this.mutationFn<{id: string}>(`/comments/${parentId}`, "post", { comment: value, depth });
-
+    return ({ parentId, value, depth }: { parentId: string; value: string; depth: number }) =>
+      this.mutationFn<{ id: string }>(`/comments/${parentId}`, "post", { comment: value, depth });
   };
 
   putComment = () => {
-    return ({ parentId, value, depth }: { parentId: string; value: string; depth: number }) => this.mutationFn<{id: string}>(`/comments/${parentId}`, "put", { comment: value, depth });
+    return ({ parentId, value, depth }: { parentId: string; value: string; depth: number }) =>
+      this.mutationFn<{ id: string }>(`/comments/${parentId}`, "put", { comment: value, depth });
   };
 
   deleteComment = () => {
     return ({ parentId }: { parentId: string }) => this.mutationFn<Response>(`/comments/${parentId}`, "delete");
-  }
+  };
 }

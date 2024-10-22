@@ -20,5 +20,5 @@ export const useGetTextAreaHeight = (initValue: string) => {
     target.style.height = `${target.scrollHeight}px`;
   };
 
-  return {textRef, handleInput};
-}
+  return { textRef, handleInput };
+};
