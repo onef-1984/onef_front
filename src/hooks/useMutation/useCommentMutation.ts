@@ -3,7 +3,15 @@ import { Dispatch, FormEventHandler, SetStateAction, useContext } from "react";
 import { CommentMutationContext } from "../useContext/useCommentMutationContext";
 import { useRouterAdv } from "../useRouterAdv";
 
-const useCommentMutation = ({ value, setValue }: { value: string; setValue: Dispatch<SetStateAction<string>> }) => {
+const useCommentMutation = ({
+  value,
+  setValue,
+  initValue,
+}: {
+  initValue: string;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+}) => {
   const queryClient = useQueryClient();
   const { parentId, depth, mutationFn, onSuccessBehavior } = useContext(CommentMutationContext);
   const { push, pathWithoutHash } = useRouterAdv();
@@ -26,6 +34,17 @@ const useCommentMutation = ({ value, setValue }: { value: string; setValue: Disp
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
+
+    if (value === initValue || value === "") {
+      // 댓글 수정일 경우 onSuccessBehavior 함수를 실행
+      if (onSuccessBehavior) {
+        return onSuccessBehavior();
+        // 댓글 작성일 경우 value가 빈 문자열이면 return
+      } else {
+        return;
+      }
+    }
+
     mutate({ parentId, value, depth });
   };
 

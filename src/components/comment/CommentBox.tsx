@@ -73,7 +73,7 @@ const CommentViewer = ({
         <ProfileImage profileImage={commentData.user.profileImage} size={40} />
       </div>
       <div className={styles.box}>
-        <p>{commentData.user.nickname}</p>
+        <p className={styles.nickname}>{commentData.user.nickname}</p>
 
         <p>{commentData.comment}</p>
 

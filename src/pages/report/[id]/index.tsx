@@ -87,10 +87,11 @@ export default function Review() {
             <CommentInput />
           </CommentMutationContext.Provider>
 
+          <br />
+          <br />
+
           <CommentContainer id={id} />
 
-          <br />
-          <br />
           <br />
           <br />
           <br />

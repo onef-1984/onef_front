@@ -8,11 +8,11 @@ import useCommentMutation from "@/hooks/useMutation/useCommentMutation";
 import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationContext";
 import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
 
-export default function CommentInput({ initValue }: { initValue?: string }) {
-  const [value, setValue] = useState(initValue ?? "");
-  const { textRef, handleInput } = useGetTextAreaHeight(initValue ?? "");
+export default function CommentInput({ initValue = "" }: { initValue?: string }) {
+  const [value, setValue] = useState(initValue);
+  const { textRef, handleInput } = useGetTextAreaHeight(initValue);
   const { inputName, buttonName } = useContext(CommentMutationContext);
-  const { handleSubmit, isPending } = useCommentMutation({ value, setValue });
+  const { handleSubmit, isPending } = useCommentMutation({ initValue, value, setValue });
 
   return (
     <Form
