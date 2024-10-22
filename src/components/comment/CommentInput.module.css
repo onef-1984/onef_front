@@ -1,0 +1,11 @@
+.root {display: flex; align-items: flex-end; gap: 1.2rem;}
+
+.comment_textarea {
+  flex: 1;
+  resize: none;
+}
+
+.button {
+  flex: 0 6rem;
+}
+

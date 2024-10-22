@@ -3,6 +3,7 @@ import { useUserAdaptor } from "@/hooks/useAdaptor/user/useUserAdaptor";
 import Image from "next/image";
 import Link from "next/link";
 import { Show } from "../util/Show";
+import ProfileImage from "../Profile/ProfileImage";
 
 export default function DashboardHeader({ userNickname }: { userNickname: string }) {
   const { user } = useUserAdaptor(userNickname);
@@ -11,9 +12,7 @@ export default function DashboardHeader({ userNickname }: { userNickname: string
     <div className={styles.dashboardHeaderContainer}>
       <div className={styles.root}>
         <Link href={`/dashboard/${userNickname}`} className={styles.profileImage}>
-          <Show when={!!user.profileImage} fallback={<div style={{ background: "var(--gray-30)" }} />}>
-            <Image src={user.profileImage} alt={`${user.nickname}의 프로필 사진`} sizes="150" fill draggable="false" />
-          </Show>
+          <ProfileImage profileImage={user.profileImage} size={150} />
         </Link>
 
         <div className={styles.nickBio}>

@@ -10,10 +10,15 @@ import toast from "react-hot-toast";
 import Head from "next/head";
 import ReportOwner from "@/components/report/ReportOwner";
 import { useEffect } from "react";
+import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationContext";
+import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
+import CommentInput from "@/components/comment/CommentInput";
+import CommentContainer from "@/components/comment/CommentContainer";
 
 export default function Review() {
+  const commentMutation = new CommentMutation();
   const { report, user, book, error } = useReportAdaptor();
-  const { push } = useRouterAdv();
+  const { push, id } = useRouterAdv();
 
   useEffect(() => {
     if (error) {
@@ -69,6 +74,30 @@ export default function Review() {
           <ReportFooter />
 
           <ReportOwner userNickname={user.nickname} userId={user.id} reportId={report.id} />
+
+          <CommentMutationContext.Provider
+            value={{
+              inputName: "댓글",
+              buttonName: "저장",
+              parentId: id,
+              depth: 0,
+              mutationFn: commentMutation.postComment,
+            }}
+          >
+            <CommentInput />
+          </CommentMutationContext.Provider>
+
+          <CommentContainer id={id} />
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
         </div>
       </LayoutWrapper>
     </>

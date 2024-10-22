@@ -12,5 +12,7 @@ export const useRouterAdv = () => {
 
   const location = asPath.split("?")[0];
 
-  return { push, back, asPath, location, query, id, keyword, orderBy, searchType };
+  const pathWithoutHash = location.split("#")[0];
+
+  return { push, back, pathWithoutHash, asPath, location, query, id, keyword, orderBy, searchType };
 };

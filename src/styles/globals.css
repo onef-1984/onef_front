@@ -20,6 +20,8 @@
 
   --pink-20: #f77576;
   --pink-40: #f14b4c;
+
+  scroll-behavior: smooth;
 }
 
 @font-face {

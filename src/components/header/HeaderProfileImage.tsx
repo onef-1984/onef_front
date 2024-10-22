@@ -6,6 +6,7 @@ import { usePopUpToggle } from "@/hooks/usePopUpToggle";
 import PopUp from "../popUp/PopUp";
 import HeaderPop from "../popUp/HeaderPop";
 import { Show } from "../util/Show";
+import ProfileImage from "../Profile/ProfileImage";
 
 export default function HeaderProfileImage({ profileImage }: Pick<User, "profileImage">) {
   const { toggle, handleToggle } = usePopUpToggle();
@@ -13,9 +14,7 @@ export default function HeaderProfileImage({ profileImage }: Pick<User, "profile
   return (
     <div className={styles.root}>
       <button type="button" className={styles.button} onClick={handleToggle}>
-        <Show when={!!profileImage} fallback={<BsPeopleCircle />}>
-          <Image draggable={false} fill src={profileImage!} sizes="40" alt="프로필 이미지" />
-        </Show>
+        <ProfileImage profileImage={profileImage} size={40} />
       </button>
 
       <Show when={toggle}>
