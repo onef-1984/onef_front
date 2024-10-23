@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const usePopUpToggle = () => {
+export const usePopUpToggle = (id: string) => {
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
@@ -9,9 +9,9 @@ export const usePopUpToggle = () => {
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
-      const { tagName } = e.target as HTMLElement;
+      const { id: targetId } = e.target as HTMLElement;
 
-      if (!(tagName === "IMG" || tagName === "svg")) {
+      if (id !== targetId) {
         setToggle(false);
       }
     });

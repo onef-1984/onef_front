@@ -1,9 +1,6 @@
 import styles from "./EditForm.module.css";
-import Input from "@/components/forms/Input";
-import DoubleButton from "@/components/clickable/DoubleButton";
 import Form from "@/components/forms/Form";
-import MarkdownEditor from "@/components/forms/MarkdownEditor";
-import { FormState, handleSubmit, initValue, register, setValue } from "@/hooks/useSicilian/report";
+import { FormState, handleSubmit, initValue, register, setForm } from "@/hooks/useSicilian/report";
 import TagInputWrapper from "@/components/forms/TagInputWrapper";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useContext } from "react";
@@ -30,45 +27,42 @@ export default function EditForm() {
 
         mutate({ ...data, tags: tagList });
       })}
-      inputWrapper={
-        <>
-          <Input {...register("title")} placeholder={"제목을 입력해 주세요"} className={styles.title} />
-          <MarkdownEditor {...register("content")} />
-          <TagInputWrapper
-            tagList={tagList}
-            setTagList={setTagList}
-            value={formState.tags}
-            setValue={setValue}
-            input={({ handleKeyDown, handleKeyUp }) =>
-              Input({
-                ...register("tags"),
-                onKeyUp: handleKeyUp,
-                onKeyDown: handleKeyDown,
-                placeholder: "태그 입력 후 엔터를 눌러주세요",
-                className: styles.tag,
-              })
-            }
-          />
-        </>
-      }
-      button={
-        <DoubleButton
-          button1={
-            <Clickable
-              type="button"
-              color="white"
-              onClick={() => {
-                back();
-                setTagList([]);
-                setValue(initValue);
-              }}
-            >
-              취소
-            </Clickable>
+    >
+      <>
+        <Form.Input {...register("title")} placeholder={"제목을 입력해 주세요"} className={styles.title} />
+        <Form.MDEditor {...register("content")} />
+        <TagInputWrapper
+          tagList={tagList}
+          setTagList={setTagList}
+          value={formState.tags}
+          setValue={setForm}
+          input={({ handleKeyDown, handleKeyUp }) =>
+            Form.Input({
+              ...register("tags"),
+              onKeyUp: handleKeyUp,
+              onKeyDown: handleKeyDown,
+              placeholder: "태그 입력 후 엔터를 눌러주세요",
+              className: styles.tag,
+            })
           }
-          button2={<Clickable>저장</Clickable>}
         />
-      }
-    />
+      </>
+
+      <Clickable.Container>
+        <Clickable
+          type="button"
+          color="white"
+          onClick={() => {
+            back();
+            setTagList([]);
+            setForm(initValue);
+          }}
+        >
+          취소
+        </Clickable>
+
+        <Clickable>저장</Clickable>
+      </Clickable.Container>
+    </Form>
   );
 }

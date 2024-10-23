@@ -6,7 +6,7 @@ import { useSelectedBook } from "@/hooks/useCaroKann/useSelectedBook";
 import CardResultBox from "@/components/card/CardResultBox";
 import { useInfiniteBookListAdaptor } from "@/hooks/useAdaptor/useInfiniteBookListAdaptor";
 import { useEffect } from "react";
-import { Map } from "@/components/util/Map";
+import Map from "@/components/util/Map";
 
 type BookSearchResultProps = {
   searchKeyword: string;

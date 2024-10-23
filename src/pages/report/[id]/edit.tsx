@@ -7,7 +7,7 @@ import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
-import { setValue } from "@/hooks/useSicilian/report";
+import { setForm } from "@/hooks/useSicilian/report";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -40,7 +40,7 @@ export default function Edit() {
   } = useReportAdaptor();
 
   useEffect(() => {
-    setValue({
+    setForm({
       title,
       content,
     });

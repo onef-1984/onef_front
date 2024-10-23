@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import { Item } from "@/types/book.types";
 import { formatAuthor } from "@/utils/formatAuthor";
-import DoubleButton from "@/components/clickable/DoubleButton";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Clickable from "@/components/clickable/Clickable";
 
@@ -33,24 +32,21 @@ export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      <DoubleButton
-        button1={
-          <Clickable type="button" color="white" onClick={() => setBook({} as Item)}>
-            취소
-          </Clickable>
-        }
-        button2={
-          <Clickable
-            type="button"
-            onClick={() => {
-              onClose();
-              push(`/report/${book.isbn13}/create`);
-            }}
-          >
-            리뷰 작성
-          </Clickable>
-        }
-      />
+      <Clickable.Container>
+        <Clickable type="button" color="white" onClick={() => setBook({} as Item)}>
+          취소
+        </Clickable>
+
+        <Clickable
+          type="button"
+          onClick={() => {
+            onClose();
+            push(`/report/${book.isbn13}/create`);
+          }}
+        >
+          리뷰 작성
+        </Clickable>
+      </Clickable.Container>
     </div>
   );
 }

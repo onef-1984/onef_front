@@ -1,7 +1,7 @@
 import { Dispatch, KeyboardEvent, ReactNode, SetStateAction } from "react";
 import Tag from "../tag/Tag";
-import { Show } from "../util/Show";
-import { Map } from "../util/Map";
+import Show from "../util/Show";
+import Map from "../util/Map";
 
 type TagInputWrapperProps = {
   tagList: Array<string>;

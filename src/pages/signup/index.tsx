@@ -1,5 +1,3 @@
-import Input from "@/components/forms/Input";
-import InputWrapper from "@/components/forms/InputWrapper";
 import { handleValidate, ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signUp";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signUpArray } from "@/constants/sign/signArray";
@@ -10,10 +8,9 @@ import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
 import Head from "next/head";
-import { Map } from "@/components/util/Map";
-import EyeButton from "@/components/forms/EyeButton";
+import Map from "@/components/util/Map";
 import Clickable from "@/components/clickable/Clickable";
-import { Show } from "@/components/util/Show";
+import Show from "@/components/util/Show";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -40,35 +37,31 @@ export default function SignUp() {
           </p>
         </section>
 
-        <Form
-          className={styles.form}
-          onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}
-          inputWrapper={
-            <Map each={signUpArray}>
-              {({ inputName, htmlFor, type, placeholder }) => {
-                const inputProps = {
-                  ...register(htmlFor, validator[htmlFor]),
-                  placeholder,
-                  type,
-                };
+        <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}>
+          <Map each={signUpArray}>
+            {({ inputName, htmlFor, type, placeholder }) => {
+              const inputProps = {
+                ...register(htmlFor, validator[htmlFor]),
+                placeholder,
+                type,
+              };
 
-                return (
-                  <InputWrapper
-                    inputName={inputName}
-                    errorMessage={errorState[htmlFor]}
-                    htmlFor={htmlFor}
-                    key={htmlFor}
-                  >
-                    <Show when={type === "password"} fallback={<Input {...inputProps} />}>
-                      <EyeButton Input={(toggleType) => <Input {...inputProps} type={toggleType} />} />
-                    </Show>
-                  </InputWrapper>
-                );
-              }}
-            </Map>
-          }
-          button={<Clickable disabled={isPending}>회원가입</Clickable>}
-        />
+              return (
+                <Form.InputWrapper
+                  inputName={inputName}
+                  errorMessage={errorState[htmlFor]}
+                  htmlFor={htmlFor}
+                  key={htmlFor}
+                >
+                  <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
+                    <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />
+                  </Show>
+                </Form.InputWrapper>
+              );
+            }}
+          </Map>
+          <Clickable disabled={isPending}>회원가입</Clickable>
+        </Form>
       </div>
     </>
   );

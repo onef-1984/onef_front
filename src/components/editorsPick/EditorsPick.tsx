@@ -4,7 +4,7 @@ import styles from "./EditorsPick.module.css";
 import Image from "next/image";
 import GlassyBackground from "../glassyBackground/GlassyBackground";
 import Link from "next/link";
-import { Show } from "../util/Show";
+import Show from "../util/Show";
 
 export default function EditorsPick() {
   const { editorsPick } = useEditorsPickAdaptor();

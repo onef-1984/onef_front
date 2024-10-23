@@ -2,7 +2,7 @@ import styles from "./DashboardHeader.module.css";
 import { useUserAdaptor } from "@/hooks/useAdaptor/user/useUserAdaptor";
 import Image from "next/image";
 import Link from "next/link";
-import { Show } from "../util/Show";
+import Show from "../util/Show";
 import ProfileImage from "../Profile/ProfileImage";
 
 export default function DashboardHeader({ userNickname }: { userNickname: string }) {

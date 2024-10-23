@@ -8,7 +8,7 @@ import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
-import { Map } from "../util/Map";
+import Map from "../util/Map";
 import Clickable from "../clickable/Clickable";
 
 export default function ReportFooter() {

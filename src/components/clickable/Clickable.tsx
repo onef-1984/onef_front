@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import styles from "./Clickable.module.css";
 import clsx from "clsx";
 import Link from "next/link";
@@ -21,6 +21,10 @@ export default function Clickable<T extends ComponentType = typeof Button>({
   return <Render className={style} {...restProps} />;
 }
 
-function Button({ children, ...buttonProps }: ButtonHTMLAttributes<HTMLButtonElement>) {
+function Button({ children, ...buttonProps }: ComponentPropsWithoutRef<"button">) {
   return <button {...buttonProps}>{children}</button>;
 }
+
+Clickable.Container = ({ children }: { children: ReactNode }) => {
+  return <div className={styles.container}>{children}</div>;
+};

@@ -1,7 +1,7 @@
 import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { initValue, setValue } from "@/hooks/useSicilian/report";
+import { initValue, setForm } from "@/hooks/useSicilian/report";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -17,7 +17,7 @@ export const usePutReportMutation = () => {
     onSuccess: () => {
       toast.success("리뷰가 수정되었습니다.");
       setTagList([]);
-      setValue(initValue);
+      setForm(initValue);
       queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       push(`/report/${reportId}`);
     },

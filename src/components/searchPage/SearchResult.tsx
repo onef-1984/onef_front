@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import CardReport from "../card/CardReport";
 import SearchBinder from "./SearchBinder";
 import { OrderBy, SearchType } from "@/types/util.types";
-import { Show } from "../util/Show";
-import { Map } from "../util/Map";
+import Show from "../util/Show";
+import Map from "../util/Map";
 
 export default function SearchResult({
   keyword,

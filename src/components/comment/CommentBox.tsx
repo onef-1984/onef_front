@@ -7,7 +7,7 @@ import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationCon
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import CommentInput from "./CommentInput";
 import { useDeleteCommentMutation } from "@/hooks/useMutation/useDeleteCommentMutation";
-import { Show } from "../util/Show";
+import Show from "../util/Show";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 
 type CommentBoxType = "viewer" | "editor";

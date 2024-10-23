@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useIsLogin } from "@/hooks/useIsLogin";
-import { Show } from "../util/Show";
+import Show from "../util/Show";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useSideMenuToggle();

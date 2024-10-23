@@ -9,23 +9,23 @@ import SearchTitle from "@/components/searchPage/SearchTitle";
 import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import SearchTag from "@/components/searchPage/SearchTag";
 import Head from "next/head";
-import { Show } from "@/components/util/Show";
+import Show from "@/components/util/Show";
+
+const searchTitle = (searchType: SearchType) => {
+  switch (searchType) {
+    case "report":
+      return <SearchBar />;
+
+    case "book":
+      return <SearchBook />;
+
+    case "tag":
+      return <SearchTag />;
+  }
+};
 
 export default function Search() {
   const { keyword, orderBy, searchType } = useRouterAdv();
-
-  const searchTitle = (searchType: SearchType) => {
-    switch (searchType) {
-      case "report":
-        return <SearchBar />;
-
-      case "book":
-        return <SearchBook />;
-
-      case "tag":
-        return <SearchTag />;
-    }
-  };
 
   return (
     <>

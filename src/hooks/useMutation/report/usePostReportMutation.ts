@@ -3,7 +3,7 @@ import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
 import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { initValue, setValue } from "@/hooks/useSicilian/report";
+import { initValue, setForm } from "@/hooks/useSicilian/report";
 import { CreateReport } from "@/types/report.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -29,7 +29,7 @@ export const usePostReportMutation = () => {
     onSuccess: (data: any, variable: any) => {
       toast.success("리뷰가 작성되었습니다.");
       push(`/report/${data}`);
-      setValue(initValue);
+      setForm(initValue);
       setTagList([]);
       queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
     },

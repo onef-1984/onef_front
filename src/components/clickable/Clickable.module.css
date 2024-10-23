@@ -8,6 +8,14 @@
   text-align: center;
 }
 
+.container {
+  display: flex;
+  gap: 0.8rem;
+
+  & button {
+    flex: 1;
+  }
+}
 
 /* size */
 .small {
@@ -28,14 +36,6 @@
   padding: 1.6rem 2rem;
 }
 
-.doubleButton {
-  display: flex;
-  gap: 0.8rem;
-
-  & button {
-    flex: 1;
-  }
-}
 
 /* color */
 
@@ -67,8 +67,4 @@
 .borderless {
   padding: 0;
   border: 0;
-
-  &:hover{
-    color: var(--brown-40);
-  }
 }
