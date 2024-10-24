@@ -63,7 +63,7 @@ export default function Review() {
             maxWidth: "720px",
             width: "100%",
             margin: "0rem auto",
-            padding: "1.6rem",
+            padding: "0rem 1.6rem 16rem",
             fontWeight: "500",
             display: "flex",
             gap: "2.4rem",
@@ -91,14 +91,6 @@ export default function Review() {
           <br />
 
           <CommentContainer id={id} />
-
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
         </div>
       </LayoutWrapper>
     </>

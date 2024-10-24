@@ -16,5 +16,8 @@
 
 .button {
   display: flex;
+  gap: 0.8rem;
   margin-left: auto;
-  width: 6rem;}
+  width: fit-content;}
+
+.replyButton {margin-left: 0; width: fit-content;}

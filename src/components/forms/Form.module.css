@@ -8,6 +8,19 @@
   flex-direction: column;
 }
 
+.tagInputWrapper {
+  display: flex;
+  gap: 0.4rem;
+  align-items: "center";
+  flex-wrap: wrap;
+}
+
+.tagBox {
+  display: flex;
+  gap: 0.4rem;
+  align-items: "center";
+}
+
 .inputName {
   font-weight: 500;
 }

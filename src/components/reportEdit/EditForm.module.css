@@ -6,6 +6,12 @@
   }
 }
 
+.titleInput {
+  font-size: 2.4rem;
+  font-weight: bold;}
+
+.tagInput {font-size: 1.2rem;  font-weight: bold;}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -21,16 +27,6 @@
   }
 }
 
-.tag {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
 .tag::placeholder {
   font-weight: 500;
-}
-
-.title {
-  font-size: 2.4rem;
-  font-weight: bold;
 }

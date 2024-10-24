@@ -11,7 +11,7 @@ import Show from "../util/Show";
 export default function SideMenu() {
   const [toggle, setToggle] = useSideMenuToggle();
   const [_, setBookSearchModalState] = useBookSearchModalToggle();
-  const { isError, user } = useWhoAmIAdaptor();
+  const { user } = useWhoAmIAdaptor();
   const { push } = useRouterAdv();
   const isLogin = useIsLogin();
 

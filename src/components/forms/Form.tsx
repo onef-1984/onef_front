@@ -1,16 +1,19 @@
-import clsx from "clsx";
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react";
-import styles from "./Form.module.css";
-import Show from "../util/Show";
 import { LuPen } from "react-icons/lu";
 import { ImageInputProps, useImageInput } from "@/hooks/useImageInput";
 import { IoEyeOffOutline } from "@react-icons/all-files/io5/IoEyeOffOutline";
 import { IoEyeOutline } from "@react-icons/all-files/io5/IoEyeOutline";
 import { useToggle } from "@/hooks/useToggle";
 import { useMDEditorCommands } from "@/hooks/useMDEditorCommands";
-import dynamic from "next/dynamic";
+import { useTagInputHandler, UseTagInputHandler } from "@/hooks/useTagInputHandler";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
+import dynamic from "next/dynamic";
+import Map from "../util/Map";
+import Tag from "../tag/Tag";
+import clsx from "clsx";
+import styles from "./Form.module.css";
+import Show from "../util/Show";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface InputWrapperProps {
@@ -43,6 +46,33 @@ Form.InputWrapper = ({ inputName, children, htmlFor, errorMessage, className }: 
       <Show when={!!errorMessage}>
         <span className={styles.errorMessage}>{errorMessage}</span>
       </Show>
+    </div>
+  );
+};
+
+type TagInputWrapperProps = {
+  input: (props: ComponentPropsWithoutRef<"input">) => ReactNode;
+} & UseTagInputHandler;
+
+Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: TagInputWrapperProps) {
+  const { onKeyDown, onKeyUp, onClick } = useTagInputHandler({ tagList, ...props });
+
+  return (
+    <div className={styles.tagInputWrapper}>
+      <Map each={tagList}>
+        {(tag, index) => {
+          return (
+            <>
+              <Tag key={index}>{tag}</Tag>
+              <button type="button" style={{ width: "fit-content" }} onClick={() => onClick(index)}>
+                X
+              </button>
+            </>
+          );
+        }}
+      </Map>
+
+      <Show when={tagList.length < 10}>{input({ onKeyUp, onKeyDown })}</Show>
     </div>
   );
 };

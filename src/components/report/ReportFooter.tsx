@@ -1,15 +1,15 @@
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
-import styles from "./Report.module.css";
-import Tag from "../tag/Tag";
-import clsx from "clsx";
 import { useIsMyReview } from "@/hooks/useIsMyReview";
 import { useIsLogin } from "@/hooks/useIsLogin";
 import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport";
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
-import Map from "../util/Map";
+import styles from "./Report.module.css";
 import Clickable from "../clickable/Clickable";
+import Map from "../util/Map";
+import Link from "next/link";
+import Tag from "../tag/Tag";
 
 export default function ReportFooter() {
   const { report } = useReportAdaptor();
@@ -19,12 +19,16 @@ export default function ReportFooter() {
   const { mutate, isPending } = useReportLikesMutation();
 
   return (
-    <section className={clsx(styles.reportFooter)}>
+    <section className={styles.reportFooter}>
       <div>
         <div className={styles.tags}>
           <Map each={report.tags}>
             {(item, index) => {
-              return <Tag key={index}>{item}</Tag>;
+              return (
+                <Link href={{ pathname: "/search", query: { searchType: "tag", keyword: item } }}>
+                  <Tag key={index}>{item}</Tag>
+                </Link>
+              );
             }}
           </Map>
         </div>

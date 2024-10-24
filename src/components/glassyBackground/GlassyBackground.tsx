@@ -12,6 +12,7 @@ export default function GlassyBackground({ children, image, className }: GlassyB
       <Show when={!!image}>
         <Image priority={true} src={image} alt="" draggable="false" fill sizes="5rem" />
       </Show>
+
       <div className={styles.blur}>{children}</div>
     </section>
   );

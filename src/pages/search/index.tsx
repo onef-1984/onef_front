@@ -11,10 +11,18 @@ import SearchTag from "@/components/searchPage/SearchTag";
 import Head from "next/head";
 import Show from "@/components/util/Show";
 
-const searchTitle = (searchType: SearchType) => {
+const searchTitle = (searchType: SearchType, keyword: string) => {
   switch (searchType) {
     case "report":
-      return <SearchBar />;
+      return (
+        <>
+          <SearchBar />
+
+          <Show when={!keyword}>
+            <SearchTitle>전체 리뷰</SearchTitle>
+          </Show>
+        </>
+      );
 
     case "book":
       return <SearchBook />;
@@ -35,11 +43,7 @@ export default function Search() {
 
       <LayoutWrapper>
         <div className={styles.root}>
-          {searchTitle(searchType)}
-
-          <Show when={!keyword}>
-            <SearchTitle>전체 리뷰</SearchTitle>
-          </Show>
+          {searchTitle(searchType, keyword)}
 
           <SearchOptionButton />
 

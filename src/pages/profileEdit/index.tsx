@@ -28,10 +28,12 @@ export default function Home() {
       <Head>
         <title>onef - 프로필 수정</title>
       </Head>
+
       <LayoutWrapper>
         <ProfileEditWrapper title="프로필 수정">
           <ProfileEdit />
         </ProfileEditWrapper>
+
         <ProfileEditWrapper title="비밀번호 수정">
           <PasswordEdit />
         </ProfileEditWrapper>

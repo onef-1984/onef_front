@@ -1,18 +1,16 @@
 import { handleSubmit, setForm, register } from "@/hooks/useSicilian/reportSearch";
-import styles from "./Search.module.css";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import Form from "../forms/Form";
 import { useEffect } from "react";
 import Clickable from "../clickable/Clickable";
+import styles from "./Search.module.css";
+import Form from "../forms/Form";
 
 export default function SearchBar() {
   const { keyword, push, query } = useRouterAdv();
 
-  const handleFormSubmit = () => {
-    handleSubmit((data) => {
-      push({ pathname: "/search", query: { ...query, keyword: data.keyword } }, "/search");
-    });
-  };
+  const handleFormSubmit = handleSubmit((data) => {
+    push({ pathname: "/search", query: { ...query, keyword: data.keyword } }, "/search");
+  });
 
   useEffect(() => {
     setForm({ keyword });
