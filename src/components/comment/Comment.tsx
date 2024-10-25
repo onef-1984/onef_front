@@ -122,7 +122,7 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
                   },
                 }}
               >
-                <Comment.Input depth={depth} buttonName="저장" inputName="답글" />
+                <Comment.Input depth={depth + 1} buttonName="저장" inputName="답글" />
               </CommentMutationContext.Provider>
             </div>
           </Show>
