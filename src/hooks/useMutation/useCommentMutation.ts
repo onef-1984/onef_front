@@ -7,13 +7,15 @@ const useCommentMutation = ({
   value,
   setValue,
   initValue,
+  depth,
 }: {
+  depth: number;
   initValue: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
 }) => {
   const queryClient = useQueryClient();
-  const { parentId, depth, mutationFn, onSuccessBehavior } = useContext(CommentMutationContext);
+  const { parentId, mutationFn, onSuccessBehavior } = useContext(CommentMutationContext);
   const { push, pathWithoutHash } = useRouterAdv();
 
   const { mutate, isPending } = useMutation({
