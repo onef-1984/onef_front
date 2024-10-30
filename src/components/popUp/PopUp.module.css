@@ -17,7 +17,7 @@
   gap: 0.4rem;
   flex-direction: column;
 
-  & :is(button, a) {
+  & > :is(button, a) {
     font-size: 1.4rem;
     font-weight: 500;
     padding: 0.4rem;
@@ -28,6 +28,37 @@
     }
   }
 }
+
+.notificationRoot {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+}
+
+.notification {
+  flex: 1;
+  text-align: left;
+}
+
+.notificationHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+
+  & > div {flex: 1 1 100%}
+
+  & > button {flex: 0 0 1rem;}
+}
+
+.nickname {
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1rem;
+}
+
 
 .right {
   right: 0;

@@ -6,6 +6,7 @@ import { IoEyeOutline } from "@react-icons/all-files/io5/IoEyeOutline";
 import { useToggle } from "@/hooks/useToggle";
 import { useMDEditorCommands } from "@/hooks/useMDEditorCommands";
 import { useTagInputHandler, UseTagInputHandler } from "@/hooks/useTagInputHandler";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import dynamic from "next/dynamic";
@@ -62,12 +63,13 @@ Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: Ta
       <Map each={tagList}>
         {(tag, index) => {
           return (
-            <>
+            <span key={index}>
               <Tag key={index}>{tag}</Tag>
-              <button type="button" style={{ width: "fit-content" }} onClick={() => onClick(index)}>
-                X
+
+              <button type="button" onClick={() => onClick(index)}>
+                <MdClose />
               </button>
-            </>
+            </span>
           );
         }}
       </Map>

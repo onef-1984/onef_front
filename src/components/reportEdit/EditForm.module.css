@@ -8,9 +8,10 @@
 
 .titleInput {
   font-size: 2.4rem;
-  font-weight: bold;}
+  font-weight: bold;
+}
 
-.tagInput {font-size: 1.2rem;  font-weight: bold;}
+.tagInput {font-size: 1.2rem; flex: 1 0 15rem;  font-weight: bold;}
 
 .form {
   display: flex;

@@ -1,12 +1,19 @@
-import clsx from "clsx";
-import styles from "./PopUp.module.css";
 import { ReactNode } from "react";
-import Show from "../util/Show";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import Clickable from "../clickable/Clickable";
 import { usePopUpToggle } from "@/hooks/usePopUpToggle";
 import { useSignOutMutation } from "@/hooks/useMutation/useSignOutMutation";
+import { josa } from "es-hangul";
+import { MdClose } from "@react-icons/all-files/md/MdClose";
+import useNotification from "@/hooks/useSocket/useNotification";
+import Clickable from "../clickable/Clickable";
+import ProfileImage from "../Profile/ProfileImage";
 import Link from "next/link";
+import Map from "../util/Map";
+import Show from "../util/Show";
+import clsx from "clsx";
+import styles from "./PopUp.module.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import fetcher from "@/apis/axios";
 
 type PopUpProps = {
   position: "left" | "right";
@@ -90,5 +97,67 @@ PopUp.Profile = function ProfilePopUp() {
         로그아웃
       </Clickable>
     </>
+  );
+};
+
+PopUp.Notification = function NotificationPopUp({
+  id,
+  sender,
+  report,
+  title,
+  link,
+  description,
+}: ReturnType<typeof useNotification>["data"][number]) {
+  const queryClient = useQueryClient();
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: () => {
+      return fetcher({ url: `/notification/${id}`, method: "DELETE" });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
+    },
+  });
+  const { mutate: patchMutate } = useMutation({
+    mutationFn: () => {
+      return fetcher({ url: `/notification/${id}`, method: "PATCH", data: { isRead: true } });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
+    },
+  });
+
+  return (
+    <div className={styles.notificationRoot}>
+      <ProfileImage size={24} profileImage={sender.profileImage} />
+
+      <div className={styles.notification}>
+        <div className={styles.notificationHeader}>
+          <div>
+            <Link href={`/dashboard/${sender.nickname}`} className={styles.nickname}>
+              {sender.nickname}
+            </Link>{" "}
+            · 방금 전
+          </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteMutate();
+            }}
+          >
+            <MdClose />
+          </button>
+        </div>
+
+        <Link href={link} onClick={() => patchMutate()}>
+          <div className={styles.title}>{title}</div>
+
+          <div>
+            {josa(report.title, "을/를")} {description}
+          </div>
+        </Link>
+      </div>
+    </div>
   );
 };

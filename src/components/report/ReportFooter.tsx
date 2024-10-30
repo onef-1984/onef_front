@@ -25,8 +25,8 @@ export default function ReportFooter() {
           <Map each={report.tags}>
             {(item, index) => {
               return (
-                <Link href={{ pathname: "/search", query: { searchType: "tag", keyword: item } }}>
-                  <Tag key={index}>{item}</Tag>
+                <Link key={index} href={{ pathname: "/search", query: { searchType: "tag", keyword: item } }}>
+                  <Tag>{item}</Tag>
                 </Link>
               );
             }}

@@ -9,7 +9,7 @@ export default function ProfileImage({
   id,
 }: Pick<User, "profileImage"> & { size: number; id?: string }) {
   return (
-    <Show when={!!profileImage} fallback={<BsPeopleCircle />}>
+    <Show when={!!profileImage} fallback={<BsPeopleCircle style={{ fontSize: String(size) }} id={id} />}>
       <Image id={id} draggable={false} fill src={profileImage!} sizes={String(size)} alt="프로필 이미지" />
     </Show>
   );

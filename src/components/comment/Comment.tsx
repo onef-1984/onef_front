@@ -48,13 +48,13 @@ Comment.Container = function CommentContainer({ id, depth }: { id: string; depth
       <Map each={comments}>
         {(commentData) => {
           return (
-            <>
+            <div key={commentData.id}>
               <Comment.Box key={commentData.id} depth={depth} commentData={commentData} />
 
               <Comment.ReplyContainer commentData={commentData}>
                 <Comment.Container id={commentData.id} depth={depth + 1} />
               </Comment.ReplyContainer>
-            </>
+            </div>
           );
         }}
       </Map>
