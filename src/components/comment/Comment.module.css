@@ -47,6 +47,5 @@
   display: flex;
   flex-direction: column;
 
-
   & > .replyButton {margin-left: 0; margin-bottom: 2rem; width: fit-content;}
 }
