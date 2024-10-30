@@ -8,7 +8,6 @@ import useNotification from "@/hooks/useSocket/useNotification";
 import Clickable from "../clickable/Clickable";
 import ProfileImage from "../Profile/ProfileImage";
 import Link from "next/link";
-import Map from "../util/Map";
 import Show from "../util/Show";
 import clsx from "clsx";
 import styles from "./PopUp.module.css";
@@ -128,7 +127,9 @@ PopUp.Notification = function NotificationPopUp({
 
   return (
     <div className={styles.notificationRoot}>
-      <ProfileImage size={24} profileImage={sender.profileImage} />
+      <div className={styles.notificationProfileImage}>
+        <ProfileImage size={24} profileImage={sender.profileImage} />
+      </div>
 
       <div className={styles.notification}>
         <div className={styles.notificationHeader}>
