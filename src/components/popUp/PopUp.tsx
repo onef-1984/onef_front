@@ -14,6 +14,14 @@ import styles from "./PopUp.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import fetcher from "@/apis/axios";
 
+import { formatDistanceToNow } from "date-fns";
+import { ko } from "date-fns/locale";
+import { useNotificationMutation } from "@/hooks/useMutation/useNotificationMutation";
+
+function formatCreatedAt(createdAt: Date) {
+  return formatDistanceToNow(new Date(createdAt), { addSuffix: true, locale: ko });
+}
+
 type PopUpProps = {
   position: "left" | "right";
   children: ReactNode;
@@ -106,24 +114,10 @@ PopUp.Notification = function NotificationPopUp({
   title,
   link,
   description,
+  isRead,
+  createdAt,
 }: ReturnType<typeof useNotification>["data"][number]) {
-  const queryClient = useQueryClient();
-  const { mutate: deleteMutate } = useMutation({
-    mutationFn: () => {
-      return fetcher({ url: `/notification/${id}`, method: "DELETE" });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
-    },
-  });
-  const { mutate: patchMutate } = useMutation({
-    mutationFn: () => {
-      return fetcher({ url: `/notification/${id}`, method: "PATCH", data: { isRead: true } });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
-    },
-  });
+  const { deleteMutate, patchMutate } = useNotificationMutation();
 
   return (
     <div className={styles.notificationRoot}>
@@ -137,21 +131,21 @@ PopUp.Notification = function NotificationPopUp({
             <Link href={`/dashboard/${sender.nickname}`} className={styles.nickname}>
               {sender.nickname}
             </Link>{" "}
-            · 방금 전
+            · {isRead ? "읽음" : formatCreatedAt(createdAt)}
           </div>
 
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              deleteMutate();
+              deleteMutate({ id });
             }}
           >
             <MdClose />
           </button>
         </div>
 
-        <Link href={link} onClick={() => patchMutate()}>
+        <Link href={link} onClick={() => patchMutate({ id })}>
           <div className={styles.title}>{title}</div>
 
           <div>
