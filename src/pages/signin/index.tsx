@@ -10,6 +10,7 @@ import Head from "next/head";
 import Map from "@/components/util/Map";
 import Show from "@/components/util/Show";
 import Clickable from "@/components/clickable/Clickable";
+import SocialLogin from "@/components/socialLogin/SocialLogin";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
@@ -57,6 +58,8 @@ export default function SignIn() {
           </Map>
           <Clickable disabled={isPending}>로그인</Clickable>
         </Form>
+
+        <SocialLogin />
       </div>
     </>
   );

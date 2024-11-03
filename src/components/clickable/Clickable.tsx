@@ -4,7 +4,10 @@ import clsx from "clsx";
 import Link from "next/link";
 
 type ComponentType = typeof Button | typeof Link;
-type ClickableStyle = { color?: "primary" | "white" | "like" | "borderless"; size?: "small" | "medium" | "large" };
+type ClickableStyle = {
+  color?: "primary" | "white" | "like" | "kakao" | "borderless";
+  size?: "small" | "medium" | "large";
+};
 type ClickableProps<T extends ComponentType> = ClickableStyle & ComponentPropsWithoutRef<T>;
 
 export default function Clickable<T extends ComponentType = typeof Button>({

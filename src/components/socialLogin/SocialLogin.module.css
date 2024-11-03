@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--gray-50);
+  }
+}
