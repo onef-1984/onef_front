@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: var(--black);
   font-weight: 700;
   border-radius: 0.8rem;
   text-align: center;

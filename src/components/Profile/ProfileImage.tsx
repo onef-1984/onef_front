@@ -1,7 +1,6 @@
-import { BsPeopleCircle } from "@react-icons/all-files/bs/BsPeopleCircle";
-import Show from "../util/Show";
 import { User } from "@/types/auth.types";
 import Image from "next/image";
+import baseProfileImage from "../../../public/images/baseProfileImage.png";
 
 export default function ProfileImage({
   profileImage,
@@ -9,8 +8,13 @@ export default function ProfileImage({
   id,
 }: Pick<User, "profileImage"> & { size: number; id?: string }) {
   return (
-    <Show when={!!profileImage} fallback={<BsPeopleCircle style={{ fontSize: String(size) }} id={id} />}>
-      <Image id={id} draggable={false} fill src={profileImage!} sizes={String(size)} alt="프로필 이미지" />
-    </Show>
+    <Image
+      id={id}
+      draggable={false}
+      fill
+      src={profileImage ?? baseProfileImage}
+      sizes={String(size)}
+      alt="프로필 이미지"
+    />
   );
 }

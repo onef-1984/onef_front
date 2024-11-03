@@ -101,6 +101,12 @@
     background-color: var(--gray-10);
   }
   }
+
+  @media (max-width: 768px) {
+
+      width: 1.6rem;
+
+  }
 }
 
 
