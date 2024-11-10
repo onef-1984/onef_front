@@ -7,15 +7,11 @@ const instance = axios.create({
 });
 
 const fetcher = async <T>(config: AxiosRequestConfig) => {
-  try {
-    const { data } = await instance<T>({
-      ...config,
-    });
+  const { data } = await instance<T>({
+    ...config,
+  });
 
-    return data;
-  } catch (e: any) {
-    return e.response.data as T;
-  }
+  return data;
 };
 
 export default fetcher;
