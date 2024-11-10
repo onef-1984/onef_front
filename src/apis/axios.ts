@@ -14,7 +14,7 @@ const fetcher = async <T>(config: AxiosRequestConfig) => {
 
     return data;
   } catch (e: any) {
-    return e.response.data;
+    return e.response.data as T;
   }
 };
 
