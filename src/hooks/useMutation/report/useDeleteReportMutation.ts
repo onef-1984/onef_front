@@ -11,7 +11,7 @@ export const useDeleteReportMutation = () => {
 
   const { mutate } = useMutation({
     mutationFn: reportMutation.deleteReport(reportId),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       toast.success("리포트가 삭제되었습니다.");
       push("/search");

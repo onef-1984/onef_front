@@ -9,7 +9,7 @@ import {
   GetBookQueryVariables,
 } from "@/types/graphql.types";
 
-const ALL_BOOK = gql`
+export const ALL_BOOK = gql`
   fragment AllBook on BookObject {
     isbn13
     title
@@ -83,7 +83,7 @@ const GET_BOOK_LIST = gql`
   }
 `;
 
-export class BookQueryFn extends QueryFn {
+export class BookQuery extends QueryFn {
   constructor() {
     super();
   }
@@ -116,9 +116,10 @@ export class BookQueryFn extends QueryFn {
   getBook(isbn13: string) {
     return {
       queryKey: [...this.queryKey, isbn13, "getBook"],
-      queryFn: this.graphql<GetBookQuery, GetBookQueryVariables>(GET_BOOK_BY_ISBN, {
-        variables: { isbn13 },
-      }),
+      queryFn: () =>
+        this.graphql<GetBookQuery, GetBookQueryVariables>(GET_BOOK_BY_ISBN, {
+          variables: { isbn13 },
+        }),
       enabled: !!isbn13,
     };
   }
@@ -126,9 +127,10 @@ export class BookQueryFn extends QueryFn {
   getBookAllData(isbn13: string) {
     return {
       queryKey: [...this.queryKey, isbn13, "getBookAllData"],
-      queryFn: this.graphql<GetAllBookDataQuery, GetAllBookDataQueryVariables>(GET_ALL_BOOK_DATA, {
-        variables: { isbn13 },
-      }),
+      queryFn: () =>
+        this.graphql<GetAllBookDataQuery, GetAllBookDataQueryVariables>(GET_ALL_BOOK_DATA, {
+          variables: { isbn13 },
+        }),
       enabled: !!isbn13,
     };
   }

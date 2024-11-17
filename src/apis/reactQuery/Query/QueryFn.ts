@@ -11,8 +11,8 @@ export class QueryFn {
       });
   }
 
-  graphql<T, V extends object>(query: RequestDocument, { variables }: { variables: V }) {
-    return () => client.request<T>(query, variables);
+  graphql<T, V extends object>(query: RequestDocument, option?: { variables: V }) {
+    return client.request<T>(query, option?.variables);
   }
 
   infiniteGraphql<T, V extends object>(query: RequestDocument) {
