@@ -23,7 +23,7 @@ export default function EditForm() {
         if (data.title.length > 19) return toast.error("제목은 19자 이하로 입력해주세요.");
         if (data.title.length < 4) return toast.error("제목은 4자 이상 입력해주세요.");
 
-        mutate({ ...data, tags: tagList });
+        mutate();
       })}
     >
       <Form.Input {...register("title")} placeholder={"제목을 입력해 주세요"} className={styles.titleInput} />

@@ -1,42 +1,47 @@
-import { BookMutation } from "@/apis/reactQuery/Mutation/BookMutation";
-import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
-import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
+import { BookQueryFn } from "@/apis/reactQuery/Query/BookQuery";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
+import { useCreateReportMutation, useGetAllBookDataQuery } from "@/hooks/useGraphql";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { initValue, setForm } from "@/hooks/useSicilian/report";
-import { CreateReport } from "@/types/report.types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FormState } from "@/hooks/useSicilian/report";
+import { gql } from "@apollo/client";
+import { useQuery } from "@tanstack/react-query";
+
 import toast from "react-hot-toast";
 
-export const usePostReportMutation = () => {
-  const bookMutation = new BookMutation();
-  const reportMutation = new ReportMutation();
-  const queryClient = useQueryClient();
+const CREATE_REPORT_MUTATION = gql`
+  mutation CreateReport($BookInput: BookInput!, $ReportInput: ReportInput!) {
+    book: createBook(bookInput: $BookInput) {
+      isbn13
+    }
+    report: createReport(reportInput: $ReportInput) {
+      id
+    }
+  }
+`;
 
+export const usePostReportMutation = () => {
   // isbn13 값을 가져옴
   const { id: isbn13, push } = useRouterAdv();
-  const { data } = useBookAdaptor({ isbn13 });
-
+  const { title, content } = FormState();
   const [tagList, setTagList] = useReportTagList();
 
-  const { mutate } = useMutation({
-    mutationFn: async (report: Omit<CreateReport, "isbn13">) => {
-      const { isbn13 } = await bookMutation.postBook()(data);
-      const { id } = await reportMutation.postReport()({ ...report, isbn13 });
+  const bookQuery = new BookQueryFn();
+  const { data } = useQuery(bookQuery.getBookAllData(isbn13));
 
-      return id;
+  const [mutate] = useCreateReportMutation({
+    variables: {
+      BookInput: data?.data?.book!,
+      ReportInput: { title, content, tags: tagList, isbn13 },
     },
-    onSuccess: (data: any, variable: any) => {
+    onCompleted: (data) => {
       toast.success("리뷰가 작성되었습니다.");
-      push(`/report/${data}`);
-      setForm(initValue);
+      push(`/report/${data.report.id}`);
       setTagList([]);
-      queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
-    },
-    onError: (error) => {
-      console.error(error);
     },
   });
 
-  return { data, mutate };
+  return {
+    data,
+    mutate,
+  };
 };

@@ -57,11 +57,7 @@ export default function Edit() {
           <ReportHeader content={headerContent(book)} />
         </GlassyBackground>
 
-        <MutationContext.Provider
-          value={(reqData) => {
-            mutate(reqData);
-          }}
-        >
+        <MutationContext.Provider value={mutate}>
           <EditForm />
         </MutationContext.Provider>
       </LayoutWrapper>
