@@ -1,5 +1,5 @@
-import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
-import { BookQuery } from "@/apis/reactQuery/Query/BookQuery";
+import { ReportRequest } from "@/apis/request/ReportRequest";
+import { BookRequest } from "@/apis/request/BookRequest";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { FormState } from "@/hooks/useSicilian/report";
@@ -12,13 +12,12 @@ export const usePostReportMutation = () => {
   const { title, content } = FormState();
   const [tagList, setTagList] = useReportTagList();
 
-  const bookQuery = new BookQuery();
-  const { data } = useQuery(bookQuery.getBookAllData(isbn13));
+  const bookRequest = new BookRequest();
+  const { data } = useQuery(bookRequest.getBookAllData(isbn13));
 
-  const reportMutation = new ReportMutation();
-
+  const reportRequest = new ReportRequest();
   const { mutate } = useMutation({
-    mutationFn: reportMutation.createReport({
+    mutationFn: reportRequest.createReport({
       BookInput: { ...data?.book! },
       ReportInput: { title, content, tags: tagList, isbn13 },
     }),

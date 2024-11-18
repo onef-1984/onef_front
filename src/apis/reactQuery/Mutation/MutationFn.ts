@@ -1,5 +1,5 @@
 import fetcher from "@/apis/axios";
-import { client } from "../grahpqlClient";
+import { client } from "../../grahpqlClient";
 import { RequestDocument } from "graphql-request";
 
 export class MutationFn {

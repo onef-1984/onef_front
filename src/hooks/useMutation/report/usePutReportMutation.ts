@@ -1,4 +1,4 @@
-import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
+import { ReportRequest } from "@/apis/request/ReportRequest";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { initValue, setForm, FormState } from "@/hooks/useSicilian/report";
@@ -11,10 +11,10 @@ export const usePutReportMutation = () => {
   const [tagList, setTagList] = useReportTagList();
 
   const queryClient = useQueryClient();
-  const reportMutation = new ReportMutation();
+  const reportRequest = new ReportRequest();
 
   const { mutate } = useMutation({
-    mutationFn: reportMutation.updateReport({
+    mutationFn: reportRequest.updateReport({
       ReportUpdateInput: {
         ...FormState(),
         tags: tagList,

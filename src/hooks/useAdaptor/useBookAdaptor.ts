@@ -1,11 +1,11 @@
-import { BookQuery } from "@/apis/reactQuery/Query/BookQuery";
+import { BookRequest } from "@/apis/request/BookRequest";
 import { formatAuthor } from "@/utils/formatAuthor";
 import { useQuery } from "@tanstack/react-query";
 
 export const useBookAdaptor = ({ isbn13 }: { isbn13: string }) => {
-  const bookQuery = new BookQuery();
+  const bookRequest = new BookRequest();
 
-  const { data } = useQuery(bookQuery.getBook(isbn13));
+  const { data } = useQuery(bookRequest.getBook(isbn13));
 
   return {
     data,

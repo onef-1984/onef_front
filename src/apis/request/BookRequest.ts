@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { QueryFn } from "./QueryFn";
+import { QueryFn } from "../reactQuery/Query/QueryFn";
 import {
   GetAllBookDataQuery,
   GetAllBookDataQueryVariables,
@@ -8,6 +8,7 @@ import {
   GetBookQuery,
   GetBookQueryVariables,
 } from "@/types/graphql.types";
+import { GraphQL } from "@/apis/grahpqlClient";
 
 export const ALL_BOOK = gql`
   fragment AllBook on BookObject {
@@ -83,7 +84,7 @@ const GET_BOOK_LIST = gql`
   }
 `;
 
-export class BookQuery extends QueryFn {
+export class BookRequest extends GraphQL {
   constructor() {
     super();
   }
@@ -93,7 +94,8 @@ export class BookQuery extends QueryFn {
   getBookList(keyword: string) {
     return {
       queryKey: [...this.queryKey, keyword],
-      queryFn: this.infiniteGraphql<GetBookListQuery, GetBookListQueryVariables>(GET_BOOK_LIST),
+      queryFn: ({ pageParam }: { pageParam: GetBookListQueryVariables }) =>
+        this.infiniteGraphql<GetBookListQuery, GetBookListQueryVariables>(GET_BOOK_LIST, pageParam),
       initialPageParam: {
         BookSearchInput: {
           keyword,
