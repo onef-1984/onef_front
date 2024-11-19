@@ -15,7 +15,7 @@ export const useReportLikesMutation = () => {
       queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       toast.success(message);
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("좋아요에 실패했습니다.");
     },
   });

@@ -1,4 +1,3 @@
-import { GetReport } from "@/types/report.types";
 import Slider from "react-slick";
 import CardReport from "../card/CardReport";
 import styles from "./Carousel.module.css";

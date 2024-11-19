@@ -21,7 +21,6 @@ import {
   UpdateReportMutation,
   UpdateReportMutationVariables,
 } from "@/types/graphql.types";
-import { QueryFn } from "../reactQuery/Query/QueryFn";
 
 export const ALL_REPORT = gql`
   fragment AllReport on Report {
@@ -222,7 +221,7 @@ export class ReportRequest extends GraphQL {
       },
       getNextPageParam: (
         lastPage: GetReportListBySearchQuery,
-        allPages: any,
+        _: any,
         lastPageParam: GetReportListBySearchQueryVariables,
       ) => {
         return {
@@ -247,8 +246,8 @@ export class ReportRequest extends GraphQL {
     };
   }
 
-  createReport({ BookInput, ReportInput }: CreateReportMutationVariables) {
-    return () =>
+  createReport(BookInput: CreateReportMutationVariables["BookInput"]) {
+    return (ReportInput: CreateReportMutationVariables["ReportInput"]) =>
       this.graphql<CreateReportMutation, CreateReportMutationVariables>(CREATE_REPORT_MUTATION, {
         variables: {
           BookInput,
@@ -257,11 +256,11 @@ export class ReportRequest extends GraphQL {
       });
   }
 
-  updateReport({ ReportUpdateInput, ReportId }: UpdateReportMutationVariables) {
-    return () =>
+  updateReport(ReportId: UpdateReportMutationVariables["ReportId"]) {
+    return ({ title, content, tags }: UpdateReportMutationVariables["ReportUpdateInput"]) =>
       this.graphql<UpdateReportMutation, UpdateReportMutationVariables>(UPDATE_REPORT_MUTATION, {
         variables: {
-          ReportUpdateInput,
+          ReportUpdateInput: { title, content, tags },
           ReportId,
         },
       });

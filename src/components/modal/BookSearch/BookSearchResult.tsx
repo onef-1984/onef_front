@@ -13,7 +13,7 @@ type BookSearchResultProps = {
 };
 
 export default function BookSearchResult({ searchKeyword }: BookSearchResultProps) {
-  const { fetchNextPage, pages, isLoading } = useInfiniteBookListAdaptor(searchKeyword);
+  const { fetchNextPage, pages } = useInfiniteBookListAdaptor(searchKeyword);
   const { isVisible, setIsVisible, myRef } = useIntersectionObserver();
   const [_, setBook] = useSelectedBook();
 

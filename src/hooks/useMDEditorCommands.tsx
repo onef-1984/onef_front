@@ -34,7 +34,7 @@ export const useMDEditorCommands = () => {
         <MdInsertPhoto style={{ fontSize: "12px" }} />
       </>
     ),
-    execute: async (state: TextState, api: TextAreaTextApi) => {
+    execute: async (_: TextState, api: TextAreaTextApi) => {
       const input = document.createElement("input");
       input.type = "file";
       input.accept = "image/*";

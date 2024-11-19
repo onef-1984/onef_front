@@ -15,6 +15,7 @@ import Tag from "../tag/Tag";
 import clsx from "clsx";
 import styles from "./Form.module.css";
 import Show from "../util/Show";
+import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface InputWrapperProps {
@@ -83,16 +84,25 @@ Form.Input = ({ className, name, ...inputProps }: ComponentPropsWithoutRef<"inpu
   return <input {...inputProps} className={clsx(styles.input, className)} name={name} id={name} />;
 };
 
-Form.Textarea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<"textarea">>(
-  ({ className, name, id, ...inputProps }, ref) => {
+Form.Textarea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<"textarea"> & { initValue: string }>(
+  ({ className, name, id, initValue, ...inputProps }, ref) => {
+    const { textRef, handleInput } = useGetTextAreaHeight(initValue);
+
     return (
-      <textarea {...inputProps} className={clsx(styles.input, className)} name={name} id={id ? id : name} ref={ref} />
+      <textarea
+        {...inputProps}
+        className={clsx(styles.input, className)}
+        name={name}
+        id={id ? id : name}
+        onInput={handleInput}
+        ref={textRef}
+      />
     );
   },
 );
 
-Form.ImageInput = function ImageInput({ multiple = false, initialValue, setFiles, file }: ImageInputProps) {
-  const { preview, handleChange } = useImageInput({ multiple, initialValue, setFiles, file });
+Form.ImageInput = function ImageInput({ initialValue, setFiles, file }: ImageInputProps) {
+  const { preview, handleChange } = useImageInput({ initialValue, setFiles, file });
 
   return (
     <label
@@ -102,7 +112,7 @@ Form.ImageInput = function ImageInput({ multiple = false, initialValue, setFiles
         backgroundImage: `url(${preview})`,
       }}
     >
-      <input id="image" type="file" multiple={multiple} accept=".jpeg, .jpg, .png" onChange={handleChange} />
+      <input id="image" type="file" accept=".jpeg, .jpg, .png" onChange={handleChange} />
 
       <div className={styles.hoverCover}>
         <LuPen />

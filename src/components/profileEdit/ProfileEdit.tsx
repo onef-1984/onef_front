@@ -58,12 +58,7 @@ export default function ProfileEdit() {
         </div>
 
         <Form.InputWrapper inputName={"소개"} errorMessage={errorState.bio} htmlFor="bio">
-          <Form.Textarea
-            {...register("bio", {
-              maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다." },
-            })}
-            className={styles.textarea}
-          />
+          <Form.Textarea {...register("bio")} initValue={user.bio} className={styles.textarea} />
         </Form.InputWrapper>
       </>
 

@@ -8,6 +8,7 @@ import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
 import { setForm } from "@/hooks/useSicilian/report";
+import { UpdateReportMutationVariables } from "@/types/graphql.types";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -31,7 +32,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function Edit() {
   const { mutate } = usePutReportMutation();
-  const [tagList, setTagList] = useReportTagList();
+  const [_, setTagList] = useReportTagList();
 
   const {
     report: { title, content, tags },
@@ -57,7 +58,7 @@ export default function Edit() {
           <ReportHeader content={headerContent(book)} />
         </GlassyBackground>
 
-        <MutationContext.Provider value={mutate}>
+        <MutationContext.Provider value={(props: UpdateReportMutationVariables["ReportUpdateInput"]) => mutate(props)}>
           <EditForm />
         </MutationContext.Provider>
       </LayoutWrapper>

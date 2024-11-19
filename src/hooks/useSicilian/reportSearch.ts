@@ -1,5 +1,5 @@
 import { playDragon } from "sicilian";
 
-export const { initValue, handleValidate, ErrorState, FormState, register, setForm, handleSubmit } = playDragon({
-  keyword: "",
+export const { register, handleSubmit } = playDragon({
+  initValue: { keyword: "" },
 });

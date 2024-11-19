@@ -1,5 +1,4 @@
 import { gql } from "graphql-request";
-import { QueryFn } from "../reactQuery/Query/QueryFn";
 import {
   GetAllBookDataQuery,
   GetAllBookDataQueryVariables,
@@ -103,7 +102,7 @@ export class BookRequest extends GraphQL {
           skip: 1,
         },
       },
-      getNextPageParam: (lastPage: GetBookListQuery, allPages: any, lastPageParam: GetBookListQueryVariables) => {
+      getNextPageParam: (lastPage: GetBookListQuery, _: any, lastPageParam: GetBookListQueryVariables) => {
         return {
           BookSearchInput: {
             keyword,

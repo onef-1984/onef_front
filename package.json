@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-operations": "^4.3.1",
@@ -35,7 +34,7 @@
     "react-markdown": "^9.0.1",
     "react-slick": "^0.30.2",
     "sharp": "^0.33.4",
-    "sicilian": "^2.0.6",
+    "sicilian": "^2.1.2",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.8.1",
     "usehooks-ts": "^3.1.0"
