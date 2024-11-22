@@ -34,7 +34,7 @@ export default function SearchResult({
       </SearchBinder>
 
       <Show when={!!pages}>
-        <p ref={ref}></p>
+        <p ref={ref} />
       </Show>
     </>
   );

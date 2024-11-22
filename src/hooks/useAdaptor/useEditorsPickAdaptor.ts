@@ -1,18 +1,18 @@
-import { EditorsPickQuery } from "@/apis/reactQuery/Query/EditorsPickQuery";
+import { EditorsPickRequest } from "@/apis/request/EditorsPickRequest";
 import { useQuery } from "@tanstack/react-query";
 
 export const useEditorsPickAdaptor = () => {
-  const editorsPickQuery = new EditorsPickQuery();
-  const { data, isPending } = useQuery(editorsPickQuery.getEditorsPick());
+  const editorsPickRequest = new EditorsPickRequest();
+  const { data, isPending } = useQuery(editorsPickRequest.getEditorsPick());
 
   return {
     isPending,
     editorsPick: {
-      description: data?.description ?? "",
-      reportId: data?.report?.id ?? "",
-      title: data?.report?.title ?? "",
-      cover: data?.report?.book.cover ?? "",
-      nickname: data?.report?.user.nickname ?? "",
+      description: data?.getEditorsPick.description ?? "",
+      reportId: data?.getEditorsPick.report?.id ?? "",
+      title: data?.getEditorsPick.report?.title ?? "",
+      cover: data?.getEditorsPick.report?.book.cover ?? "",
+      nickname: data?.getEditorsPick.report?.user.nickname ?? "",
     },
   };
 };

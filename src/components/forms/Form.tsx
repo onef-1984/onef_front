@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { LuPen } from "react-icons/lu";
 import { ImageInputProps, useImageInput } from "@/hooks/useImageInput";
 import { IoEyeOffOutline } from "@react-icons/all-files/io5/IoEyeOffOutline";
@@ -84,22 +84,26 @@ Form.Input = ({ className, name, ...inputProps }: ComponentPropsWithoutRef<"inpu
   return <input {...inputProps} className={clsx(styles.input, className)} name={name} id={name} />;
 };
 
-Form.Textarea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<"textarea"> & { initValue: string }>(
-  ({ className, name, id, initValue, ...inputProps }, ref) => {
-    const { textRef, handleInput } = useGetTextAreaHeight(initValue);
+Form.Textarea = function FormTextarea({
+  className,
+  name,
+  id,
+  initValue,
+  ...inputProps
+}: ComponentPropsWithoutRef<"textarea"> & { initValue: string }) {
+  const { textRef, handleInput } = useGetTextAreaHeight(initValue);
 
-    return (
-      <textarea
-        {...inputProps}
-        className={clsx(styles.input, className)}
-        name={name}
-        id={id ? id : name}
-        onInput={handleInput}
-        ref={textRef}
-      />
-    );
-  },
-);
+  return (
+    <textarea
+      {...inputProps}
+      className={clsx(styles.input, className)}
+      name={name}
+      id={id ? id : name}
+      onInput={handleInput}
+      ref={textRef}
+    />
+  );
+};
 
 Form.ImageInput = function ImageInput({ initialValue, setFiles, file }: ImageInputProps) {
   const { preview, handleChange } = useImageInput({ initialValue, setFiles, file });

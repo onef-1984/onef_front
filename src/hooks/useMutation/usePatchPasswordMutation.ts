@@ -1,13 +1,13 @@
-import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
+import { UserRequest } from "@/apis/request/UserRequest";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export const usePatchPasswordMutation = () => {
   const queryClient = useQueryClient();
-  const authMutation = new AuthMutation();
+  const userRequest = new UserRequest();
 
   const { mutate } = useMutation({
-    mutationFn: authMutation.patchPassword(),
+    mutationFn: userRequest.changePassword(),
     onSuccess: () => {
       toast.success("비밀번호가 변경되었습니다.");
       queryClient.invalidateQueries({ queryKey: ["user"] });

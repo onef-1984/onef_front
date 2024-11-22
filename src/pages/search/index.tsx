@@ -1,7 +1,6 @@
 import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import SearchBar from "@/components/searchPage/SearchBar";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { SearchType } from "@/types/util.types";
 import styles from "@/styles/Search.module.css";
 import SearchBook from "@/components/searchPage/searchBook";
 import SearchResult from "@/components/searchPage/SearchResult";
@@ -10,6 +9,7 @@ import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import SearchTag from "@/components/searchPage/SearchTag";
 import Head from "next/head";
 import Show from "@/components/util/Show";
+import { SearchType } from "@/types/graphql.types";
 
 const searchTitle = (searchType: SearchType, keyword: string) => {
   switch (searchType) {

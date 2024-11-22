@@ -6,10 +6,10 @@ import BookSearchDetail from "./BookSearchDetail";
 import BookSearchNull from "./BookSearchNull";
 import BookSearchForm from "./BookSearchForm";
 import ModalWrapper from "../ModalWrapper";
-import { Item } from "@/types/book.types";
 import { useState } from "react";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import Show from "@/components/util/Show";
+import { Item } from "@/types/graphql.types";
 
 export default function BookSearchModal() {
   const [_, setToggle] = useSideMenuToggle();

@@ -2,10 +2,10 @@ import { useSelectedBook } from "@/hooks/useCaroKann/useSelectedBook";
 import styles from "./BookSearchModal.module.css";
 import clsx from "clsx";
 import Image from "next/image";
-import { Item } from "@/types/book.types";
 import { formatAuthor } from "@/utils/formatAuthor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Clickable from "@/components/clickable/Clickable";
+import { Item } from "@/types/graphql.types";
 
 export default function BookSearchDetail({ onClose }: { onClose: () => void }) {
   const [book, setBook] = useSelectedBook();

@@ -6,13 +6,13 @@ import { LuMenu } from "react-icons/lu";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import { useIsLogin } from "@/hooks/useIsLogin";
 import Show from "../util/Show";
-import { User } from "@/types/auth.types";
 import PopUp from "../popUp/PopUp";
 import ProfileImage from "../Profile/ProfileImage";
 import useNotification from "@/hooks/useSocket/useNotification";
 import { AiOutlineBell } from "@react-icons/all-files/ai/AiOutlineBell";
 import clsx from "clsx";
 import Map from "../util/Map";
+import { User } from "@/types/graphql.types";
 
 export default function Header() {
   const { user } = useWhoAmIAdaptor();
