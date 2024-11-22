@@ -1,8 +1,9 @@
 .reportMain {
   font-size: 1.6rem;
-  padding-top: 10rem;
+  margin-top: 8rem;
   line-height: 1.8;
   white-space: pre-wrap;
+  background-color: transparent;
 
   & * {
     font-family: Pretendard;

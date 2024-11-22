@@ -7,14 +7,14 @@ import { useToggle } from "@/hooks/useToggle";
 import { useMDEditorCommands } from "@/hooks/useMDEditorCommands";
 import { useTagInputHandler, UseTagInputHandler } from "@/hooks/useTagInputHandler";
 import { MdClose } from "@react-icons/all-files/md/MdClose";
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
 import dynamic from "next/dynamic";
 import Map from "../util/Map";
 import Tag from "../tag/Tag";
 import clsx from "clsx";
 import styles from "./Form.module.css";
 import Show from "../util/Show";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
 import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -157,6 +157,7 @@ Form.MDEditor = function MD({ onChange, name, ...editor }: EditorProps) {
     <MDEditor
       className={styles.markdown}
       {...editor}
+      data-color-mode="light"
       onChange={(value) => {
         value = value ?? "";
         onChange({ target: { name, value } });

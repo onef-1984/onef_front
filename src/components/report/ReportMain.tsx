@@ -10,5 +10,9 @@ const MDPreview = dynamic(() => import("@uiw/react-markdown-preview"), { ssr: fa
 export default function ReportMain() {
   const { report } = useReportAdaptor();
 
-  return <MDPreview className={clsx(styles.reportMain, styles.reportSize)} source={report.content}></MDPreview>;
+  return (
+    <div data-color-mode="light">
+      <MDPreview className={clsx(styles.reportMain, styles.reportSize)} source={report.content} />
+    </div>
+  );
 }
