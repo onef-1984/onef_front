@@ -1,5 +1,4 @@
 import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationContext";
-import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
 import { useIsLogin } from "@/hooks/useIsLogin";
 import { useState, Dispatch, SetStateAction, ReactNode } from "react";
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
@@ -12,9 +11,9 @@ import Clickable from "../clickable/Clickable";
 import Form from "../forms/Form";
 import clsx from "clsx";
 import Show from "../util/Show";
+import Map from "../util/Map";
 import ProfileImage from "../Profile/ProfileImage";
 import useCommentsAdaptor from "@/hooks/useAdaptor/useCommentsAdaptor";
-import Map from "../util/Map";
 import styles from "./Comment.module.css";
 
 type CommentBoxType = "viewer" | "editor";
@@ -74,7 +73,6 @@ Comment.Input = function CommentInput({
   buttonName: string;
 }) {
   const [value, setValue] = useState(initValue);
-  const { textRef, handleInput } = useGetTextAreaHeight(initValue);
   const { handleSubmit, isPending } = useCommentMutation({ initValue, depth, value, setValue });
   const isLogin = useIsLogin();
 
@@ -82,14 +80,13 @@ Comment.Input = function CommentInput({
     <Form onSubmit={handleSubmit} className={styles.inputRoot}>
       <Form.InputWrapper inputName={inputName}>
         <Form.Textarea
-          ref={textRef}
           name="댓글"
+          initValue={initValue}
           placeholder={isLogin ? "댓글을 입력해주세요" : "로그인 후 댓글을 작성할 수 있습니다"}
           className={styles.textarea}
           disabled={!isLogin}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          onInput={handleInput}
         />
       </Form.InputWrapper>
 

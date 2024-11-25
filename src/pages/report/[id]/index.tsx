@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import Head from "next/head";
 import ReportOwner from "@/components/report/ReportOwner";
 import { useEffect } from "react";
-import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import Comment from "@/components/comment/Comment";
 
 export default function Review() {

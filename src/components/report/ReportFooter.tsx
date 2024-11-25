@@ -44,7 +44,7 @@ export default function ReportFooter() {
         type="button"
         disabled={isPending || (isLogin ? isMyReport : true)}
         onClick={() => {
-          mutate(isLiked ? "delete" : "post");
+          mutate();
         }}
         className={styles.likeButton}
       >

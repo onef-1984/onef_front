@@ -1,4 +1,4 @@
-import { User } from "./auth.types";
+import { User } from "./graphql.types";
 
 export type ReportComment = {
   id: string;

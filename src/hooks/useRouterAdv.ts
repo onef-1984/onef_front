@@ -1,4 +1,4 @@
-import { OrderBy, SearchType } from "@/types/util.types";
+import { OrderBy, SearchType } from "@/types/graphql.types";
 import { useRouter } from "next/router";
 
 export const useRouterAdv = () => {
@@ -7,8 +7,8 @@ export const useRouterAdv = () => {
   const id = query.id as string;
 
   const keyword = typeof query.keyword === "string" ? query.keyword : "";
-  const orderBy = typeof query.orderBy === "string" ? (query.orderBy as OrderBy) : "createdAt";
-  const searchType = typeof query.searchType === "string" ? (query.searchType as SearchType) : "report";
+  const orderBy = typeof query.orderBy === "string" ? (query.orderBy as OrderBy) : OrderBy.CreatedAt;
+  const searchType = typeof query.searchType === "string" ? (query.searchType as SearchType) : SearchType.Report;
 
   const location = asPath.split("?")[0];
 

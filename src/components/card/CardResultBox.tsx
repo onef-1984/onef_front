@@ -1,4 +1,4 @@
-import { Item } from "@/types/book.types";
+import { Item } from "@/types/graphql.types";
 import styles from "./CardResultBox.module.css";
 
 export default function CardResultBox({ title, author, description }: Pick<Item, "title" | "author" | "description">) {

@@ -1,4 +1,4 @@
-import { Response } from "@/types/util.types";
+import { Message } from "@/types/graphql.types";
 import { MutationFn } from "./MutationFn";
 
 export class AuthMutation extends MutationFn {
@@ -7,20 +7,10 @@ export class AuthMutation extends MutationFn {
   }
 
   postSign(url: string) {
-    return (data: any) => this.mutationFn<Response>(url, "post", data);
+    return (data: any) => this.mutationFn<Message>(url, "post", data);
   }
 
   deleteSignOut() {
-    return () => this.mutationFn<Response>("/auth/signout", "delete");
-  }
-
-  patchProfile() {
-    return (data: { profileImage?: string; nickname: string; bio?: string }) =>
-      this.mutationFn<Response>("/user/profile", "patch", data);
-  }
-
-  patchPassword() {
-    return (data: { oldPassword: string; newPassword: string }) =>
-      this.mutationFn<Response>("/user/password", "patch", data);
+    return () => this.mutationFn<Message>("/auth/signout", "delete");
   }
 }

@@ -8,7 +8,7 @@ export default function useNotification(userId: string) {
   const notificationQuery = new NotificationQuery();
   const { data } = useQuery(notificationQuery.getNotifications(userId));
 
-  const handleNotification = (data: Notification) => {
+  const handleNotification = () => {
     queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
   };
 

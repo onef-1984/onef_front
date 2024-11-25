@@ -1,0 +1,8 @@
+schema: "http://localhost:3000/api/graphql" # GraphQL 서버의 스키마 URL
+documents: "src/**/*.{ts,tsx}" # GraphQL 쿼리 파일의 경로
+overwrite: true
+generates:
+  src/types/graphql.types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"

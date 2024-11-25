@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, useState, useEffect, ChangeEvent } from "react";
 
 export type ImageInputProps = {
-  multiple?: boolean;
   setFiles: Dispatch<SetStateAction<FileList | undefined>>;
   initialValue?: string;
   file?: File;
 };
 
-export const useImageInput = ({ multiple = false, initialValue, setFiles, file }: ImageInputProps) => {
+export const useImageInput = ({ initialValue, setFiles, file }: ImageInputProps) => {
   const [preview, setPreview] = useState<string | undefined>("");
 
   useEffect(() => {

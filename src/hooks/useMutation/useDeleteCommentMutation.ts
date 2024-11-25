@@ -1,4 +1,3 @@
-import fetcher from "@/apis/axios";
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";

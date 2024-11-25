@@ -5,10 +5,10 @@ export const useSocket = (userId: string, event: string, callback: (data: any) =
   useEffect(() => {
     socket.emit("userConnect", { userId });
 
-    socket.on("notification", callback);
+    socket.on(event, callback);
 
     return () => {
-      socket.off("notification", callback);
+      socket.off(event, callback);
     };
-  }, [userId, callback]);
+  }, [userId, event, callback]);
 };

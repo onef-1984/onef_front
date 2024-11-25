@@ -1,5 +1,10 @@
 import { playDragon } from "sicilian";
 
-export const { initValue, handleValidate, ErrorState, FormState, register, setForm } = playDragon({
-  keyword: "",
+export const { handleSubmit, register } = playDragon({
+  initValue: { keyword: "" },
+  validator: {
+    keyword: { required: true },
+  },
+  validateOn: ["submit"],
+  clearFormOn: ["routeChange"],
 });

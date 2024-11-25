@@ -1,11 +1,11 @@
 import CardReport from "../card/CardReport";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import SearchBinder from "../searchPage/SearchBinder";
-import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./ReportOwner.module.css";
 import { formatReportArray } from "@/utils/formatReportArray";
 import Map from "../util/Map";
+import { ReportRequest } from "@/apis/request/ReportRequest";
 
 export default function ReportOwner({
   userNickname,
@@ -16,9 +16,8 @@ export default function ReportOwner({
   userId: string;
   reportId: string;
 }) {
-  const reportQuery = new ReportQuery();
-  const { data } = useQuery(reportQuery.getUserLatestReportList(userId));
-
+  const reportRequest = new ReportRequest();
+  const { data } = useQuery(reportRequest.getUserLatestReportList(userId));
   const items = formatReportArray(data, reportId);
 
   return (
@@ -32,7 +31,7 @@ export default function ReportOwner({
           <Map each={items}>
             {(item) => {
               if (!item) return;
-              return <CardReport key={item.id} {...item} />;
+              else return <CardReport key={item.id} {...item} />;
             }}
           </Map>
         </SearchBinder>

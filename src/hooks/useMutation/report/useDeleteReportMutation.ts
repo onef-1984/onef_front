@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
+import { ReportRequest } from "@/apis/request/ReportRequest";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { toast } from "react-hot-toast";
 
@@ -7,10 +7,10 @@ export const useDeleteReportMutation = () => {
   const { push, id: reportId } = useRouterAdv();
 
   const queryClient = useQueryClient();
-  const reportMutation = new ReportMutation();
+  const reportRequest = new ReportRequest();
 
   const { mutate } = useMutation({
-    mutationFn: reportMutation.deleteReport(reportId),
+    mutationFn: reportRequest.deleteReport(reportId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
       toast.success("리포트가 삭제되었습니다.");

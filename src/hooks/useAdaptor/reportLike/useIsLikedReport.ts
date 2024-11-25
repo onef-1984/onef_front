@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouterAdv } from "../../useRouterAdv";
-import { ReportQuery } from "@/apis/reactQuery/Query/ReportQuery";
+import { ReportRequest } from "@/apis/request/ReportRequest";
 
 export const useIsLikedReport = () => {
   const { id: reportId } = useRouterAdv();
-  const reportQuery = new ReportQuery();
-  const { data } = useQuery(reportQuery.checkReportLike(reportId));
+  const reportRequest = new ReportRequest();
+  const { data } = useQuery(reportRequest.checkUserLikedReport(reportId));
 
   return {
-    isLiked: data?.isLiked ?? false,
+    isLiked: data?.isLiked.isLiked ?? false,
   };
 };
