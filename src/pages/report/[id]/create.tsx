@@ -7,7 +7,6 @@ import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { usePostReportMutation } from "@/hooks/useMutation/report/usePostReportMutation";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { CreateReportMutationVariables } from "@/types/graphql.types";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
