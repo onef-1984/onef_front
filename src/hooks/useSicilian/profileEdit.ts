@@ -5,7 +5,7 @@ export const { register, setForm, FormState, ErrorState, handleSubmit } = playDr
   initValue: { email: "", nickname: "", bio: "" },
   validator: {
     nickname: SignValidate().nickname,
-    bio: { required: true, maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다" } },
+    bio: { maxLength: { number: 150, message: "소개글은 150자를 넘길 수 없습니다" } },
   },
   validateOn: ["submit"],
   clearFormOn: [],

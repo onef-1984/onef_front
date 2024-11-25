@@ -30,15 +30,23 @@ export default removeImportsFun({
       {
         protocol: "https",
         hostname: "onef.co.kr",
-        port: "",
         pathname: "/api/image/**",
       },
       {
         protocol: "https",
         hostname: "image.aladin.co.kr",
-        port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: 'http',
+        hostname: 'k.kakaocdn.net',
+        pathname: '/dn/*',
+      }
     ],
   },
 });

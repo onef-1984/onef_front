@@ -12,7 +12,7 @@ export default function ProfileImage({
       id={id}
       draggable={false}
       fill
-      src={profileImage ?? baseProfileImage}
+      src={profileImage || baseProfileImage}
       sizes={String(size)}
       alt="프로필 이미지"
     />
