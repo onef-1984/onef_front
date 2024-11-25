@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useBookAdaptor = ({ isbn13 }: { isbn13: string }) => {
   const bookRequest = new BookRequest();
-
   const { data } = useQuery(bookRequest.getBook(isbn13));
 
   return {
