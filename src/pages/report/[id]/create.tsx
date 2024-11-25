@@ -7,6 +7,7 @@ import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { usePostReportMutation } from "@/hooks/useMutation/report/usePostReportMutation";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { CreateReportMutationVariables } from "@/types/graphql.types";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
@@ -42,11 +43,7 @@ export default function Create() {
           <ReportHeader content={headerContent(book)} />
         </GlassyBackground>
 
-        <MutationContext.Provider
-          value={(reqData) => {
-            mutate(reqData);
-          }}
-        >
+        <MutationContext.Provider value={(props: CreateReportMutationVariables["ReportInput"]) => mutate(props)}>
           <EditForm />
         </MutationContext.Provider>
       </LayoutWrapper>

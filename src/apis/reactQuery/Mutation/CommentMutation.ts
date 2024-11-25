@@ -1,5 +1,5 @@
+import { Message } from "@/types/graphql.types";
 import { MutationFn } from "./MutationFn";
-import { Response } from "@/types/util.types";
 
 export class CommentMutation extends MutationFn {
   constructor() {
@@ -17,6 +17,6 @@ export class CommentMutation extends MutationFn {
   };
 
   deleteComment = () => {
-    return ({ parentId }: { parentId: string }) => this.mutationFn<Response>(`/comments/${parentId}`, "delete");
+    return ({ parentId }: { parentId: string }) => this.mutationFn<Message>(`/comments/${parentId}`, "delete");
   };
 }

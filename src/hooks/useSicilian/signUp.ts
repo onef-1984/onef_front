@@ -1,8 +1,14 @@
+import { SignValidate } from "@/constants/sign/signValidate";
 import { playDragon } from "sicilian";
 
-export const { initValue, handleValidate, ErrorState, FormState, register, handleSubmit } = playDragon({
-  email: "",
-  password: "",
-  passwordCheck: "",
-  nickname: "",
+export const { ErrorState, register, handleSubmit } = playDragon({
+  initValue: {
+    email: "",
+    password: "",
+    passwordCheck: "",
+    nickname: "",
+  },
+  validator: SignValidate(),
+  validateOn: ["blur", "submit"],
+  clearFormOn: ["submit", "routeChange"],
 });

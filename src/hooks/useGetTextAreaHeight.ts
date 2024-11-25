@@ -1,7 +1,7 @@
 import { FormEventHandler, useEffect, useRef, useState } from "react";
 
 export const useGetTextAreaHeight = (initValue: string) => {
-  const [num, setNum] = useState(0);
+  const [_, setNum] = useState(0);
   const textRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {

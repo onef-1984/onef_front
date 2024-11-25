@@ -1,5 +1,4 @@
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
-import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
@@ -7,10 +6,13 @@ import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useIsLogin } from "@/hooks/useIsLogin";
 import Show from "../util/Show";
+import Dialog from "../dialog/Dialog";
+import BookSearchModal from "../BookSearchModal/BookSearchModal";
+import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
 
 export default function SideMenu() {
+  const [bookSearchModalState, setBookSearchModalState] = useBookSearchModalToggle();
   const [toggle, setToggle] = useSideMenuToggle();
-  const [_, setBookSearchModalState] = useBookSearchModalToggle();
   const { user } = useWhoAmIAdaptor();
   const { push } = useRouterAdv();
   const isLogin = useIsLogin();
@@ -34,9 +36,14 @@ export default function SideMenu() {
         </button>
 
         <Show when={isLogin}>
-          <button type="button" style={{ cursor: "pointer" }} onClick={() => setBookSearchModalState((prev) => !prev)}>
+          <button type="button" style={{ cursor: "pointer" }} onClick={() => setBookSearchModalState(true)}>
             리뷰 작성
           </button>
+          <Show when={bookSearchModalState}>
+            <Dialog closeDialog={() => setBookSearchModalState(false)}>
+              <BookSearchModal />
+            </Dialog>
+          </Show>
 
           <button
             type="button"

@@ -1,9 +1,14 @@
-import { BookQuery } from "@/apis/reactQuery/Query/BookQuery";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { BookRequest } from "@/apis/request/BookRequest";
 
 export const useInfiniteBookListAdaptor = (searchKeyword: string) => {
-  const bookQuery = new BookQuery();
-  const { data, fetchNextPage } = useInfiniteQuery(bookQuery.getBookList(searchKeyword));
+  const bookRequest = new BookRequest();
+  const { data, error, fetchNextPage, isLoading } = useInfiniteQuery(bookRequest.getBookList(searchKeyword));
 
-  return { fetchNextPage, pages: data?.pages ?? [] };
+  return {
+    isLoading,
+    error,
+    fetchNextPage,
+    pages: data?.pages ?? [],
+  };
 };

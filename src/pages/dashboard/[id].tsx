@@ -6,6 +6,7 @@ import SearchResult from "@/components/searchPage/SearchResult";
 import { useUserAdaptor } from "@/hooks/useAdaptor/user/useUserAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "@/styles/Dashboard.module.css";
+import { SearchType } from "@/types/graphql.types";
 import Head from "next/head";
 
 export default function Dashboard() {
@@ -30,7 +31,7 @@ export default function Dashboard() {
           <SearchResult
             keyword={user.id}
             orderBy={orderBy}
-            searchType={searchType === "report" ? "user" : searchType}
+            searchType={searchType === "report" ? ("user" as SearchType) : searchType}
           />
         </div>
       </LayoutWrapper>

@@ -1,6 +1,6 @@
-import { User } from "@/types/auth.types";
 import Image from "next/image";
 import baseProfileImage from "../../../public/images/baseProfileImage.png";
+import { User } from "@/types/graphql.types";
 
 export default function ProfileImage({
   profileImage,

@@ -7,9 +7,9 @@ import { useWindowSize } from "@/hooks/useWindowSize";
 
 export default function DashboardHeader({ userNickname }: { userNickname: string }) {
   const { user } = useUserAdaptor(userNickname);
-  const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const { windowWidth } = useWindowSize();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setWidth(ref.current?.clientWidth ?? 0);

@@ -11,8 +11,6 @@ import Link from "next/link";
 import Show from "../util/Show";
 import clsx from "clsx";
 import styles from "./PopUp.module.css";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import fetcher from "@/apis/axios";
 
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";

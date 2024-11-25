@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { LuPen } from "react-icons/lu";
 import { ImageInputProps, useImageInput } from "@/hooks/useImageInput";
 import { IoEyeOffOutline } from "@react-icons/all-files/io5/IoEyeOffOutline";
@@ -7,14 +7,15 @@ import { useToggle } from "@/hooks/useToggle";
 import { useMDEditorCommands } from "@/hooks/useMDEditorCommands";
 import { useTagInputHandler, UseTagInputHandler } from "@/hooks/useTagInputHandler";
 import { MdClose } from "@react-icons/all-files/md/MdClose";
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
 import dynamic from "next/dynamic";
 import Map from "../util/Map";
 import Tag from "../tag/Tag";
 import clsx from "clsx";
 import styles from "./Form.module.css";
 import Show from "../util/Show";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface InputWrapperProps {
@@ -83,16 +84,29 @@ Form.Input = ({ className, name, ...inputProps }: ComponentPropsWithoutRef<"inpu
   return <input {...inputProps} className={clsx(styles.input, className)} name={name} id={name} />;
 };
 
-Form.Textarea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<"textarea">>(
-  ({ className, name, id, ...inputProps }, ref) => {
-    return (
-      <textarea {...inputProps} className={clsx(styles.input, className)} name={name} id={id ? id : name} ref={ref} />
-    );
-  },
-);
+Form.Textarea = function FormTextarea({
+  className,
+  name,
+  id,
+  initValue,
+  ...inputProps
+}: ComponentPropsWithoutRef<"textarea"> & { initValue: string }) {
+  const { textRef, handleInput } = useGetTextAreaHeight(initValue);
 
-Form.ImageInput = function ImageInput({ multiple = false, initialValue, setFiles, file }: ImageInputProps) {
-  const { preview, handleChange } = useImageInput({ multiple, initialValue, setFiles, file });
+  return (
+    <textarea
+      {...inputProps}
+      className={clsx(styles.input, className)}
+      name={name}
+      id={id ? id : name}
+      onInput={handleInput}
+      ref={textRef}
+    />
+  );
+};
+
+Form.ImageInput = function ImageInput({ initialValue, setFiles, file }: ImageInputProps) {
+  const { preview, handleChange } = useImageInput({ initialValue, setFiles, file });
 
   return (
     <label
@@ -102,7 +116,7 @@ Form.ImageInput = function ImageInput({ multiple = false, initialValue, setFiles
         backgroundImage: `url(${preview})`,
       }}
     >
-      <input id="image" type="file" multiple={multiple} accept=".jpeg, .jpg, .png" onChange={handleChange} />
+      <input id="image" type="file" accept=".jpeg, .jpg, .png" onChange={handleChange} />
 
       <div className={styles.hoverCover}>
         <LuPen />
@@ -143,6 +157,7 @@ Form.MDEditor = function MD({ onChange, name, ...editor }: EditorProps) {
     <MDEditor
       className={styles.markdown}
       {...editor}
+      data-color-mode="light"
       onChange={(value) => {
         value = value ?? "";
         onChange({ target: { name, value } });

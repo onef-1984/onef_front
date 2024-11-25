@@ -1,12 +1,12 @@
-import { GetReport } from "@/types/report.types";
 import Slider from "react-slick";
 import CardReport from "../card/CardReport";
 import styles from "./Carousel.module.css";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { GetReportListBySearchQuery } from "@/types/graphql.types";
 
 type CarouselProps = {
   title: string;
-  items: Array<GetReport>;
+  items: GetReportListBySearchQuery["reportList"]["items"];
 };
 
 export default function Carousel({ items, title }: CarouselProps) {

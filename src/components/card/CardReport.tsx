@@ -3,9 +3,9 @@ import GlassyBackground from "../glassyBackground/GlassyBackground";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import Link from "next/link";
 import { formatBookTitle } from "@/utils/formatBookTitle";
-import { GetReport } from "@/types/report.types";
+import { GetReportListBySearchQuery } from "@/types/graphql.types";
 
-export default function CardReport(item: GetReport) {
+export default function CardReport(item: GetReportListBySearchQuery["reportList"]["items"][number]) {
   return (
     <Link className={styles.root} href={`/report/${item.id}`}>
       <GlassyBackground className={styles.root} image={item.book.cover}>

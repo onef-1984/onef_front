@@ -1,10 +1,9 @@
-import { ErrorState, handleValidate, register, handleSubmit } from "@/hooks/useSicilian/signIn";
+import { ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signIn";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signInArray } from "@/constants/sign/signArray";
 import Link from "next/link";
 import Form from "@/components/forms/Form";
 import styles from "@/styles/Sign.module.css";
-import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
 import Head from "next/head";
 import Map from "@/components/util/Map";
@@ -15,7 +14,6 @@ import SocialLogin from "@/components/socialLogin/SocialLogin";
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
   const errorState = ErrorState();
-  const validator = handleValidate(SignValidate());
 
   return (
     <>
@@ -40,7 +38,7 @@ export default function SignIn() {
         <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
           <Map each={signInArray}>
             {({ inputName, htmlFor, type, placeholder }) => {
-              const inputProps = { ...register(htmlFor, validator[htmlFor]), placeholder, type };
+              const inputProps = { ...register(htmlFor), placeholder, type };
 
               return (
                 <Form.InputWrapper

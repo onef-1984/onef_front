@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouterAdv } from "../../useRouterAdv";
-import { ReportMutation } from "@/apis/reactQuery/Mutation/ReportMutation";
+import { ReportRequest } from "@/apis/request/ReportRequest";
 import toast from "react-hot-toast";
 
 export const useReportLikesMutation = () => {
   const { id: reportId } = useRouterAdv();
   const queryClient = useQueryClient();
-  const reportMutation = new ReportMutation();
+  const reportRequest = new ReportRequest();
 
   // TODO: 낙관적 업데이트 필요
   const { mutate, isPending } = useMutation({
-    mutationFn: reportMutation.reportLike(reportId),
-    onSuccess: (data) => {
+    mutationFn: reportRequest.toggleReportLike(reportId),
+    onSuccess: ({ message: { message } }) => {
       queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
-      toast.success(data.message);
+      toast.success(message);
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("좋아요에 실패했습니다.");
     },
   });
