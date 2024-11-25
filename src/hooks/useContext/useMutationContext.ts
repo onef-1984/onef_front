@@ -1,3 +1,5 @@
 import { createContext } from "react";
 
-export const MutationContext = createContext((reqData: { title: string; content: string; tags: Array<string> }) => {});
+type MutationFn = (props: { title: string; isbn13: string; content: string; tags: string[] }) => void;
+
+export const MutationContext = createContext<MutationFn>(() => {});

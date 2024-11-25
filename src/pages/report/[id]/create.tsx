@@ -42,11 +42,7 @@ export default function Create() {
           <ReportHeader content={headerContent(book)} />
         </GlassyBackground>
 
-        <MutationContext.Provider
-          value={(reqData) => {
-            mutate(reqData);
-          }}
-        >
+        <MutationContext.Provider value={(props) => mutate(props)}>
           <EditForm />
         </MutationContext.Provider>
       </LayoutWrapper>

@@ -7,6 +7,9 @@ import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useIsLogin } from "@/hooks/useIsLogin";
 import Show from "../util/Show";
+import Dialog from "../dialog/Dialog";
+import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
+import BookSearchModal from "../dialog/BookSearch/BookSearchModal";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useSideMenuToggle();

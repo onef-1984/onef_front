@@ -3,7 +3,6 @@ import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signUpArray } from "@/constants/sign/signArray";
 import Link from "next/link";
 import Form from "@/components/forms/Form";
-import omit from "@/utils/omit";
 import styles from "@/styles/Sign.module.css";
 import { SignValidate } from "@/constants/sign/signValidate";
 import Logo from "@/components/logo/Logo";
@@ -38,7 +37,7 @@ export default function SignUp() {
           </p>
         </section>
 
-        <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(omit(data, ["passwordCheck"])))}>
+        <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
           <Map each={signUpArray}>
             {({ inputName, htmlFor, type, placeholder }) => {
               const inputProps = {
