@@ -11,19 +11,19 @@
 .tagInputWrapper {
   display: flex;
   gap: 0.8rem;
-  align-items: "center";
+  align-items: center;
   flex-wrap: wrap;
 
   & > span {
     display: flex;
     gap: 0.4rem;
-    align-items: "center";}
+    align-items: center;}
 }
 
 .tagBox {
   display: flex;
   gap: 0.4rem;
-  align-items: "center";
+  align-items: center;
 }
 
 .inputName {

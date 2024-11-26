@@ -56,7 +56,7 @@ export default function Review() {
 
   return (
     <>
-      <HeadMetaTag title={report.title} description={report.content} image={book.cover} />
+      <HeadMetaTag title={report.title} description={report.content.slice(0, 30)} image={book.cover} />
 
       <GlassyBackground image={book.cover}>
         <ReportHeader content={content} button={<ReportButton />} />

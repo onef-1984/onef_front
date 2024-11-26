@@ -1,7 +1,7 @@
 .root {
-  display: inline-block;
   color: var(--primary-text);
   font-size: 1.2rem;
   font-weight: 700;
-  width: fit-content
+  white-space: nowrap;
+  width: fit-content;
 }
