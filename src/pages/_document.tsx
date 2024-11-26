@@ -12,14 +12,14 @@ export default function Document() {
           crossOrigin="anonymous"
         />
         <link rel="icon" href="/images/favicon.png" />
-        <link rel="canonical" href="https://onef.co.kr" />
+        {/* <link rel="canonical" href="https://onef.co.kr" /> */}
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://onef.co.kr" />
+        {/* <meta name="twitter:url" content="https://onef.co.kr" /> */}
 
         <meta property="og:site_name" content="onef" />
         <meta property="og:locale" content="ko_KR" />
-        <meta property="og:url" content="https://onef.co.kr" />
+        {/* <meta property="og:url" content="https://onef.co.kr" /> */}
         <meta property="og:type" content="website" />
       </Head>
 
