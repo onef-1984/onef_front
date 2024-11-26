@@ -1,4 +1,3 @@
-import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import Head from "next/head";
 import HeroSec from "@/components/heroSec/HeroSec";
 
@@ -9,9 +8,7 @@ export default function Home() {
         <title>onef - 메인 페이지</title>
       </Head>
 
-      <LayoutWrapper>
-        <HeroSec />
-      </LayoutWrapper>
+      <HeroSec />
     </>
   );
 }

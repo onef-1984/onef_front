@@ -1,4 +1,3 @@
-import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import SearchBar from "@/components/searchPage/SearchBar";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "@/styles/Search.module.css";
@@ -41,15 +40,13 @@ export default function Search() {
         <title>onef - 리뷰 검색</title>
       </Head>
 
-      <LayoutWrapper>
-        <div className={styles.root}>
-          {searchTitle(searchType, keyword)}
+      <div className={styles.root}>
+        {searchTitle(searchType, keyword)}
 
-          <SearchOptionButton />
+        <SearchOptionButton />
 
-          <SearchResult keyword={keyword} orderBy={orderBy} searchType={searchType} />
-        </div>
-      </LayoutWrapper>
+        <SearchResult keyword={keyword} orderBy={orderBy} searchType={searchType} />
+      </div>
     </>
   );
 }

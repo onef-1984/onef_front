@@ -1,14 +1,12 @@
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
-import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import ReportHeader from "@/components/report/ReportHeader";
-import EditForm from "@/components/reportEdit/EditForm";
+import ReportForm from "@/components/reportForm/ReportForm";
 import { headerContent } from "@/constants/reportEdit/headerContent";
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
-import { MutationContext } from "@/hooks/useContext/useMutationContext";
+import { ReportMutateProvider } from "@/hooks/useContext/useMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
 import { setForm } from "@/hooks/useSicilian/report";
-import { UpdateReportMutationVariables } from "@/types/graphql.types";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -53,15 +51,14 @@ export default function Edit() {
       <Head>
         <title>onef - 리뷰 수정</title>
       </Head>
-      <LayoutWrapper>
-        <GlassyBackground image={book.cover}>
-          <ReportHeader content={headerContent(book)} />
-        </GlassyBackground>
 
-        <MutationContext.Provider value={(props: UpdateReportMutationVariables["ReportUpdateInput"]) => mutate(props)}>
-          <EditForm />
-        </MutationContext.Provider>
-      </LayoutWrapper>
+      <GlassyBackground image={book.cover}>
+        <ReportHeader content={headerContent(book)} />
+      </GlassyBackground>
+
+      <ReportMutateProvider value={mutate}>
+        <ReportForm />
+      </ReportMutateProvider>
     </>
   );
 }

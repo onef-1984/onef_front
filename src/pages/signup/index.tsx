@@ -66,3 +66,5 @@ export default function SignUp() {
     </>
   );
 }
+
+SignUp.useDefaultLayout = false;

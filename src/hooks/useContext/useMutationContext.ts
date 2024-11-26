@@ -1,5 +1,7 @@
-import { createContext } from "react";
+import { CreateReportMutationVariables, UpdateReportMutationVariables } from "@/types/graphql.types";
+import { createSafeContext } from "./createSafeContext";
 
-export const MutationContext = createContext((props: any) => {
-  props;
-});
+export const { Provider: ReportMutateProvider, useContext: useReportMutateContext } = createSafeContext<
+  | ((props: CreateReportMutationVariables["ReportInput"]) => void)
+  | ((props: UpdateReportMutationVariables["ReportUpdateInput"]) => void)
+>();

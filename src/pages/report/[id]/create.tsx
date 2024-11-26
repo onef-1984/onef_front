@@ -1,14 +1,13 @@
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
-import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import ReportHeader from "@/components/report/ReportHeader";
-import EditForm from "@/components/reportEdit/EditForm";
+import Head from "next/head";
 import { headerContent } from "@/constants/reportEdit/headerContent";
 import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
-import { MutationContext } from "@/hooks/useContext/useMutationContext";
+import { ReportMutateProvider } from "@/hooks/useContext/useMutationContext";
 import { usePostReportMutation } from "@/hooks/useMutation/report/usePostReportMutation";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { GetServerSidePropsContext } from "next";
-import Head from "next/head";
+import ReportForm from "@/components/reportForm/ReportForm";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const accessToken = context.req.cookies.accessToken;
@@ -37,15 +36,13 @@ export default function Create() {
       <Head>
         <title>onef - 리뷰 작성</title>
       </Head>
-      <LayoutWrapper>
-        <GlassyBackground image={book.cover}>
-          <ReportHeader content={headerContent(book)} />
-        </GlassyBackground>
 
-        <MutationContext.Provider value={(props) => mutate(props)}>
-          <EditForm />
-        </MutationContext.Provider>
-      </LayoutWrapper>
+      <GlassyBackground image={book.cover}>
+        <ReportHeader content={headerContent(book)} />
+      </GlassyBackground>
+      <ReportMutateProvider value={mutate}>
+        <ReportForm />
+      </ReportMutateProvider>
     </>
   );
 }

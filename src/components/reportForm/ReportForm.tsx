@@ -1,17 +1,16 @@
-import styles from "./EditForm.module.css";
+import styles from "./ReportForm.module.css";
 import Form from "@/components/forms/Form";
 import Clickable from "../clickable/Clickable";
 import { FormState, ErrorState, handleSubmit, setForm, register } from "@/hooks/useSicilian/report";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
-import { useContext } from "react";
-import { MutationContext } from "@/hooks/useContext/useMutationContext";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { useReportMutateContext } from "@/hooks/useContext/useMutationContext";
 
-export default function EditForm() {
+export default function ReportForm() {
   const [tagList, setTagList] = useReportTagList();
   const { back } = useRouterAdv();
   const { id: isbn13 } = useRouterAdv();
-  const mutate = useContext(MutationContext);
+  const mutate = useReportMutateContext("ReportForm");
   const formState = FormState();
   const errorState = ErrorState();
 

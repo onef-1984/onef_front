@@ -1,7 +1,6 @@
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
-import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import ReportButton from "@/components/report/ReportButton";
 import ReportFooter from "@/components/report/ReportFooter";
 import ReportHeader from "@/components/report/ReportHeader";
@@ -49,31 +48,29 @@ export default function Review() {
         <meta property="og:image" content={book.cover} />
       </Head>
 
-      <LayoutWrapper>
-        <GlassyBackground image={book.cover}>
-          <ReportHeader content={content} button={<ReportButton />} />
-        </GlassyBackground>
+      <GlassyBackground image={book.cover}>
+        <ReportHeader content={content} button={<ReportButton />} />
+      </GlassyBackground>
 
-        <div
-          style={{
-            maxWidth: "720px",
-            width: "100%",
-            margin: "0rem auto",
-            padding: "0rem 1.6rem 16rem",
-            fontWeight: "500",
-            display: "flex",
-            gap: "2.4rem",
-            flexDirection: "column",
-          }}
-        >
-          <ReportMain />
-          <ReportFooter />
+      <div
+        style={{
+          maxWidth: "720px",
+          width: "100%",
+          margin: "0rem auto",
+          padding: "0rem 1.6rem 16rem",
+          fontWeight: "500",
+          display: "flex",
+          gap: "2.4rem",
+          flexDirection: "column",
+        }}
+      >
+        <ReportMain />
+        <ReportFooter />
 
-          <ReportOwner userNickname={user.nickname} userId={user.id} reportId={report.id} />
+        <ReportOwner userNickname={user.nickname} userId={user.id} reportId={report.id} />
 
-          <Comment id={id} depth={0} />
-        </div>
-      </LayoutWrapper>
+        <Comment id={id} depth={0} />
+      </div>
     </>
   );
 }

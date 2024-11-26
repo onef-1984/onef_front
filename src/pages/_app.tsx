@@ -1,16 +1,15 @@
 import "@/styles/reset.css";
+import "@/styles/globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "@/styles/globals.css";
-
+import Head from "next/head";
 import { QueryClient, QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
-import type { AppProps } from "next/app";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Head from "next/head";
+import { AppPropsWithLayout, getLayout } from "@/utils/getLayout";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -22,6 +21,8 @@ export default function App({ Component, pageProps }: AppProps) {
         },
       }),
   );
+
+  const Layout = getLayout(Component);
 
   return (
     <>
@@ -44,7 +45,9 @@ export default function App({ Component, pageProps }: AppProps) {
             }}
           />
 
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
 
           <div style={{ fontSize: "2rem" }}>
             <ReactQueryDevtools initialIsOpen={false} />

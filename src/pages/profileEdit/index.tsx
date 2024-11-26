@@ -1,4 +1,3 @@
-import LayoutWrapper from "@/components/layoutWrapper/LayoutWrapper";
 import PasswordEdit from "@/components/profileEdit/PasswordEdit";
 import ProfileEdit from "@/components/profileEdit/ProfileEdit";
 import ProfileEditWrapper from "@/components/profileEdit/ProfileEditWrapper";
@@ -29,15 +28,13 @@ export default function Home() {
         <title>onef - 프로필 수정</title>
       </Head>
 
-      <LayoutWrapper>
-        <ProfileEditWrapper title="프로필 수정">
-          <ProfileEdit />
-        </ProfileEditWrapper>
+      <ProfileEditWrapper title="프로필 수정">
+        <ProfileEdit />
+      </ProfileEditWrapper>
 
-        <ProfileEditWrapper title="비밀번호 수정">
-          <PasswordEdit />
-        </ProfileEditWrapper>
-      </LayoutWrapper>
+      <ProfileEditWrapper title="비밀번호 수정">
+        <PasswordEdit />
+      </ProfileEditWrapper>
     </>
   );
 }
