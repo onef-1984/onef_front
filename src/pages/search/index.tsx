@@ -6,7 +6,6 @@ import SearchResult from "@/components/searchPage/SearchResult";
 import SearchTitle from "@/components/searchPage/SearchTitle";
 import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import SearchTag from "@/components/searchPage/SearchTag";
-import Head from "next/head";
 import Show from "@/components/util/Show";
 import { SearchType } from "@/types/graphql.types";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";

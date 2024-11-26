@@ -1,6 +1,5 @@
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import ReportHeader from "@/components/report/ReportHeader";
-import Head from "next/head";
 import { headerContent } from "@/constants/reportEdit/headerContent";
 import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { ReportMutateProvider } from "@/hooks/useContext/useMutationContext";

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Form from "@/components/forms/Form";
 import styles from "@/styles/Sign.module.css";
 import Logo from "@/components/logo/Logo";
-import Head from "next/head";
 import Map from "@/components/util/Map";
 import Clickable from "@/components/clickable/Clickable";
 import Show from "@/components/util/Show";

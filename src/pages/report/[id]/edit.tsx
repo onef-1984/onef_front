@@ -9,7 +9,6 @@ import { ReportMutateProvider } from "@/hooks/useContext/useMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
 import { setForm } from "@/hooks/useSicilian/report";
 import { GetServerSidePropsContext } from "next";
-import Head from "next/head";
 import { useEffect } from "react";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
