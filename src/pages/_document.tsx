@@ -11,15 +11,16 @@ export default function Document() {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-
-        <meta name="description" content="책을 읽고 영원을 기록하다" />
         <link rel="icon" href="/images/favicon.png" />
+        <link rel="canonical" href="https://onef.co.kr" />
 
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://onef.co.kr" />
+
+        <meta property="og:site_name" content="onef" />
+        <meta property="og:locale" content="ko_KR" />
         <meta property="og:url" content="https://onef.co.kr" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="onef" />
-        <meta property="og:description" content="책을 읽고 영원을 기록하다" />
-        <meta property="og:image" content="https://onef.co.kr/api/image/preview.webp" />
       </Head>
 
       <body>

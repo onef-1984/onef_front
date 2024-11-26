@@ -9,6 +9,7 @@ import SearchTag from "@/components/searchPage/SearchTag";
 import Head from "next/head";
 import Show from "@/components/util/Show";
 import { SearchType } from "@/types/graphql.types";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 
 const searchTitle = (searchType: SearchType, keyword: string) => {
   switch (searchType) {
@@ -36,9 +37,7 @@ export default function Search() {
 
   return (
     <>
-      <Head>
-        <title>onef - 리뷰 검색</title>
-      </Head>
+      <HeadMetaTag title="리뷰 검색" />
 
       <div className={styles.root}>
         {searchTitle(searchType, keyword)}

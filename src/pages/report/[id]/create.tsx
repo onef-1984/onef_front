@@ -8,6 +8,7 @@ import { usePostReportMutation } from "@/hooks/useMutation/report/usePostReportM
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { GetServerSidePropsContext } from "next";
 import ReportForm from "@/components/reportForm/ReportForm";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const accessToken = context.req.cookies.accessToken;
@@ -33,9 +34,7 @@ export default function Create() {
 
   return (
     <>
-      <Head>
-        <title>onef - 리뷰 작성</title>
-      </Head>
+      <HeadMetaTag title="리뷰 작성" />
 
       <GlassyBackground image={book.cover}>
         <ReportHeader content={headerContent(book)} />

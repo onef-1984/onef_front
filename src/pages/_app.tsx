@@ -2,7 +2,6 @@ import "@/styles/reset.css";
 import "@/styles/globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Head from "next/head";
 import { QueryClient, QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
@@ -26,10 +25,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      <Head>
-        <title>onef</title>
-      </Head>
-
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps.dehydratedState}>
           <Toaster

@@ -1,11 +1,9 @@
-import Head from "next/head";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 
 export default function Privacy() {
   return (
     <>
-      <Head>
-        <title>onef - 개인정보 처리방침</title>
-      </Head>
+      <HeadMetaTag title="개인정보 처리방침" />
 
       <div style={{ fontSize: "1.6rem", padding: "4rem", lineHeight: "200%" }}>
         <h2>개인정보 처리방침</h2>

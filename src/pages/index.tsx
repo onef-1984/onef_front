@@ -1,12 +1,10 @@
-import Head from "next/head";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import HeroSec from "@/components/heroSec/HeroSec";
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>onef - 메인 페이지</title>
-      </Head>
+      <HeadMetaTag title="메인 페이지" />
 
       <HeroSec />
     </>

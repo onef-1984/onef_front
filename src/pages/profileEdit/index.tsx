@@ -1,8 +1,8 @@
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import PasswordEdit from "@/components/profileEdit/PasswordEdit";
 import ProfileEdit from "@/components/profileEdit/ProfileEdit";
 import ProfileEditWrapper from "@/components/profileEdit/ProfileEditWrapper";
 import { GetServerSidePropsContext } from "next";
-import Head from "next/head";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const accessToken = context.req.cookies.accessToken;
@@ -24,9 +24,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>onef - 프로필 수정</title>
-      </Head>
+      <HeadMetaTag title="프로필 수정" />
 
       <ProfileEditWrapper title="프로필 수정">
         <ProfileEdit />

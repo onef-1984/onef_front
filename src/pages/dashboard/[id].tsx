@@ -6,7 +6,7 @@ import { useUserAdaptor } from "@/hooks/useAdaptor/user/useUserAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { SearchType } from "@/types/graphql.types";
 import styles from "@/styles/Dashboard.module.css";
-import Head from "next/head";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 
 export default function Dashboard() {
   const { id: userNickname, orderBy, searchType } = useRouterAdv();
@@ -14,9 +14,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <Head>
-        <title>onef - {userNickname}</title>
-      </Head>
+      <HeadMetaTag title={userNickname} />
 
       <div className={styles.root}>
         <DashboardHeader userNickname={userNickname} />

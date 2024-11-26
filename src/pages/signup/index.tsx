@@ -10,6 +10,7 @@ import Map from "@/components/util/Map";
 import Clickable from "@/components/clickable/Clickable";
 import Show from "@/components/util/Show";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -17,9 +18,7 @@ export default function SignUp() {
 
   return (
     <>
-      <Head>
-        <title>onef - 회원가입</title>
-      </Head>
+      <HeadMetaTag title="회원가입" />
 
       <div className={styles.root}>
         <section className={styles.logoLink}>

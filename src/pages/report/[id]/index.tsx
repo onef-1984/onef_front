@@ -6,10 +6,30 @@ import ReportFooter from "@/components/report/ReportFooter";
 import ReportHeader from "@/components/report/ReportHeader";
 import ReportMain from "@/components/report/ReportMain";
 import toast from "react-hot-toast";
-import Head from "next/head";
 import ReportOwner from "@/components/report/ReportOwner";
 import { useEffect } from "react";
 import Comment from "@/components/comment/Comment";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
+import { GetServerSidePropsContext } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { ReportRequest } from "@/apis/request/ReportRequest";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { params } = context;
+  const id = params?.id;
+
+  const queryClient = new QueryClient();
+  const reportRequest = new ReportRequest();
+
+  await queryClient.prefetchQuery(reportRequest.getReport(id as string));
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      id,
+    },
+  };
+}
 
 export default function Review() {
   const { report, user, book, error } = useReportAdaptor();
@@ -20,7 +40,7 @@ export default function Review() {
       toast.error("리뷰를 찾을 수 없습니다.");
       push("/404");
     }
-  }, []);
+  }, [error]);
 
   const content = {
     title: report.title,
@@ -36,17 +56,7 @@ export default function Review() {
 
   return (
     <>
-      <Head>
-        <title>onef - {report.title}</title>
-
-        <meta name="description" content={report.content} />
-
-        <meta property="og:url" content={`https://onef.co.kr/report/${report.id}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`onef - ${report.title}`} />
-        <meta property="og:description" content={report.content} />
-        <meta property="og:image" content={book.cover} />
-      </Head>
+      <HeadMetaTag title={report.title} description={report.content} image={book.cover} />
 
       <GlassyBackground image={book.cover}>
         <ReportHeader content={content} button={<ReportButton />} />

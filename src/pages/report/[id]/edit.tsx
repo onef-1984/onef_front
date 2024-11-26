@@ -1,4 +1,5 @@
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
+import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import ReportHeader from "@/components/report/ReportHeader";
 import ReportForm from "@/components/reportForm/ReportForm";
 import { headerContent } from "@/constants/reportEdit/headerContent";
@@ -48,9 +49,7 @@ export default function Edit() {
 
   return (
     <>
-      <Head>
-        <title>onef - 리뷰 수정</title>
-      </Head>
+      <HeadMetaTag title="리뷰 수정" />
 
       <GlassyBackground image={book.cover}>
         <ReportHeader content={headerContent(book)} />
