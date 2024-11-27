@@ -31,7 +31,7 @@ export default function Comment({ id, depth }: { id: string; depth: number }) {
           mutationFn: commentMutation.postComment,
         }}
       >
-        <Comment.Input depth={depth} inputName="댓글" buttonName="저장" />
+        {/* <Comment.Input depth={depth} inputName="댓글" buttonName="저장" /> */}
       </CommentMutationContext.Provider>
 
       <Comment.Container depth={depth} id={id} />

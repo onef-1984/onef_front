@@ -15,6 +15,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Image from "next/image";
 import { formatAuthor } from "@/utils/formatAuthor";
 import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
+import { SicilianProvider } from "sicilian";
 
 export default function BookSearchModal() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -127,9 +128,11 @@ function BookSearchForm({ setSearchKeyword }: { setSearchKeyword: Dispatch<SetSt
 
   return (
     <Form className={styles.form} onSubmit={handleSubmit(({ keyword }) => setSearchKeyword(keyword))}>
-      <Form.InputWrapper htmlFor={keyword}>
-        <Form.Input {...register(keyword)} placeholder="책 제목을 입력해주세요" />
-      </Form.InputWrapper>
+      <SicilianProvider value={{ register, name: keyword }}>
+        <Form.InputWrapper>
+          <Form.Input placeholder="책 제목을 입력해주세요" />
+        </Form.InputWrapper>
+      </SicilianProvider>
 
       <Clickable>검색</Clickable>
     </Form>

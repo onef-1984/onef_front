@@ -6,6 +6,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Item } from "@/types/graphql.types";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { formatAuthor } from "@/utils/formatAuthor";
+import { SicilianProvider } from "sicilian";
 import CardResultBox from "@/components/card/CardResultBox";
 import Clickable from "@/components/clickable/Clickable";
 import styles from "./BookSearchModal.module.css";
@@ -127,9 +128,11 @@ function BookSearchForm({ setSearchKeyword }: { setSearchKeyword: Dispatch<SetSt
 
   return (
     <Form className={styles.form} onSubmit={handleSubmit(({ keyword }) => setSearchKeyword(keyword))}>
-      <Form.InputWrapper htmlFor={keyword}>
-        <Form.Input {...register(keyword)} placeholder="책 제목을 입력해주세요" />
-      </Form.InputWrapper>
+      <SicilianProvider value={{ register, name: keyword }}>
+        <Form.InputWrapper>
+          <Form.Input placeholder="책 제목을 입력해주세요" />
+        </Form.InputWrapper>
+      </SicilianProvider>
 
       <Clickable>검색</Clickable>
     </Form>

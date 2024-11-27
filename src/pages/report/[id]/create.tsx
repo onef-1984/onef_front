@@ -38,6 +38,7 @@ export default function Create() {
       <GlassyBackground image={book.cover}>
         <ReportHeader content={headerContent(book)} />
       </GlassyBackground>
+
       <ReportMutateProvider value={mutate}>
         <ReportForm />
       </ReportMutateProvider>

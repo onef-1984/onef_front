@@ -26,7 +26,7 @@ export default function Dialog({ children, closeDialog }: { children: ReactNode;
         <MdClose />
       </button>
 
-      {children}
+      <>{children}</>
     </dialog>
   );
 }

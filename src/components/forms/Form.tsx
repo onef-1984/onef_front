@@ -16,12 +16,11 @@ import Show from "../util/Show";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
+import { getContext } from "sicilian";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface InputWrapperProps {
   children: ReactNode;
-  errorMessage?: string;
-  htmlFor?: string;
   className?: string;
   inputName?: string;
 }
@@ -34,14 +33,22 @@ export default function Form({ children, ...props }: ComponentPropsWithoutRef<"f
   );
 }
 
-Form.InputWrapper = ({ inputName, children, htmlFor, errorMessage, className }: InputWrapperProps) => {
+Form.InputWrapper = ({ inputName, children, className }: InputWrapperProps) => {
+  const { ErrorState, name } = getContext();
+  let errorMessage: string;
+  try {
+    errorMessage = ErrorState(name);
+  } catch (error) {
+    errorMessage = "";
+  }
+
   return (
     <div className={clsx(styles.root, className)}>
       <Show when={!!inputName}>
         <span className={styles.inputName}>{inputName}</span>
       </Show>
 
-      <label className={clsx(styles.label, errorMessage && styles.labelError, className)} htmlFor={htmlFor}>
+      <label className={clsx(styles.label, errorMessage && styles.labelError, className)} htmlFor={name}>
         {children}
       </label>
 
@@ -54,10 +61,13 @@ Form.InputWrapper = ({ inputName, children, htmlFor, errorMessage, className }: 
 
 type TagInputWrapperProps = {
   input: (props: ComponentPropsWithoutRef<"input">) => ReactNode;
-} & UseTagInputHandler;
+} & Omit<UseTagInputHandler, "value">;
 
 Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: TagInputWrapperProps) {
-  const { onKeyDown, onKeyUp, onClick } = useTagInputHandler({ tagList, ...props });
+  const { FormState, name } = getContext();
+  const value = FormState(name);
+
+  const { onKeyDown, onKeyUp, onClick } = useTagInputHandler({ tagList, value, ...props });
 
   return (
     <div className={styles.tagInputWrapper}>
@@ -80,38 +90,42 @@ Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: Ta
   );
 };
 
-Form.Input = ({ className, name, ...inputProps }: ComponentPropsWithoutRef<"input">) => {
-  return <input {...inputProps} className={clsx(styles.input, className)} name={name} id={name} />;
+Form.Input = ({ className, ...inputProps }: ComponentPropsWithoutRef<"input">) => {
+  const { register, name } = getContext();
+  return <input {...register(name)} {...inputProps} className={clsx(styles.input, className)} />;
 };
 
 Form.Textarea = function FormTextarea({
   className,
-  name,
-  id,
   initValue,
   ...inputProps
 }: ComponentPropsWithoutRef<"textarea"> & { initValue: string }) {
   const { textRef, handleInput } = useGetTextAreaHeight(initValue);
+  const { register, name } = getContext();
 
   return (
     <textarea
+      {...register(name)}
       {...inputProps}
       className={clsx(styles.input, className)}
-      name={name}
-      id={id ? id : name}
       onInput={handleInput}
       ref={textRef}
     />
   );
 };
 
-Form.ImageInput = function ImageInput({ initialValue, setFiles, file }: ImageInputProps) {
+Form.ImageInput = function ImageInput({
+  initialValue,
+  setFiles,
+  file,
+  className,
+}: ImageInputProps & { className?: string }) {
   const { preview, handleChange } = useImageInput({ initialValue, setFiles, file });
 
   return (
     <label
       htmlFor="image"
-      className={styles.inputImage}
+      className={clsx(styles.inputImage, className)}
       style={{
         backgroundImage: `url(${preview})`,
       }}
@@ -142,20 +156,17 @@ Form.InputTypeToggler = function InputTypeToggler({ Input }: { Input: (type: "te
   );
 };
 
-interface EditorProps extends ComponentPropsWithoutRef<"input"> {
-  onChange: (e: { target: { name: string; value: string } }) => void;
-  name: string;
-  value: string;
-}
+Form.MDEditor = function MD({ ...editor }: Omit<ComponentPropsWithoutRef<"input">, "value">) {
+  const { register, name } = getContext();
+  const { value, onChange } = register(name);
 
-Form.MDEditor = function MD({ onChange, name, ...editor }: EditorProps) {
   const { imageCommand, command, extraCommand } = useMDEditorCommands();
-
   if (command.length === 0 || extraCommand.length === 0) return null;
 
   return (
     <MDEditor
       className={styles.markdown}
+      value={value}
       {...editor}
       data-color-mode="light"
       onChange={(value) => {

@@ -1,45 +1,46 @@
 import styles from "./ReportForm.module.css";
 import Form from "@/components/forms/Form";
 import Clickable from "../clickable/Clickable";
-import { FormState, ErrorState, handleSubmit, setForm, register } from "@/hooks/useSicilian/report";
+import { FormState, handleSubmit, setForm, register } from "@/hooks/useSicilian/report";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useReportMutateContext } from "@/hooks/useContext/useMutationContext";
+import { SicilianProvider } from "sicilian";
 
 export default function ReportForm() {
   const [tagList, setTagList] = useReportTagList();
   const { back } = useRouterAdv();
   const { id: isbn13 } = useRouterAdv();
   const mutate = useReportMutateContext("ReportForm");
-  const formState = FormState();
-  const errorState = ErrorState();
 
   return (
     <Form
       className={styles.form}
       onSubmit={handleSubmit(({ title, content }) => mutate({ title, content, isbn13: isbn13, tags: tagList }))}
     >
-      <Form.Input {...register("title")} placeholder={"제목을 입력해 주세요"} className={styles.titleInput} />
-      <p>{errorState.title}</p>
+      <SicilianProvider value={{ register, name: "title" }}>
+        <Form.Input placeholder={"제목을 입력해 주세요"} className={styles.titleInput} />
+      </SicilianProvider>
 
-      <Form.MDEditor {...register("content")} />
-      <p>{errorState.content}</p>
+      <SicilianProvider value={{ register, name: "content" }}>
+        <Form.MDEditor />
+      </SicilianProvider>
 
-      <Form.TagInputWrapper
-        tagList={tagList}
-        setTagList={setTagList}
-        value={formState.tags}
-        setValue={setForm}
-        input={({ onKeyDown, onKeyUp }) =>
-          Form.Input({
-            ...register("tags"),
-            onKeyUp,
-            onKeyDown,
-            placeholder: "태그 입력 후 엔터를 눌러주세요",
-            className: styles.tagInput,
-          })
-        }
-      />
+      <SicilianProvider value={{ register, name: "tags", FormState }}>
+        <Form.TagInputWrapper
+          tagList={tagList}
+          setTagList={setTagList}
+          setValue={setForm}
+          input={({ onKeyDown, onKeyUp }) =>
+            Form.Input({
+              onKeyUp,
+              onKeyDown,
+              placeholder: "태그 입력 후 엔터를 눌러주세요",
+              className: styles.tagInput,
+            })
+          }
+        />
+      </SicilianProvider>
 
       <Clickable.Container>
         <Clickable
