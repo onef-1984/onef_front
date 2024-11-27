@@ -178,7 +178,7 @@ export class ReportRequest extends GraphQL {
 
   getUserLatestReportList(userId: string) {
     return {
-      queryKey: [...this.queryKey, "userLatest"],
+      queryKey: [...this.queryKey, userId, "userLatest"],
       queryFn: () =>
         this.graphql<GetReportListBySearchQuery, GetReportListBySearchQueryVariables>(GET_REPORT_LIST_BY_SEARCH, {
           variables: {
