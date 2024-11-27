@@ -51,13 +51,13 @@ export default function ProfileEdit() {
               <Form.Input {...register("email")} disabled={true} />
             </Form.InputWrapper>
 
-            <Form.InputWrapper inputName={"닉네임"} htmlFor="nickname">
+            <Form.InputWrapper inputName={"닉네임"} htmlFor="nickname" errorMessage={errorState.nickname}>
               <Form.Input {...register("nickname")} />
             </Form.InputWrapper>
           </div>
         </div>
 
-        <Form.InputWrapper inputName={"소개"} errorMessage={errorState.bio} htmlFor="bio">
+        <Form.InputWrapper inputName={"소개"} htmlFor="bio" errorMessage={errorState.bio}>
           <Form.Textarea {...register("bio")} initValue={user.bio} className={styles.textarea} />
         </Form.InputWrapper>
       </>
