@@ -1,18 +1,18 @@
-import { register, setForm, handleSubmit, ErrorState, FormState } from "@/hooks/useSicilian/profileEdit";
+import { register, setForm, handleSubmit, ErrorState } from "@/hooks/useSicilian/profileEdit";
 import { useEffect, useState } from "react";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { usePatchProfileMutation } from "@/hooks/useMutation/usePatchProfileMutation";
+import { SicilianProvider } from "sicilian";
 import styles from "./ProfileEdit.module.css";
 import toast from "react-hot-toast";
 import Form from "@/components/forms/Form";
 import Clickable from "../clickable/Clickable";
+import Map from "../util/Map";
 
 export default function ProfileEdit() {
   const [files, setFiles] = useState<FileList>();
   const { user, isPending } = useWhoAmIAdaptor();
   const { mutate } = usePatchProfileMutation();
-  const errorState = ErrorState();
-  const formState = FormState();
 
   useEffect(() => {
     setForm({ email: user.email, nickname: user.nickname, bio: user.bio });
@@ -27,7 +27,7 @@ export default function ProfileEdit() {
       });
     }
 
-    if (user.bio === formState.bio.replace(/\n\s*\n/g, "\n") && user.nickname === formState.nickname && !files)
+    if (user.bio === bio.replace(/\n\s*\n/g, "\n") && user.nickname === nickname && !files)
       return toast.error("변경사항이 없습니다.");
 
     mutate({ formData, nickname, bio });
@@ -40,29 +40,32 @@ export default function ProfileEdit() {
         onSubmit({ files, nickname: data.nickname, bio: data.bio.replace(/\n\s*\n/g, "\n") }),
       )}
     >
-      <>
-        <div className={styles.inputContainer}>
-          <div className={styles.imageContainer}>
-            <Form.ImageInput setFiles={setFiles} initialValue={user.profileImage} file={files?.[0]} />
-          </div>
+      <Form.ImageInput
+        setFiles={setFiles}
+        className={styles.imageContainer}
+        initialValue={user.profileImage}
+        file={files?.[0]}
+      />
 
-          <div className={styles.emailNicknameContainer}>
-            <Form.InputWrapper inputName={"이메일"} htmlFor="email">
-              <Form.Input {...register("email")} disabled={true} />
-            </Form.InputWrapper>
-
-            <Form.InputWrapper inputName={"닉네임"} htmlFor="nickname" errorMessage={errorState.nickname}>
-              <Form.Input {...register("nickname")} />
-            </Form.InputWrapper>
-          </div>
-        </div>
-
-        <Form.InputWrapper inputName={"소개"} htmlFor="bio" errorMessage={errorState.bio}>
-          <Form.Textarea {...register("bio")} initValue={user.bio} className={styles.textarea} />
+      <SicilianProvider value={{ register, name: "email", ErrorState }}>
+        <Form.InputWrapper inputName={"이메일"}>
+          <Form.Input disabled={true} />
         </Form.InputWrapper>
-      </>
+      </SicilianProvider>
 
-      <Clickable className={styles.button}>저장</Clickable>
+      <SicilianProvider value={{ register, name: "nickname", ErrorState }}>
+        <Form.InputWrapper inputName={"닉네임"}>
+          <Form.Input />
+        </Form.InputWrapper>
+      </SicilianProvider>
+
+      <SicilianProvider value={{ register, name: "bio", ErrorState }}>
+        <Form.InputWrapper className={styles.bio} inputName={"소개"}>
+          <Form.Textarea initValue={user.bio} className={styles.textarea} />
+        </Form.InputWrapper>
+      </SicilianProvider>
+
+      <Clickable>저장</Clickable>
     </Form>
   );
 }
