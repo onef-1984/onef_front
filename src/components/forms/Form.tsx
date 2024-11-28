@@ -16,7 +16,7 @@ import Show from "../util/Show";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
-import { getContext } from "sicilian";
+import { getSicilianContext } from "sicilian";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface InputWrapperProps {
@@ -34,7 +34,7 @@ export default function Form({ children, ...props }: ComponentPropsWithoutRef<"f
 }
 
 Form.InputWrapper = ({ inputName, children, className }: InputWrapperProps) => {
-  const { ErrorState, name } = getContext();
+  const { ErrorState, name } = getSicilianContext();
   let errorMessage: string;
   try {
     errorMessage = ErrorState(name);
@@ -64,7 +64,7 @@ type TagInputWrapperProps = {
 } & Omit<UseTagInputHandler, "value">;
 
 Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: TagInputWrapperProps) {
-  const { FormState, name } = getContext();
+  const { FormState, name } = getSicilianContext();
   const value = FormState(name);
 
   const { onKeyDown, onKeyUp, onClick } = useTagInputHandler({ tagList, value, ...props });
@@ -91,7 +91,7 @@ Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: Ta
 };
 
 Form.Input = ({ className, ...inputProps }: ComponentPropsWithoutRef<"input">) => {
-  const { register, name } = getContext();
+  const { register, name } = getSicilianContext();
   return <input {...register(name)} {...inputProps} className={clsx(styles.input, className)} />;
 };
 
@@ -101,7 +101,7 @@ Form.Textarea = function FormTextarea({
   ...inputProps
 }: ComponentPropsWithoutRef<"textarea"> & { initValue: string }) {
   const { textRef, handleInput } = useGetTextAreaHeight(initValue);
-  const { register, name } = getContext();
+  const { register, name } = getSicilianContext();
 
   return (
     <textarea
@@ -157,7 +157,7 @@ Form.InputTypeToggler = function InputTypeToggler({ Input }: { Input: (type: "te
 };
 
 Form.MDEditor = function MD({ ...editor }: Omit<ComponentPropsWithoutRef<"input">, "value">) {
-  const { register, name } = getContext();
+  const { register, name } = getSicilianContext();
   const { value, onChange } = register(name);
 
   const { imageCommand, command, extraCommand } = useMDEditorCommands();

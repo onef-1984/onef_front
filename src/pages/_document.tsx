@@ -1,11 +1,11 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
+// import Script from "next/script";
 
 export default function Document() {
   return (
     <Html lang="ko">
       <Head>
-        <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script>
+        {/* <Script src="https://unpkg.com/react-scan/dist/auto.global.js"></Script> */}
 
         <link
           rel="preload"

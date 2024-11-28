@@ -1,19 +1,9 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { Dispatch, FormEventHandler, SetStateAction, useContext } from "react";
+import { useContext } from "react";
 import { CommentMutationContext } from "../useContext/useCommentMutationContext";
 import { useRouterAdv } from "../useRouterAdv";
 
-const useCommentMutation = ({
-  value,
-  setValue,
-  initValue,
-  depth,
-}: {
-  depth: number;
-  initValue: string;
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
-}) => {
+const useCommentMutation = ({ initValue, depth }: { depth: number; initValue: string }) => {
   const queryClient = useQueryClient();
   const { parentId, mutationFn, onSuccessBehavior } = useContext(CommentMutationContext);
   const { push, pathWithoutHash } = useRouterAdv();
@@ -21,8 +11,6 @@ const useCommentMutation = ({
   const { mutate, isPending } = useMutation({
     mutationFn: mutationFn(),
     onSuccess: () => {
-      setValue("");
-
       if (onSuccessBehavior) {
         onSuccessBehavior();
       }
@@ -34,10 +22,8 @@ const useCommentMutation = ({
     },
   });
 
-  const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-
-    if (value === initValue || value === "") {
+  const onSubmit = ({ comment }: { comment: string }) => {
+    if (comment === initValue || comment === "") {
       // 댓글 수정일 경우 onSuccessBehavior 함수를 실행
       if (onSuccessBehavior) {
         return onSuccessBehavior();
@@ -47,10 +33,10 @@ const useCommentMutation = ({
       }
     }
 
-    mutate({ parentId, value, depth });
+    mutate({ parentId, value: comment, depth });
   };
 
-  return { handleSubmit, isPending };
+  return { onSubmit, isPending };
 };
 
 export default useCommentMutation;

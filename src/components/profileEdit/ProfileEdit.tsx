@@ -7,7 +7,6 @@ import styles from "./ProfileEdit.module.css";
 import toast from "react-hot-toast";
 import Form from "@/components/forms/Form";
 import Clickable from "../clickable/Clickable";
-import Map from "../util/Map";
 
 export default function ProfileEdit() {
   const [files, setFiles] = useState<FileList>();
