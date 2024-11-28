@@ -1,41 +1,47 @@
 .root {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 2rem;
-}
-
-.inputContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+  grid-template-columns: 17.6rem 1fr;
+  grid-template-rows: 8rem 8rem auto;
+  grid-template-areas:
+    'image email'
+    'image nickname'
+    'bio bio'
+    '. button';
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'image'
+      'email'
+      'nickname'
+      'bio'
+      'button';
+  }
+
+  & > button {
+    width: 12rem;
+    margin-left: auto;
+    grid-area: button;
+  }
+
+  & > textarea {
+    height: 16rem;
   }
 }
 
+.bio {
+  grid-area: bio;
+}
+
 .imageContainer {
-  width: 17.6rem;
-  height: 17.6rem;
+  width: 18rem;
+  height: 18rem;
   border-radius: 1.6rem;
+  grid-area: image;
 
   @media (max-width: 768px) {
     margin: 0 auto;
   }
-}
-
-.emailNicknameContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  flex: 1;
-}
-
-.button {
-  width: 12rem;
-  margin-left: auto;
-}
-
-.textarea {
-  height: 16rem;
 }

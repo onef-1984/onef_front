@@ -10,10 +10,10 @@ import Clickable from "@/components/clickable/Clickable";
 import Show from "@/components/util/Show";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
+import { SicilianProvider } from "sicilian";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
-  const errorState = ErrorState();
 
   return (
     <>
@@ -37,22 +37,18 @@ export default function SignUp() {
           <Map each={signUpArray}>
             {({ inputName, htmlFor, type, placeholder }) => {
               const inputProps = {
-                ...register(htmlFor),
                 placeholder,
                 type,
               };
 
               return (
-                <Form.InputWrapper
-                  inputName={inputName}
-                  errorMessage={errorState[htmlFor]}
-                  htmlFor={htmlFor}
-                  key={htmlFor}
-                >
-                  <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
-                    <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />
-                  </Show>
-                </Form.InputWrapper>
+                <SicilianProvider value={{ register, name: htmlFor, ErrorState }}>
+                  <Form.InputWrapper inputName={inputName} key={htmlFor}>
+                    <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
+                      <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />
+                    </Show>
+                  </Form.InputWrapper>
+                </SicilianProvider>
               );
             }}
           </Map>

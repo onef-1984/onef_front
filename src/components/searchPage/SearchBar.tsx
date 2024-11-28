@@ -3,6 +3,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Clickable from "../clickable/Clickable";
 import styles from "./Search.module.css";
 import Form from "../forms/Form";
+import { SicilianProvider } from "sicilian";
 
 export default function SearchBar() {
   const { push, query } = useRouterAdv();
@@ -14,9 +15,11 @@ export default function SearchBar() {
         push({ pathname: "/search", query: { ...query, keyword: data.keyword } }, "/search");
       })}
     >
-      <Form.InputWrapper htmlFor="keyword">
-        <Form.Input {...register("keyword")} placeholder="검색어를 입력해주세요" />
-      </Form.InputWrapper>
+      <SicilianProvider value={{ register, name: "keyword" }}>
+        <Form.InputWrapper>
+          <Form.Input placeholder="검색어를 입력해주세요" />
+        </Form.InputWrapper>
+      </SicilianProvider>
 
       <Clickable>검색</Clickable>
     </Form>

@@ -1,11 +1,12 @@
 import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationContext";
 import { useIsLogin } from "@/hooks/useIsLogin";
-import { useState, Dispatch, SetStateAction, ReactNode } from "react";
+import { useState, Dispatch, SetStateAction, ReactNode, useEffect } from "react";
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import { ReportComment } from "@/types/comment.types";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useDeleteCommentMutation } from "@/hooks/useMutation/useDeleteCommentMutation";
+import { SicilianProvider, useDragon } from "sicilian";
 import useCommentMutation from "@/hooks/useMutation/useCommentMutation";
 import Clickable from "../clickable/Clickable";
 import Form from "../forms/Form";
@@ -72,23 +73,33 @@ Comment.Input = function CommentInput({
   inputName: string;
   buttonName: string;
 }) {
-  const [value, setValue] = useState(initValue);
-  const { handleSubmit, isPending } = useCommentMutation({ initValue, depth, value, setValue });
   const isLogin = useIsLogin();
+  const { onSubmit, isPending } = useCommentMutation({ initValue, depth });
+  const { handleSubmit, register, setForm } = useDragon({
+    initValue: { comment: "" },
+    validator: {
+      comment: { required: true },
+    },
+    validateOn: ["submit"],
+    clearFormOn: ["routeChange", "submit"],
+  });
+
+  useEffect(() => {
+    setForm({ comment: initValue });
+  }, [initValue]);
 
   return (
-    <Form onSubmit={handleSubmit} className={styles.inputRoot}>
-      <Form.InputWrapper inputName={inputName}>
-        <Form.Textarea
-          name="댓글"
-          initValue={initValue}
-          placeholder={isLogin ? "댓글을 입력해주세요" : "로그인 후 댓글을 작성할 수 있습니다"}
-          className={styles.textarea}
-          disabled={!isLogin}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </Form.InputWrapper>
+    <Form onSubmit={handleSubmit(onSubmit)} className={styles.inputRoot}>
+      <SicilianProvider value={{ register, name: "comment" }}>
+        <Form.InputWrapper inputName={inputName}>
+          <Form.Textarea
+            initValue={initValue}
+            placeholder={isLogin ? "댓글을 입력해주세요" : "로그인 후 댓글을 작성할 수 있습니다"}
+            className={styles.textarea}
+            disabled={!isLogin}
+          />
+        </Form.InputWrapper>
+      </SicilianProvider>
 
       <Clickable size="small" disabled={!isLogin || isPending} className={styles.button}>
         {buttonName}

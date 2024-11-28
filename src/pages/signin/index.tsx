@@ -10,10 +10,10 @@ import Show from "@/components/util/Show";
 import Clickable from "@/components/clickable/Clickable";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
+import { SicilianProvider } from "sicilian";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
-  const errorState = ErrorState();
 
   return (
     <>
@@ -36,22 +36,20 @@ export default function SignIn() {
         <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
           <Map each={signInArray}>
             {({ inputName, htmlFor, type, placeholder }) => {
-              const inputProps = { ...register(htmlFor), placeholder, type };
+              const inputProps = { placeholder, type };
 
               return (
-                <Form.InputWrapper
-                  inputName={inputName}
-                  errorMessage={errorState[htmlFor]}
-                  htmlFor={htmlFor}
-                  key={htmlFor}
-                >
-                  <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
-                    <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />
-                  </Show>
-                </Form.InputWrapper>
+                <SicilianProvider value={{ register, name: htmlFor, ErrorState }}>
+                  <Form.InputWrapper inputName={inputName} key={htmlFor}>
+                    <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
+                      <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />
+                    </Show>
+                  </Form.InputWrapper>
+                </SicilianProvider>
               );
             }}
           </Map>
+
           <Clickable disabled={isPending}>로그인</Clickable>
         </Form>
 
