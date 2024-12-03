@@ -2,7 +2,8 @@ import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
 import { useMutation } from "@tanstack/react-query";
 import { useRouterAdv } from "../useRouterAdv";
 import toast from "react-hot-toast";
-import { GraphQLError } from "graphql";
+import { AxiosError } from "axios";
+import { Message } from "@/types/graphql.types";
 
 export const useSignMutation = (url: string) => {
   const { push } = useRouterAdv();
@@ -14,8 +15,8 @@ export const useSignMutation = (url: string) => {
       toast.success(data.message);
       push("/");
     },
-    onError: (error: GraphQLError) => {
-      toast.error(error?.message ?? "server error");
+    onError: (error: AxiosError<Message>) => {
+      toast.error(error.response?.data.message ?? "server error");
     },
   });
 
