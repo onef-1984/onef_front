@@ -15,21 +15,6 @@ export type Scalars = {
   DateTime: { input: any; output: any };
 };
 
-export type BookInput = {
-  author: Scalars["String"]["input"];
-  categoryId: Scalars["Int"]["input"];
-  categoryName: Scalars["String"]["input"];
-  cover: Scalars["String"]["input"];
-  customerReviewRank: Scalars["Int"]["input"];
-  description: Scalars["String"]["input"];
-  isbn13: Scalars["String"]["input"];
-  priceStandard: Scalars["Int"]["input"];
-  pubDate: Scalars["String"]["input"];
-  publisher: Scalars["String"]["input"];
-  subInfo: SubInfoInput;
-  title: Scalars["String"]["input"];
-};
-
 export type BookObject = {
   __typename?: "BookObject";
   author: Scalars["String"]["output"];
@@ -115,6 +100,7 @@ export type Mutation = {
   createEditorsPick: Message;
   createReport: Report;
   deleteReport: Report;
+  promotionUser: Message;
   toggleReportLike: Message;
   updateReport: Report;
 };
@@ -128,7 +114,7 @@ export type MutationChangeProfileArgs = {
 };
 
 export type MutationCreateBookArgs = {
-  bookInput: BookInput;
+  isbn13: Scalars["String"]["input"];
 };
 
 export type MutationCreateEditorsPickArgs = {
@@ -142,6 +128,10 @@ export type MutationCreateReportArgs = {
 
 export type MutationDeleteReportArgs = {
   reportId: Scalars["String"]["input"];
+};
+
+export type MutationPromotionUserArgs = {
+  key: Scalars["String"]["input"];
 };
 
 export type MutationToggleReportLikeArgs = {
@@ -467,7 +457,7 @@ export type GetReportQuery = {
 };
 
 export type CreateReportMutationVariables = Exact<{
-  BookInput: BookInput;
+  isbn13: Scalars["String"]["input"];
   ReportInput: ReportInput;
 }>;
 

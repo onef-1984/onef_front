@@ -57,8 +57,8 @@ const GET_REPORT = gql`
 `;
 
 const CREATE_REPORT_MUTATION = gql`
-  mutation CreateReport($BookInput: BookInput!, $ReportInput: ReportInput!) {
-    book: createBook(bookInput: $BookInput) {
+  mutation CreateReport($isbn13: String!, $ReportInput: ReportInput!) {
+    book: createBook(isbn13: $isbn13) {
       isbn13
     }
     report: createReport(reportInput: $ReportInput) {
@@ -246,11 +246,11 @@ export class ReportRequest extends GraphQL {
     };
   }
 
-  createReport(BookInput: CreateReportMutationVariables["BookInput"]) {
+  createReport(isbn13: CreateReportMutationVariables["isbn13"]) {
     return (ReportInput: CreateReportMutationVariables["ReportInput"]) =>
       this.graphql<CreateReportMutation, CreateReportMutationVariables>(CREATE_REPORT_MUTATION, {
         variables: {
-          BookInput,
+          isbn13,
           ReportInput,
         },
       });

@@ -1,15 +1,15 @@
-import { ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signUp";
-import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
-import { signUpArray } from "@/constants/sign/signArray";
-import Link from "next/link";
-import Form from "@/components/forms/Form";
-import styles from "@/styles/Sign.module.css";
-import Logo from "@/components/logo/Logo";
-import Map from "@/components/util/Map";
 import Clickable from "@/components/clickable/Clickable";
-import Show from "@/components/util/Show";
-import SocialLogin from "@/components/socialLogin/SocialLogin";
+import Form from "@/components/forms/Form";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
+import Logo from "@/components/logo/Logo";
+import SocialLogin from "@/components/socialLogin/SocialLogin";
+import Map from "@/components/util/Map";
+import Show from "@/components/util/Show";
+import { signUpArray } from "@/constants/sign/signArray";
+import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
+import { ErrorState, handleSubmit, register } from "@/hooks/useSicilian/signUp";
+import styles from "@/styles/Sign.module.css";
+import Link from "next/link";
 import { SicilianProvider } from "sicilian";
 
 export default function SignUp() {
