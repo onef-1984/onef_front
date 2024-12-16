@@ -6,6 +6,7 @@ import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useReportMutateContext } from "@/hooks/useContext/useMutationContext";
 import { SicilianProvider } from "sicilian";
+import ValueIndicator from "../valueIndicator/ValueIndicator";
 
 export default function ReportForm() {
   const [tagList, setTagList] = useReportTagList();
@@ -19,11 +20,17 @@ export default function ReportForm() {
       onSubmit={handleSubmit(({ title, content }) => mutate({ title, content, isbn13: isbn13, tags: tagList }))}
     >
       <SicilianProvider value={{ register, name: "title" }}>
-        <Form.Input placeholder={"제목을 입력해 주세요"} className={styles.titleInput} />
+        <div>
+          <Form.Input placeholder={"제목을 입력해 주세요"} className={styles.titleInput} />
+          <ValueIndicator value={FormState().title.length} limit={19} />
+        </div>
       </SicilianProvider>
 
       <SicilianProvider value={{ register, name: "content" }}>
-        <Form.MDEditor />
+        <div>
+          <Form.MDEditor />
+          <ValueIndicator value={FormState().content.length} limit={1984} />
+        </div>
       </SicilianProvider>
 
       <SicilianProvider value={{ register, name: "tags", FormState }}>
