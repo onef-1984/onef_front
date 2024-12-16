@@ -64,3 +64,11 @@ svg {
     flex: 1;
   }
 }
+
+.wmde-markdown p {
+  margin: 0 !important;
+}
+
+.wmde-markdown li+li {
+  margin-top: 0 !important;
+}
