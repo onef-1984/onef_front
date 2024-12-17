@@ -10,13 +10,17 @@ export default function Dialog({ children, closeDialog }: { children: ReactNode;
   const dialogRef = createRef<HTMLDialogElement>();
 
   useEffect(() => {
-    if (!dialogRef.current?.open) {
-      dialogRef.current?.showModal();
-      dialogRef.current?.scrollTo({ top: 0 });
+    const dialog = dialogRef.current;
+
+    if (!dialog) return;
+
+    if (dialog.open) {
+      dialog.showModal();
+      dialog.scrollTo({ top: 0 });
     }
 
     return () => {
-      dialogRef.current?.close();
+      dialog.close();
     };
   }, [dialogRef]);
 

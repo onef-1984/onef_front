@@ -60,7 +60,7 @@ export const useMDEditorCommands = () => {
     extraCommands.then((a) => {
       setExtraCommand(a.getExtraCommands());
     });
-  }, []);
+  }, [commands, extraCommands]);
 
   return { imageCommand, command, extraCommand };
 };

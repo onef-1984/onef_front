@@ -1,6 +1,5 @@
 import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationContext";
-import { useIsLogin } from "@/hooks/useIsLogin";
-import { useState, Dispatch, SetStateAction, ReactNode, useEffect } from "react";
+import react from "react";
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import { ReportComment } from "@/types/comment.types";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
@@ -16,6 +15,7 @@ import Map from "../util/Map";
 import ProfileImage from "../Profile/ProfileImage";
 import useCommentsAdaptor from "@/hooks/useAdaptor/useCommentsAdaptor";
 import styles from "./Comment.module.css";
+import { useIsQualified } from "@/hooks/useIsQualified";
 
 type CommentBoxType = "viewer" | "editor";
 
@@ -73,7 +73,7 @@ Comment.Input = function CommentInput({
   inputName: string;
   buttonName: string;
 }) {
-  const isLogin = useIsLogin();
+  const isLogin = useIsQualified("login");
   const { onSubmit, isPending } = useCommentMutation({ initValue, depth });
   const { handleSubmit, register, setForm } = useDragon({
     initValue: { comment: "" },
@@ -84,7 +84,7 @@ Comment.Input = function CommentInput({
     clearFormOn: ["routeChange", "submit"],
   });
 
-  useEffect(() => {
+  react.useEffect(() => {
     setForm({ comment: initValue });
   }, [initValue]);
 
@@ -109,9 +109,9 @@ Comment.Input = function CommentInput({
 };
 
 Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportComment; depth: number }) {
-  const [commentState, setCommentState] = useState<CommentBoxType>("viewer");
+  const [commentState, setCommentState] = react.useState<CommentBoxType>("viewer");
   const commentMutation = new CommentMutation();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = react.useState(false);
 
   switch (commentState) {
     case "viewer":
@@ -162,8 +162,8 @@ Comment.Viewer = function CommentViewer({
 }: {
   depth: number;
   commentData: ReportComment;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  setCommentState: Dispatch<SetStateAction<CommentBoxType>>;
+  setOpen: react.Dispatch<react.SetStateAction<boolean>>;
+  setCommentState: react.Dispatch<react.SetStateAction<CommentBoxType>>;
 }) {
   const { handleClick } = useDeleteCommentMutation(commentData.id);
   const { user } = useWhoAmIAdaptor();
@@ -218,9 +218,9 @@ Comment.ReplyContainer = function CommentReplyContainer({
   children,
 }: {
   commentData: ReportComment;
-  children: ReactNode;
+  children: react.ReactNode;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = react.useState(false);
 
   return (
     <Show when={commentData.replies.length !== 0}>

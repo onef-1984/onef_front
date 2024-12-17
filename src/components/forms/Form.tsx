@@ -1,9 +1,8 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode, useState } from "react";
 import { LuPen } from "react-icons/lu";
 import { ImageInputProps, useImageInput } from "@/hooks/useImageInput";
 import { IoEyeOffOutline } from "@react-icons/all-files/io5/IoEyeOffOutline";
 import { IoEyeOutline } from "@react-icons/all-files/io5/IoEyeOutline";
-import { useToggle } from "@/hooks/useToggle";
 import { useMDEditorCommands } from "@/hooks/useMDEditorCommands";
 import { useTagInputHandler, UseTagInputHandler } from "@/hooks/useTagInputHandler";
 import { MdClose } from "@react-icons/all-files/md/MdClose";
@@ -141,13 +140,17 @@ Form.ImageInput = function ImageInput({
 
 Form.InputTypeToggler = function InputTypeToggler({ Input }: { Input: (type: "text" | "password") => ReactNode }) {
   // 비밀번호 타입 토글
-  const [toggleType, handleToggleType] = useToggle("password", "text");
+  const [toggleType, setToggleType] = useState<"text" | "password">("password");
 
   return (
     <>
       {Input(toggleType)}
 
-      <button className={styles.button} type="button" onClick={handleToggleType}>
+      <button
+        className={styles.button}
+        type="button"
+        onClick={() => setToggleType((prev) => (prev === "text" ? "password" : "text"))}
+      >
         <Show when={toggleType === "text"} fallback={<IoEyeOutline />}>
           <IoEyeOffOutline />
         </Show>

@@ -15,7 +15,7 @@ export default function ProfileEdit() {
 
   useEffect(() => {
     setForm({ email: user.email, nickname: user.nickname, bio: user.bio });
-  }, [isPending]);
+  }, [isPending, user]);
 
   const onSubmit = ({ files, nickname, bio }: { files: FileList | undefined; nickname: string; bio: string }) => {
     const formData = new FormData();

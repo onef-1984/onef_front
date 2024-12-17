@@ -40,7 +40,7 @@ export default function Review() {
       toast.error("리뷰를 찾을 수 없습니다.");
       push("/404");
     }
-  }, [error]);
+  }, [error, push]);
 
   const content = {
     title: report.title,

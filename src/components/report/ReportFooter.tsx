@@ -1,6 +1,4 @@
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
-import { useIsMyReview } from "@/hooks/useIsMyReview";
-import { useIsLogin } from "@/hooks/useIsLogin";
 import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport";
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
@@ -10,11 +8,12 @@ import Clickable from "../clickable/Clickable";
 import Map from "../util/Map";
 import Link from "next/link";
 import Tag from "../tag/Tag";
+import { useIsQualified } from "@/hooks/useIsQualified";
 
 export default function ReportFooter() {
   const { report } = useReportAdaptor();
-  const isMyReport = useIsMyReview();
-  const isLogin = useIsLogin();
+  const isMyReport = useIsQualified("myReport");
+  const isLogin = useIsQualified("login");
   const { isLiked } = useIsLikedReport();
   const { mutate, isPending } = useReportLikesMutation();
 

@@ -1,4 +1,3 @@
-import { useIsMyReview } from "@/hooks/useIsMyReview";
 import styles from "./Report.module.css";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
@@ -9,17 +8,18 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import Show from "../util/Show";
+import { useIsQualified } from "@/hooks/useIsQualified";
 
 export default function ReportButton() {
   const { mutate } = useDeleteReportMutation();
   const { report } = useReportAdaptor();
   const { id: reportId } = useRouterAdv();
 
-  const isMyReview = useIsMyReview();
+  const isMyReport = useIsQualified("myReport");
 
   return (
     <div className={styles.icons}>
-      <Show when={isMyReview}>
+      <Show when={isMyReport}>
         <Link href={report.id ? `/report/${report.id}/edit` : "/report"}>
           <SlNote />
         </Link>

@@ -2,20 +2,20 @@ import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { useIsLogin } from "@/hooks/useIsLogin";
 import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
 import BookSearchModal from "@/components/BookSearchModal/BookSearchModal";
 import Dialog from "@/components/dialog/Dialog";
 import Show from "@/components/util/Show";
+import { useIsQualified } from "@/hooks/useIsQualified";
 
 export default function SideMenu() {
   const [bookSearchModalState, setBookSearchModalState] = useBookSearchModalToggle();
   const [toggle, setToggle] = useSideMenuToggle();
   const { user } = useWhoAmIAdaptor();
   const { push } = useRouterAdv();
-  const isLogin = useIsLogin();
+  const isLogin = useIsQualified("login");
 
   return (
     <aside className={clsx(styles.root, toggle && styles.open)}>

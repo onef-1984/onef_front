@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { usePopUpToggle } from "@/hooks/usePopUpToggle";
+import { usePopoverToggle } from "@/hooks/usePopoverToggle";
 import { useSignOutMutation } from "@/hooks/useMutation/useSignOutMutation";
 import { josa } from "es-hangul";
 import { MdClose } from "@react-icons/all-files/md/MdClose";
@@ -10,7 +10,7 @@ import ProfileImage from "../Profile/ProfileImage";
 import Link from "next/link";
 import Show from "../util/Show";
 import clsx from "clsx";
-import styles from "./PopUp.module.css";
+import styles from "./Popover.module.css";
 
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -20,26 +20,26 @@ function formatCreatedAt(createdAt: Date) {
   return formatDistanceToNow(new Date(createdAt), { addSuffix: true, locale: ko });
 }
 
-type PopUpProps = {
+type PopoverProps = {
   position: "left" | "right";
   children: ReactNode;
   when: boolean;
 };
 
-export default function PopUp({
+export default function Popover({
   id,
   children,
-  popUp,
+  popover,
   position,
   className,
 }: {
   position: "left" | "right";
   id: string;
   className?: string;
-  popUp: ReactNode;
+  popover: ReactNode;
   children: (id: string) => ReactNode;
 }) {
-  const { toggle, handleToggle } = usePopUpToggle(id);
+  const { toggle, handleToggle } = usePopoverToggle(id);
 
   return (
     <div className={styles.root}>
@@ -47,14 +47,14 @@ export default function PopUp({
         {children(id)}
       </button>
 
-      <PopUp.Wrapper when={toggle} position={position}>
-        {popUp}
-      </PopUp.Wrapper>
+      <Popover.Wrapper when={toggle} position={position}>
+        {popover}
+      </Popover.Wrapper>
     </div>
   );
 }
 
-PopUp.Wrapper = ({ position, children, when }: PopUpProps) => {
+Popover.Wrapper = ({ position, children, when }: PopoverProps) => {
   return (
     <Show when={when}>
       <div className={clsx(styles.wrapper, styles[position])}>{children}</div>
@@ -62,7 +62,7 @@ PopUp.Wrapper = ({ position, children, when }: PopUpProps) => {
   );
 };
 
-PopUp.SearchOption = function SearchOptionPopUp() {
+Popover.SearchOption = function SearchOptionPopover() {
   const { query, push, location } = useRouterAdv();
 
   const handleClick = (orderBy: string) => () => {
@@ -82,7 +82,7 @@ PopUp.SearchOption = function SearchOptionPopUp() {
   );
 };
 
-PopUp.Profile = function ProfilePopUp() {
+Popover.Profile = function ProfilePopover() {
   const { mutate } = useSignOutMutation();
   const { push, asPath } = useRouterAdv();
   const handleClick = () => {
@@ -105,7 +105,7 @@ PopUp.Profile = function ProfilePopUp() {
   );
 };
 
-PopUp.Notification = function NotificationPopUp({
+Popover.Notification = function NotificationPopover({
   id,
   sender,
   report,

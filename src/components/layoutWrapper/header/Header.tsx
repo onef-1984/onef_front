@@ -1,11 +1,10 @@
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { LuMenu } from "react-icons/lu";
 import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
-import { useIsLogin } from "@/hooks/useIsLogin";
 import { AiOutlineBell } from "@react-icons/all-files/ai/AiOutlineBell";
 import { User } from "@/types/graphql.types";
 import Logo from "@/components/logo/Logo";
-import PopUp from "@/components/popUp/PopUp";
+import Popover from "@/components/popover/Popover";
 import ProfileImage from "@/components/Profile/ProfileImage";
 import Show from "@/components/util/Show";
 import Map from "@/components/util/Map";
@@ -13,10 +12,11 @@ import clsx from "clsx";
 import useNotification from "@/hooks/useSocket/useNotification";
 import Link from "next/link";
 import styles from "./Header.module.css";
+import { useIsQualified } from "@/hooks/useIsQualified";
 
 export default function Header() {
   const { user } = useWhoAmIAdaptor();
-  const isLogin = useIsLogin();
+  const isLogin = useIsQualified("login");
 
   return (
     <header className={styles.root}>
@@ -28,7 +28,7 @@ export default function Header() {
 
       <div className={styles.headerRightBox}>
         <Show when={isLogin} fallback={<Header.SignLink />}>
-          <Header.ProfileImagePopUp {...user} />
+          <Header.ProfileImagePopover {...user} />
 
           <Header.Notification {...user} />
         </Show>
@@ -69,11 +69,11 @@ Header.Notification = function HeaderNotification({ id }: Pick<User, "id">) {
     <div className={styles.notificationRoot}>
       <div className={clsx(styles.redDot, isNew && styles.show)} />
 
-      <PopUp
+      <Popover
         position="right"
         id="Notification"
         className={styles.bell}
-        popUp={
+        popover={
           <div className={styles.notificationList}>
             <Map
               each={data}
@@ -83,21 +83,21 @@ Header.Notification = function HeaderNotification({ id }: Pick<User, "id">) {
                 </div>
               }
             >
-              {(item) => <PopUp.Notification key={item.id} {...item} />}
+              {(item) => <Popover.Notification key={item.id} {...item} />}
             </Map>
           </div>
         }
       >
         {(id: string) => <AiOutlineBell style={{ fontSize: "2rem", fontWeight: "bolder" }} id={id} />}
-      </PopUp>
+      </Popover>
     </div>
   );
 };
 
-Header.ProfileImagePopUp = function HeaderProfileImagePopUp({ profileImage }: Pick<User, "profileImage">) {
+Header.ProfileImagePopover = function HeaderProfileImagePopover({ profileImage }: Pick<User, "profileImage">) {
   return (
-    <PopUp position="right" id="Profile" className={styles.profileImagePopUp} popUp={<PopUp.Profile />}>
+    <Popover position="right" id="Profile" className={styles.profileImagePopover} popover={<Popover.Profile />}>
       {(id: string) => <ProfileImage id={id} profileImage={profileImage} size={40} />}
-    </PopUp>
+    </Popover>
   );
 };

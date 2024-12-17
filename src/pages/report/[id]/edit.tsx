@@ -8,6 +8,7 @@ import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { ReportMutateProvider } from "@/hooks/useContext/useMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
 import { setForm } from "@/hooks/useSicilian/report";
+import { set } from "date-fns";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
 
@@ -44,7 +45,7 @@ export default function Edit() {
       content,
     });
     setTagList(tags);
-  }, [isPending]);
+  }, [isPending, title, content, tags, setTagList]);
 
   return (
     <>

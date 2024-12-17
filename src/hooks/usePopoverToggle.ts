@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const usePopUpToggle = (id: string) => {
+export const usePopoverToggle = (id: string) => {
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
@@ -15,7 +15,7 @@ export const usePopUpToggle = (id: string) => {
         setToggle(false);
       }
     });
-  }, []);
+  }, [id]);
 
   return { toggle, handleToggle };
 };
