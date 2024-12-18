@@ -1,11 +1,10 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
-import { CommentMutationContext } from "../useContext/useCommentMutationContext";
+import { useCommentMutationContext } from "../useContext/useCommentMutationContext";
 import { useRouterAdv } from "../useRouterAdv";
 
 const useCommentMutation = ({ initValue, depth }: { depth: number; initValue: string }) => {
   const queryClient = useQueryClient();
-  const { parentId, mutationFn, onSuccessBehavior } = useContext(CommentMutationContext);
+  const { parentId, mutationFn, onSuccessBehavior } = useCommentMutationContext("useCommentMutation");
   const { push, pathWithoutHash } = useRouterAdv();
 
   const { mutate, isPending } = useMutation({

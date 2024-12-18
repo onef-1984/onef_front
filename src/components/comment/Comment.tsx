@@ -1,4 +1,4 @@
-import { CommentMutationContext } from "@/hooks/useContext/useCommentMutationContext";
+import { CommentMutationProvider } from "@/hooks/useContext/useCommentMutationContext";
 import react from "react";
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import { ReportComment } from "@/types/comment.types";
@@ -26,14 +26,14 @@ export default function Comment({ id, depth }: { id: string; depth: number }) {
 
   return (
     <div className={styles.root}>
-      <CommentMutationContext.Provider
+      <CommentMutationProvider
         value={{
           parentId: id,
           mutationFn: commentMutation.postComment,
         }}
       >
         <Comment.Input depth={depth} inputName="댓글" buttonName="저장" />
-      </CommentMutationContext.Provider>
+      </CommentMutationProvider>
 
       <Comment.Container depth={depth} id={id} />
     </div>
@@ -121,7 +121,7 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
 
           <Show when={open}>
             <div style={{ marginLeft: "5rem" }}>
-              <CommentMutationContext.Provider
+              <CommentMutationProvider
                 value={{
                   mutationFn: commentMutation.postComment,
                   parentId: commentData.id,
@@ -131,7 +131,7 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
                 }}
               >
                 <Comment.Input depth={depth + 1} buttonName="저장" inputName="답글" />
-              </CommentMutationContext.Provider>
+              </CommentMutationProvider>
             </div>
           </Show>
         </>
@@ -139,7 +139,7 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
 
     case "editor":
       return (
-        <CommentMutationContext.Provider
+        <CommentMutationProvider
           value={{
             mutationFn: commentMutation.putComment,
             parentId: commentData.id,
@@ -149,7 +149,7 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
           }}
         >
           <Comment.Input depth={depth} initValue={commentData.comment} buttonName="수정" inputName="" />
-        </CommentMutationContext.Provider>
+        </CommentMutationProvider>
       );
   }
 };
