@@ -1,3 +1,3 @@
 import { playTartakower } from "caro-kann";
 
-export const useSideMenuToggle = playTartakower(false);
+export const { useBoard: useSideMenuToggle } = playTartakower(false);

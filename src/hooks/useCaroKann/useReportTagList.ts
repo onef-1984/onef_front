@@ -1,3 +1,3 @@
 import { playTartakower } from "caro-kann";
 
-export const useReportTagList = playTartakower<Array<string>>([]);
+export const { useBoard: useReportTagList } = playTartakower<Array<string>>([]);

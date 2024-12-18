@@ -1,3 +1,3 @@
 import { playTartakower } from "caro-kann";
 
-export const useBookSearchModalToggle = playTartakower(false);
+export const { useBoard: useBookSearchModalToggle } = playTartakower(false);
