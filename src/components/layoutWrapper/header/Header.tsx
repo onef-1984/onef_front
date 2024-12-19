@@ -1,6 +1,5 @@
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { LuMenu } from "react-icons/lu";
-import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
 import { AiOutlineBell } from "@react-icons/all-files/ai/AiOutlineBell";
 import { User } from "@/types/graphql.types";
 import Logo from "@/components/logo/Logo";
@@ -13,6 +12,7 @@ import useNotification from "@/hooks/useSocket/useNotification";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { useIsQualified } from "@/hooks/useIsQualified";
+import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 
 export default function Header() {
   const { user } = useWhoAmIAdaptor();
@@ -38,13 +38,13 @@ export default function Header() {
 }
 
 Header.SideMenuButton = function SideMenuButton() {
-  const [_, setToggle] = useSideMenuToggle();
+  const [_, setToggle] = useBoardToggle((store) => store.SideMenu);
 
   return (
     <button
       type="button"
       onClick={() => {
-        setToggle((prev) => !prev);
+        setToggle(true);
       }}
       className={styles.hamburger}
     >

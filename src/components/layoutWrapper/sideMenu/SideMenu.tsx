@@ -1,25 +1,27 @@
-import { useSideMenuToggle } from "@/hooks/useCaroKann/useSideMenuToggle";
+import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
-import BookSearchModal from "@/components/BookSearchModal/BookSearchModal";
 import Dialog from "@/components/dialog/Dialog";
 import Show from "@/components/util/Show";
 import { useIsQualified } from "@/hooks/useIsQualified";
+import BookSearchModal from "@/components/dialog/BookSearch/BookSearchModal";
 
 export default function SideMenu() {
-  const [bookSearchModalState, setBookSearchModalState] = useBookSearchModalToggle();
-  const [toggle, setToggle] = useSideMenuToggle();
+  const [toggle, setToggle] = useBoardToggle();
   const { user } = useWhoAmIAdaptor();
   const { push } = useRouterAdv();
   const isLogin = useIsQualified("login");
 
   return (
-    <aside className={clsx(styles.root, toggle && styles.open)}>
-      <button type="button" className={styles.closeButton} onClick={() => setToggle((prev) => !prev)}>
+    <aside className={clsx(styles.root, toggle.SideMenu && styles.open)}>
+      <button
+        type="button"
+        className={styles.closeButton}
+        onClick={() => setToggle((prev) => ({ ...prev, SideMenu: false }))}
+      >
         <IoClose />
       </button>
 
@@ -28,7 +30,7 @@ export default function SideMenu() {
           type="button"
           style={{ cursor: "pointer" }}
           onClick={() => {
-            setToggle(false);
+            setToggle((prev) => ({ ...prev, SideMenu: false }));
             push("/search");
           }}
         >
@@ -36,11 +38,15 @@ export default function SideMenu() {
         </button>
 
         <Show when={isLogin}>
-          <button type="button" style={{ cursor: "pointer" }} onClick={() => setBookSearchModalState(true)}>
+          <button
+            type="button"
+            style={{ cursor: "pointer" }}
+            onClick={() => setToggle((prev) => ({ ...prev, BookSearchModal: true }))}
+          >
             리뷰 작성
           </button>
-          <Show when={bookSearchModalState}>
-            <Dialog closeDialog={() => setBookSearchModalState(false)}>
+          <Show when={toggle.BookSearchModal}>
+            <Dialog closeDialog={() => setToggle((prev) => ({ ...prev, BookSearchModal: false }))}>
               <BookSearchModal />
             </Dialog>
           </Show>
@@ -49,7 +55,7 @@ export default function SideMenu() {
             type="button"
             style={{ cursor: "pointer" }}
             onClick={() => {
-              setToggle(false);
+              setToggle((prev) => ({ ...prev, SideMenu: false }));
               push(`/dashboard/${user.nickname}`);
             }}
           >

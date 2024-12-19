@@ -14,10 +14,7 @@ export default function Dialog({ children, closeDialog }: { children: ReactNode;
 
     if (!dialog) return;
 
-    if (dialog.open) {
-      dialog.showModal();
-      dialog.scrollTo({ top: 0 });
-    }
+    dialog.showModal();
 
     return () => {
       dialog.close();

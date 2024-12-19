@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useInfiniteBookListAdaptor } from "@/hooks/useAdaptor/useInfiniteBookListAdaptor";
-import { useBookSearchModalToggle } from "@/hooks/useCaroKann/useBookSearchModalToggle";
+import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 import { register, handleSubmit } from "@/hooks/useSicilian/bookSearch";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Item } from "@/types/graphql.types";
@@ -39,7 +39,7 @@ function BookSearchNull() {
 }
 
 function BookDetail({ book, setBook }: { book: Item; setBook: Dispatch<SetStateAction<Item>> }) {
-  const [_, setState] = useBookSearchModalToggle();
+  const [_, setState] = useBoardToggle();
   const { push } = useRouterAdv();
 
   return (
@@ -71,7 +71,7 @@ function BookDetail({ book, setBook }: { book: Item; setBook: Dispatch<SetStateA
         <Clickable
           type="button"
           onClick={() => {
-            setState(false);
+            setState({ BookSearchModal: false, SideMenu: false });
             push(`/report/${book.isbn13}/create`);
           }}
         >
