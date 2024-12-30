@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useInfiniteBookListAdaptor } from "@/hooks/useAdaptor/useInfiniteBookListAdaptor";
 import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 import { register, handleSubmit } from "@/hooks/useSicilian/bookSearch";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { Item } from "@/types/graphql.types";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { formatAuthor } from "@/utils/formatAuthor";
@@ -90,35 +90,17 @@ function BookListSearchResult({
   setBook: Dispatch<SetStateAction<Item>>;
 }) {
   const { fetchNextPage, pages } = useInfiniteBookListAdaptor(searchKeyword);
-  const { isVisible, setIsVisible, myRef } = useIntersectionObserver();
-
-  useEffect(() => {
-    if (isVisible) {
-      fetchNextPage();
-      setIsVisible(false);
-    }
-  }, [isVisible, fetchNextPage, setIsVisible]);
+  const ref = useInfiniteScroll<HTMLDivElement>(fetchNextPage);
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
       <Map each={pages}>
-        {({ bookList }) => {
-          return (
-            <Map each={bookList.items}>
-              {(book) => (
-                <Card
-                  key={book.isbn13}
-                  item={book}
-                  onClick={() => setBook(book)}
-                  cardBox={<CardResultBox {...book} />}
-                />
-              )}
-            </Map>
-          );
-        }}
+        {(book) => (
+          <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
+        )}
       </Map>
 
-      <div ref={myRef} />
+      <div ref={ref} />
     </div>
   );
 }

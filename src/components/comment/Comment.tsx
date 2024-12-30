@@ -1,5 +1,5 @@
 import { CommentMutationProvider } from "@/hooks/useContext/useCommentMutationContext";
-import react from "react";
+import react, { useState } from "react";
 import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import { ReportComment } from "@/types/comment.types";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
@@ -220,7 +220,7 @@ Comment.ReplyContainer = function CommentReplyContainer({
   commentData: ReportComment;
   children: react.ReactNode;
 }) {
-  const [open, setOpen] = react.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <Show when={commentData.replies.length !== 0}>

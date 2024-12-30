@@ -1,6 +1,6 @@
 import Image from "next/image";
-import baseProfileImage from "../../../public/images/baseProfileImage.png";
 import { User } from "@/types/graphql.types";
+import baseProfileImage from "/public/images/baseProfileImage.png";
 
 export default function ProfileImage({
   profileImage,

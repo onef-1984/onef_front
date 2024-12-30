@@ -1,11 +1,10 @@
 import { useInfiniteReportSearchListAdaptor } from "@/hooks/useAdaptor/useInfiniteReportSearchListAdaptor";
-import { useIntersectionObserver } from "usehooks-ts";
-import { useEffect } from "react";
 import CardReport from "../card/CardReport";
 import SearchBinder from "./SearchBinder";
 import Show from "../util/Show";
 import Map from "../util/Map";
 import { OrderBy, SearchType } from "@/types/graphql.types";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 export default function SearchResult({
   keyword,
@@ -17,13 +16,7 @@ export default function SearchResult({
   searchType: SearchType;
 }) {
   const { pages, fetchNextPage } = useInfiniteReportSearchListAdaptor({ keyword, orderBy, searchType });
-  const { isIntersecting, ref } = useIntersectionObserver();
-
-  useEffect(() => {
-    if (isIntersecting) {
-      fetchNextPage();
-    }
-  }, [isIntersecting, fetchNextPage]);
+  const ref = useInfiniteScroll<HTMLParagraphElement>(fetchNextPage);
 
   return (
     <>
