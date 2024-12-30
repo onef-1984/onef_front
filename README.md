@@ -8,6 +8,7 @@
   * [일관적인 로직 사용을 위한 유틸리티 컴포넌트 도입](#일관적인-로직-사용을-위한-유틸리티-컴포넌트-도입)
   * [재귀 컴포넌트 패턴을 사용하여 댓글 기능 구현](#재귀-컴포넌트-패턴을-사용하여-댓글-기능-구현)
   * [IntersectionObserver API를 사용한 무한 스크롤](#IntersectionObserver-API를-사용한-무한-스크롤)
+  * [websocket을 사용한 알림 기능 구현](#websocket을-사용한-알림-기능-구현)
   * [어댑터 패턴을 활용한 백엔드 의존성 개선](#어댑터-패턴을-활용한-백엔드-의존성-개선)
   * [레포지토리 패턴을 활용한 쿼리 함수 관리](#레포지토리-패턴을-활용한-쿼리-함수-관리)
 
@@ -275,6 +276,20 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
   );
 ```
 [무한스크롤.webm](https://github.com/user-attachments/assets/323f72a7-f4d9-4599-bd78-69443f240512)
+
+
+&nbsp;
+
+## websocket을 사용한 알림 기능 구현
+
+
+
+
+
+
+
+
+[웹소켓.webm](https://github.com/user-attachments/assets/b0bb004e-5965-4cd3-802f-8f1f76510b0d)
 
 &nbsp;
 ## 어댑터 패턴을 활용한 백엔드 의존성 개선
