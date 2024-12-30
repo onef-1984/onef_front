@@ -191,6 +191,7 @@ function CommentContainer({ id, depth }: { id: string; depth: number }) {
   );
 };
 ```
+[댓글.webm](https://github.com/user-attachments/assets/8e9b410d-8c4a-495b-9b17-b30abf8bc20a)
 
 &nbsp;
 ## IntersectionObserver API를 사용한 무한 스크롤
