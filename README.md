@@ -8,9 +8,9 @@
   * [일관적인 로직 사용을 위한 유틸리티 컴포넌트 도입](#일관적인-로직-사용을-위한-유틸리티-컴포넌트-도입)
   * [재귀 컴포넌트 패턴을 사용하여 댓글 기능 구현](#재귀-컴포넌트-패턴을-사용하여-댓글-기능-구현)
   * [IntersectionObserver API를 사용한 무한 스크롤](#IntersectionObserver-API를-사용한-무한-스크롤)
-  * [websocket을 사용한 알림 기능 구현](#websocket을-사용한-알림-기능-구현)
   * [어댑터 패턴을 활용한 백엔드 의존성 개선](#어댑터-패턴을-활용한-백엔드-의존성-개선)
   * [레포지토리 패턴을 활용한 쿼리 함수 관리](#레포지토리-패턴을-활용한-쿼리-함수-관리)
+  * [websocket을 사용한 알림 기능 구현](#websocket을-사용한-알림-기능-구현)
 
 &nbsp;
 &nbsp;
@@ -279,19 +279,6 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
 
 
 &nbsp;
-
-## websocket을 사용한 알림 기능 구현
-
-
-
-
-
-
-
-
-[웹소켓.webm](https://github.com/user-attachments/assets/b0bb004e-5965-4cd3-802f-8f1f76510b0d)
-
-&nbsp;
 ## 어댑터 패턴을 활용한 백엔드 의존성 개선
 
 만약 어떠한 이유로 백엔드에서 응답하는 JSON 데이터의 형식이 달라지게 된다면 어떻게 될까요. 아래의 예시와 같이 컴포넌트가 서버 상태를 직접적으로 바라보고 있는 경우라면, 모든 컴포넌트를 수정해주어야 할 겁니다. 서비스의 초기 단계라 백엔드 스펙이 자주 바뀌는 경우라면 새로운 코드를 짜는 시간보다 컴포넌트 수정하는 데 시간을 더 쓰게 될 지도 모릅니다.
@@ -418,3 +405,41 @@ export class BookQuery extends QueryFn {
 onef의 전체적인 데이터 페칭 전략은 아래와 같습니다.
 
 <img src="https://github.com/user-attachments/assets/6152a282-c249-4f62-9443-4ebcbff04984" style="width: 320px" />
+
+
+&nbsp;
+
+## websocket을 사용한 알림 기능 구현
+
+다른 사용자가 내가 작성한 독후감에 좋아요나 댓글을 작성한 경우, websocket을 통해 즉시 알림을 받을 수 있습니다. 아래 코드에서 useSocket 훅은 WebSocket 서버와의 연결을 관리하며, 지정된 이벤트가 발생할 때마다 callback 함수를 호출하여 필요한 알림을 처리합니다. 이렇게 실시간으로 알림을 받을 수 있는 환경을 구현함으로써, 사용자에게 즉각적인 피드백을 제공할 수 있습니다.
+
+```tsx
+export const useSocket = (userId: string, event: string, callback: (data: any) => void) => {
+  useEffect(() => {
+    socket.emit("userConnect", { userId });
+
+    socket.on(event, callback);
+
+    return () => {
+      socket.off(event, callback);
+    };
+  }, [userId, event, callback]);
+};
+```
+```tsx
+export default function useNotification(userId: string) {
+  const queryClient = useQueryClient();
+  const notificationQuery = new NotificationQuery();
+  const { data } = useQuery(notificationQuery.getNotifications(userId));
+
+  useSocket(userId, "notification", () => {
+    queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
+  });
+
+  const { newData, isNew } = formatData(data ?? []);
+
+  return { isNew, data: newData };
+}
+```
+[웹소켓.webm](https://github.com/user-attachments/assets/b0bb004e-5965-4cd3-802f-8f1f76510b0d)
+
