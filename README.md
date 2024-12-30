@@ -3,6 +3,12 @@
 onef는 "one-nine-eight-four"의 두문자로서, 이 프로젝트를 시작할 수 있도록 영감을 준 조지 오웰의 소설 1984를 의미합니다. onef는 독후감을 쓰고 공유할 수 있는 서비스로서, 독후감이 1984자를 넘어서는 안 된다는 특징을 가지고 있습니다. 이를 통해 독후감을 쓴다는 행위 자체에 부담을 느끼는 사람들에게 그 부담을 덜어줄 수 있지 않을까 생각했습니다.
 
 &nbsp;
+
+# 배포 주소
+
+[책을 읽고 영원을 기록하다 - onef](https://onef.co.kr)
+
+&nbsp;
 # 기술 스택
 
 **개발 언어 및 프론트엔드 라이브러리 :**
@@ -153,6 +159,37 @@ export default function Map<T>({
   <Show when={!!errorMessage}>
     <span className={styles.errorMessage}>{errorMessage}</span>
   </Show>
+```
+&nbsp;
+
+## 재귀 컴포넌트 패턴을 사용하여 댓글 기능 구현
+
+댓글 기능을 구현할 때, 특히 답글이 여러 번 중첩되는 경우, 재귀 컴포넌트 패턴을 사용하면 코드가 훨씬 더 깔끔하고 유지보수가 쉬워집니다. 재귀 컴포넌트는 자신을 호출하여 중첩된 구조를 자연스럽게 표현할 수 있기 때문에, 댓글과 답글이 트리 형태로 이어지는 구조에서 유용합니다. 예를 들어, 각 댓글은 자신 아래에 자식 댓글을 가질 수 있고, 그 자식 댓글 또한 자식 댓글을 가질 수 있습니다. 이때, 재귀 컴포넌트를 사용하면 각 댓글을 별도의 컴포넌트로 관리하면서 중첩된 댓글을 자연스럽게 렌더링할 수 있습니다.
+
+onef에서는 depth 프로퍼티를 사용해 재귀적으로 댓글의 깊이를 추적하고, 깊이가 5보다 깊어지면 대댓글을 작성할 수 없도록 함으로써 무한한 깊이의 대댓글이 작성되는 것을 원칙적으로 차단하고 있습니다.
+
+```tsx
+function CommentContainer({ id, depth }: { id: string; depth: number }) {
+  const { comments } = useCommentsAdaptor(id);
+
+  return (
+    <div className={styles.containerRoot}>
+      <Map each={comments}>
+        {(commentData) => {
+          return (
+            <div key={commentData.id}>
+              <Comment.Box key={commentData.id} depth={depth} commentData={commentData} />
+
+              <Comment.ReplyContainer commentData={commentData}>
+                <Comment.Container id={commentData.id} depth={depth + 1} />
+              </Comment.ReplyContainer>
+            </div>
+          );
+        }}
+      </Map>
+    </div>
+  );
+};
 ```
 
 &nbsp;
@@ -350,9 +387,3 @@ export class BookQuery extends QueryFn {
 onef의 전체적인 데이터 페칭 전략은 아래와 같습니다.
 
 <img src="https://github.com/user-attachments/assets/6152a282-c249-4f62-9443-4ebcbff04984" style="width: 320px" />
-
-
-
-# 배포 주소
-
-[책을 읽고 영원을 기록하다 - onef](https://onef.co.kr)
