@@ -1,8 +1,6 @@
 # what is onef stands for
 
-onef는 "one-nine-eight-four"의 두문자로서 이 프로젝트를 시작할 수 있도록 영감을 준 조지 오웰의 소설 1984를 나타냅니다.
-
-onef는 독후감을 쓰고 공유할 수 있는 서비스로서, 독후감이 1984자를 넘어서는 안 된다는 특징을 가지고 있습니다. 이를 통해 독후감을 쓴다는 행위 자체에 부담을 느끼는 사람들에게 그 부담을 덜어줄 수 있지 않을까 생각했습니다.
+onef는 "one-nine-eight-four"의 두문자로서, 이 프로젝트를 시작할 수 있도록 영감을 준 조지 오웰의 소설 1984를 의미합니다. onef는 독후감을 쓰고 공유할 수 있는 서비스로서, 독후감이 1984자를 넘어서는 안 된다는 특징을 가지고 있습니다. 이를 통해 독후감을 쓴다는 행위 자체에 부담을 느끼는 사람들에게 그 부담을 덜어줄 수 있지 않을까 생각했습니다.
 
 &nbsp;
 # 기술 스택
@@ -36,6 +34,15 @@ onef는 독후감을 쓰고 공유할 수 있는 서비스로서, 독후감이 1
 
 &nbsp;
 # 기능 구현 소개
+
+## github action과 AWS CodeDeploy를 사용한 CI/CD 구축
+
+main 브랜치로 코드가 머지되면 자동으로 github action이 동작하여 이를 S3와 AWS CodeDeploy로 넘깁니다. 그러면 AWS CodeDeploy는 EC2 Instance 내의 codedeploy-agent를 통해 S3에 올라간 코드 묶음을 Instance로 가져와 압축을 풀고, 정해진 명령어를 실행합니다.
+
+[cicd.webm](https://github.com/user-attachments/assets/096c4266-7eaa-44fe-bbba-4785ac125f73)
+
+&nbsp;
+
 ## 고차 컴포넌트 패턴을 사용하여 버튼과 링크의 스타일 통일
 
 프론트엔드를 처음 시작했을 때부터 지금까지 제가 가지고 있던 고민거리 중 하나는 'button 태그와 a 태그가 스타일이 동일하다면 이를 어떤 식으로 처리하는 것이 옳은가'입니다. 이 두 개의 컴포넌트는 받는 props도 조금 다르고, 클릭했을 때의 동작도 다른 편이지만, 결국은 '클릭할 수 있는 영역'인 만큼 UI 적으로 비슷하거나 동일한 디자인을 가져가는 경우가 종종 있기 때문입니다.
@@ -214,6 +221,7 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
     </div>
   );
 ```
+[무한스크롤.webm](https://github.com/user-attachments/assets/323f72a7-f4d9-4599-bd78-69443f240512)
 
 &nbsp;
 ## 어댑터 패턴을 활용한 백엔드 의존성 개선
@@ -221,8 +229,8 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
 만약 어떠한 이유로 백엔드에서 응답하는 JSON 데이터의 형식이 달라지게 된다면 어떻게 될까요. 아래의 예시와 같이 컴포넌트가 서버 상태를 직접적으로 바라보고 있는 경우라면, 모든 컴포넌트를 수정해주어야 할 겁니다. 서비스의 초기 단계라 백엔드 스펙이 자주 바뀌는 경우라면 새로운 코드를 짜는 시간보다 컴포넌트 수정하는 데 시간을 더 쓰게 될 지도 모릅니다.
 
 ```tsx
-  const bookRequest = new BookRequest();
-  const { data, fetchNextPage } = useInfiniteQuery(bookRequest.getBookList(searchKeyword));
+  const bookQuery = new BookQuery();
+  const { data, fetchNextPage } = useInfiniteQuery(bookQuery.getBookList(searchKeyword));
   const ref = useInfiniteScroll<HTMLDivElement>(fetchNextPage);
 
   const pages = data?.pages ?? []
@@ -256,8 +264,8 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
 
 ```tsx
 export const useInfiniteBookListAdaptor = (searchKeyword: string) => {
-  const bookRequest = new BookRequest();
-  const { data, fetchNextPage } = useInfiniteQuery(bookRequest.getBookList(searchKeyword));
+  const bookQuery = new BookQuery();
+  const { data, fetchNextPage } = useInfiniteQuery(bookQuery.getBookList(searchKeyword));
 
   const pages = data?.pages.map((page) => page.bookList.items).flatMap((items) => items) ?? [];
 
@@ -292,17 +300,56 @@ function BookListSearchResult({
 }
 ```
 
-## 레포지토리 패턴을 활용한 
+&nbsp;
 
+## 레포지토리 패턴을 활용한 쿼리 함수 관리
 
+어댑터 패턴을 사용하다 보면 데이터 요청을 여러 훅에서 관리하게 되어 데이터 요청 로직이 분산되고, 때문에 유지보수가 어려워질 수 있습니다. 이런 문제를 해결하기 위해 레포지토리 패턴을 활용하면, 데이터 요청 로직을 한 곳에서 관리할 수 있습니다. 레포지토리 패턴은 데이터 처리와 관련된 로직을 하나의 추상화된 계층으로 분리하여, 리액트 컴포넌트와 비즈니스 로직이 데이터 소스에 의존하지 않도록 만듭니다.
 
+```tsx
+export class QueryFn {
+  queryFn<T>(url: string) {
+    return () =>
+      fetcher<T>({
+        method: "get",
+        url,
+      });
+  }
 
+  infiniteQueryFn<T>(url: string) {
+    return ({ pageParam }: { pageParam: number }) =>
+      fetcher<T>({
+        method: "get",
+        url: `${url}&skip=${pageParam}`,
+      });
+  }
+}
+```
+```tsx
+export class BookQuery extends QueryFn {
+  constructor() {
+    super();
+  }
 
+  queryKey = ["book"];
 
+  getBook(isbn13: string) {
+    return {
+      queryKey: [...this.queryKey, isbn13, "getBook"],
+      queryFn: () =>
+        this.fetcher<GetBookQuery>(`/book/${isbn13}`),
+      enabled: !!isbn13,
+    };
+  }
+}
+```
+특히 리액트 쿼리를 사용할 경우 쿼리 키 관리에 있어 중요한 점은 일관성과 재사용성입니다. 여러 컴포넌트에서 동일한 데이터나 비슷한 데이터를 요청할 때, 각 요청에 대해 일관된 쿼리 키를 사용해야 캐싱 및 리패칭 전략을 효율적으로 관리할 수 있습니다. 레포지토리 패턴을 사용하면 이러한 쿼리 키와 쿼리 함수들을 한 곳에서 관리할 수 있어, 쿼리 키의 중복을 방지하고 코드의 재사용성을 높이는 데 유리합니다.
 
+예를 들어, BookQuery 클래스에서 getBook 메서드는 ISBN 번호를 기반으로 책 정보를 요청하는 쿼리를 정의하고 있습니다. 이를 통해 쿼리 키와 쿼리 함수가 명확하게 관리되고, 필요한 곳에서 쉽게 호출할 수 있습니다. 이 방식으로 여러 API 요청을 처리할 때, 쿼리 키와 쿼리 함수의 재사용성을 높이고, 각 요청의 세부 구현을 레포지토리 클래스에서 관리함으로써 리액트 컴포넌트가 복잡해지는 것을 방지할 수 있습니다.
 
+onef의 전체적인 데이터 페칭 전략은 아래와 같습니다.
 
-
+<img src="https://github.com/user-attachments/assets/6152a282-c249-4f62-9443-4ebcbff04984" style="width: 320px" />
 
 
 
