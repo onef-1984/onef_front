@@ -36,7 +36,7 @@ onef는 독후감을 쓰고 공유할 수 있는 서비스로서, 독후감이 1
 
 &nbsp;
 # 기능 구현 소개
-## 고차 컴포넌트 패턴을 사용하여 버튼과 링크의 스타일을 통일함
+## 고차 컴포넌트 패턴을 사용하여 버튼과 링크의 스타일 통일
 
 프론트엔드를 처음 시작했을 때부터 지금까지 제가 가지고 있던 고민거리 중 하나는 'button 태그와 a 태그가 스타일이 동일하다면 이를 어떤 식으로 처리하는 것이 옳은가'입니다. 이 두 개의 컴포넌트는 받는 props도 조금 다르고, 클릭했을 때의 동작도 다른 편이지만, 결국은 '클릭할 수 있는 영역'인 만큼 UI 적으로 비슷하거나 동일한 디자인을 가져가는 경우가 종종 있기 때문입니다.
 
@@ -98,15 +98,18 @@ type TComponent = typeof Link | TButton | TAnchor;
 이러한 유틸리티 컴포넌트는 코드의 가독성을 높이고, 대규모 프로젝트에서 발생할 수 있는 코드 스타일 파편화를 방지하는 데 큰 도움을 줍니다.
 
 ```tsx
-type TShowProps = {
+export default function Show({
+  when,
+  children,
+  fallback = "",
+}: {
   when: boolean;
   children: ReactNode;
   fallback?: ReactNode;
-};
-
-export default function Show({ when, children, fallback = "" }: TShowProps) {
+}) {
   return <>{when ? children : fallback}</>;
 }
+
 ```
 ```tsx
 export default function Map<T>({
@@ -122,7 +125,28 @@ export default function Map<T>({
 }
 ```
 
+아래는 유틸리티 컴포넌트 Show를 사용하여 다양한 조건부 연산자를 대체한 예시입니다
 
+```tsx
+  // 삼항 연산자를 대체
+  <Show when={isLogin} fallback={<Header.SignLink />}>
+    <Header.ProfileImagePopover {...user} />
+
+    <Header.Notification {...user} />
+  </Show>
+
+  // and 연산자를 대체
+  <Show when={toggle.BookSearchModal}>
+    <Dialog closeDialog={() => setToggle((prev) => ({ ...prev, BookSearchModal: false }))}>
+      <BookSearchModal />
+    </Dialog>
+  </Show>
+
+  // not 연산자를 대체
+  <Show when={!!errorMessage}>
+    <span className={styles.errorMessage}>{errorMessage}</span>
+  </Show>
+```
 
 &nbsp;
 ## IntersectionObserver API를 사용한 무한 스크롤
@@ -172,8 +196,7 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
 };
 ```
 
-
-
+컴포넌트에서는 useInfiniteScroll를 호출하여 아래와 같이 사용할 수 있습니다.
 
 ```tsx
   const { fetchNextPage, pages } = useInfiniteBookListAdaptor(searchKeyword);
@@ -192,10 +215,93 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
   );
 ```
 
-
-
 &nbsp;
-## 
+## 어댑터 패턴을 활용한 백엔드 의존성 개선
+
+만약 어떠한 이유로 백엔드에서 응답하는 JSON 데이터의 형식이 달라지게 된다면 어떻게 될까요. 아래의 예시와 같이 컴포넌트가 서버 상태를 직접적으로 바라보고 있는 경우라면, 모든 컴포넌트를 수정해주어야 할 겁니다. 서비스의 초기 단계라 백엔드 스펙이 자주 바뀌는 경우라면 새로운 코드를 짜는 시간보다 컴포넌트 수정하는 데 시간을 더 쓰게 될 지도 모릅니다.
+
+```tsx
+  const bookRequest = new BookRequest();
+  const { data, fetchNextPage } = useInfiniteQuery(bookRequest.getBookList(searchKeyword));
+  const ref = useInfiniteScroll<HTMLDivElement>(fetchNextPage);
+
+  const pages = data?.pages ?? []
+
+  return (
+    <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
+      <Map each={pages}>
+        {({ bookList }) => {
+          return (
+            <Map each={bookList.items}>
+              {(book) => (
+                <Card
+                  key={book.isbn13}
+                  item={book}
+                  onClick={() => setBook(book)}
+                  cardBox={<CardResultBox {...book} />}
+                />
+              )}
+            </Map>
+          );
+        }}
+      </Map>
+
+      <div ref={myRef} />
+    </div>
+  );
+}
+```
+
+따라서 저는 컴포넌트가 백엔드를 직접 바라보는 것이 아니라, 서버 응답을 매개해줄 커스텀 어댑터 훅에 의존하도록 하였습니다. 덕분에 서버 응답 형식이 변경될 때마다 모든 컴포넌트를 수정할 필요 없이, 어댑터 훅을 수정하여 이를 적절히 처리할 수 있습니다.
+
+```tsx
+export const useInfiniteBookListAdaptor = (searchKeyword: string) => {
+  const bookRequest = new BookRequest();
+  const { data, fetchNextPage } = useInfiniteQuery(bookRequest.getBookList(searchKeyword));
+
+  const pages = data?.pages.map((page) => page.bookList.items).flatMap((items) => items) ?? [];
+
+  return {
+    fetchNextPage,
+    pages,
+  };
+};
+```
+```tsx
+function BookListSearchResult({
+  searchKeyword,
+  setBook,
+}: {
+  searchKeyword: string;
+  setBook: Dispatch<SetStateAction<Item>>;
+}) {
+  const { fetchNextPage, pages } = useInfiniteBookListAdaptor(searchKeyword);
+  const ref = useInfiniteScroll<HTMLDivElement>(fetchNextPage);
+
+  return (
+    <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
+      <Map each={pages}>
+        {(book) => (
+          <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
+        )}
+      </Map>
+
+      <div ref={ref} />
+    </div>
+  );
+}
+```
+
+## 레포지토리 패턴을 활용한 
+
+
+
+
+
+
+
+
+
 
 
 
