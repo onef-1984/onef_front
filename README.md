@@ -1,6 +1,28 @@
+**목차**
+- [what is onef stands for](#what-is-onef-stands-for)
+- [배포 주소](#배포-주소)
+- [기술 스택](#기술-스택)
+- [기능 구현 소개](#기능-구현-소개)
+  * [github action과 AWS CodeDeploy를 사용한 CI/CD 구축](#github-action과-aws-codedeploy를-사용한-cicd-구축)
+  * [고차 컴포넌트 패턴을 사용하여 버튼과 링크의 스타일 통일](#고차-컴포넌트-패턴을-사용하여-버튼과-링크의-스타일-통일)
+  * [일관적인 로직 사용을 위한 유틸리티 컴포넌트 도입](#일관적인-로직-사용을-위한-유틸리티-컴포넌트-도입)
+  * [재귀 컴포넌트 패턴을 사용하여 댓글 기능 구현](#재귀-컴포넌트-패턴을-사용하여-댓글-기능-구현)
+  * [IntersectionObserver API를 사용한 무한 스크롤](#IntersectionObserver-API를-사용한-무한-스크롤)
+  * [어댑터 패턴을 활용한 백엔드 의존성 개선](#어댑터-패턴을-활용한-백엔드-의존성-개선)
+  * [레포지토리 패턴을 활용한 쿼리 함수 관리](#레포지토리-패턴을-활용한-쿼리-함수-관리)
+  * [websocket을 사용한 알림 기능 구현](#websocket을-사용한-알림-기능-구현)
+
+&nbsp;
+&nbsp;
 # what is onef stands for
 
 onef는 "one-nine-eight-four"의 두문자로서, 이 프로젝트를 시작할 수 있도록 영감을 준 조지 오웰의 소설 1984를 의미합니다. onef는 독후감을 쓰고 공유할 수 있는 서비스로서, 독후감이 1984자를 넘어서는 안 된다는 특징을 가지고 있습니다. 이를 통해 독후감을 쓴다는 행위 자체에 부담을 느끼는 사람들에게 그 부담을 덜어줄 수 있지 않을까 생각했습니다.
+
+&nbsp;
+
+# 배포 주소
+
+[책을 읽고 영원을 기록하다 - onef](https://onef.co.kr)
 
 &nbsp;
 # 기술 스택
@@ -154,6 +176,38 @@ export default function Map<T>({
     <span className={styles.errorMessage}>{errorMessage}</span>
   </Show>
 ```
+&nbsp;
+
+## 재귀 컴포넌트 패턴을 사용하여 댓글 기능 구현
+
+댓글 기능을 구현할 때, 특히 답글이 여러 번 중첩되는 경우, 재귀 컴포넌트 패턴을 사용하면 코드가 훨씬 더 깔끔하고 유지보수가 쉬워집니다. 재귀 컴포넌트는 자신을 호출하여 중첩된 구조를 자연스럽게 표현할 수 있기 때문에, 댓글과 답글이 트리 형태로 이어지는 구조에서 유용합니다. 예를 들어, 각 댓글은 자신 아래에 자식 댓글을 가질 수 있고, 그 자식 댓글 또한 자식 댓글을 가질 수 있습니다. 이때, 재귀 컴포넌트를 사용하면 각 댓글을 별도의 컴포넌트로 관리하면서 중첩된 댓글을 자연스럽게 렌더링할 수 있습니다.
+
+onef에서는 depth 프로퍼티를 사용해 재귀적으로 댓글의 깊이를 추적하고, 깊이가 5보다 깊어지면 대댓글을 작성할 수 없도록 함으로써 무한한 깊이의 대댓글이 작성되는 것을 원칙적으로 차단하고 있습니다.
+
+```tsx
+function CommentContainer({ id, depth }: { id: string; depth: number }) {
+  const { comments } = useCommentsAdaptor(id);
+
+  return (
+    <div className={styles.containerRoot}>
+      <Map each={comments}>
+        {(commentData) => {
+          return (
+            <div key={commentData.id}>
+              <Comment.Box key={commentData.id} depth={depth} commentData={commentData} />
+
+              <Comment.ReplyContainer commentData={commentData}>
+                <Comment.Container id={commentData.id} depth={depth + 1} />
+              </Comment.ReplyContainer>
+            </div>
+          );
+        }}
+      </Map>
+    </div>
+  );
+};
+```
+[댓글.webm](https://github.com/user-attachments/assets/8e9b410d-8c4a-495b-9b17-b30abf8bc20a)
 
 &nbsp;
 ## IntersectionObserver API를 사용한 무한 스크롤
@@ -222,6 +276,7 @@ export const useInfiniteScroll = <T extends HTMLElement>(callback: Function) => 
   );
 ```
 [무한스크롤.webm](https://github.com/user-attachments/assets/323f72a7-f4d9-4599-bd78-69443f240512)
+
 
 &nbsp;
 ## 어댑터 패턴을 활용한 백엔드 의존성 개선
@@ -352,7 +407,39 @@ onef의 전체적인 데이터 페칭 전략은 아래와 같습니다.
 <img src="https://github.com/user-attachments/assets/6152a282-c249-4f62-9443-4ebcbff04984" style="width: 320px" />
 
 
+&nbsp;
 
-# 배포 주소
+## websocket을 사용한 알림 기능 구현
 
-[책을 읽고 영원을 기록하다 - onef](https://onef.co.kr)
+다른 사용자가 내가 작성한 독후감에 좋아요나 댓글을 작성한 경우, websocket을 통해 즉시 알림을 받을 수 있습니다. 아래 코드에서 useSocket 훅은 WebSocket 서버와의 연결을 관리하며, 지정된 이벤트가 발생할 때마다 callback 함수를 호출하여 필요한 알림을 처리합니다. 이렇게 실시간으로 알림을 받을 수 있는 환경을 구현함으로써, 사용자에게 즉각적인 피드백을 제공할 수 있습니다.
+
+```tsx
+export const useSocket = (userId: string, event: string, callback: (data: any) => void) => {
+  useEffect(() => {
+    socket.emit("userConnect", { userId });
+
+    socket.on(event, callback);
+
+    return () => {
+      socket.off(event, callback);
+    };
+  }, [userId, event, callback]);
+};
+```
+```tsx
+export default function useNotification(userId: string) {
+  const queryClient = useQueryClient();
+  const notificationQuery = new NotificationQuery();
+  const { data } = useQuery(notificationQuery.getNotifications(userId));
+
+  useSocket(userId, "notification", () => {
+    queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
+  });
+
+  const { newData, isNew } = formatData(data ?? []);
+
+  return { isNew, data: newData };
+}
+```
+[웹소켓.webm](https://github.com/user-attachments/assets/b0bb004e-5965-4cd3-802f-8f1f76510b0d)
+
