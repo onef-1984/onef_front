@@ -52,8 +52,6 @@ const settings = {
   slidesToShow: 4,
   slidesToScroll: 4,
   infinite: true,
-  dots: true,
-  arrows: false,
   responsive: [
     {
       breakpoint: 1400,

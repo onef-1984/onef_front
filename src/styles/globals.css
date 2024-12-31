@@ -56,7 +56,6 @@ svg {
 
 .slick-initialized .slick-slide {
   display: flex;
-  height: 18rem;
   justify-content: center;
   align-items: center;
 
