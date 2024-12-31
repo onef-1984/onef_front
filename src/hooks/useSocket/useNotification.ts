@@ -8,11 +8,9 @@ export default function useNotification(userId: string) {
   const notificationQuery = new NotificationQuery();
   const { data } = useQuery(notificationQuery.getNotifications(userId));
 
-  const handleNotification = () => {
+  useSocket(userId, "notification", () => {
     queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
-  };
-
-  useSocket(userId, "notification", handleNotification);
+  });
 
   const { newData, isNew } = formatData(data ?? []);
 

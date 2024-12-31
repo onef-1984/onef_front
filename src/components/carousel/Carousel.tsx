@@ -3,6 +3,7 @@ import CardReport from "../card/CardReport";
 import styles from "./Carousel.module.css";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { GetReportListBySearchQuery } from "@/types/graphql.types";
+import { dot } from "node:test/reporters";
 
 type CarouselProps = {
   title: string;
@@ -48,18 +49,18 @@ function SmallCarousel({ items, title }: CarouselProps) {
 }
 
 const settings = {
-  infinite: true,
   speed: 700,
   slidesToShow: 4,
   slidesToScroll: 4,
+  infinite: true,
+  dots: true,
+  arrows: false,
   responsive: [
     {
       breakpoint: 1400,
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3,
-        infinite: true,
-        dots: true,
       },
     },
     {
@@ -67,8 +68,6 @@ const settings = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
-        infinite: true,
-        dots: true,
       },
     },
   ],
