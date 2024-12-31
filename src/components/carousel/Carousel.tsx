@@ -3,7 +3,6 @@ import CardReport from "../card/CardReport";
 import styles from "./Carousel.module.css";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { GetReportListBySearchQuery } from "@/types/graphql.types";
-import { dot } from "node:test/reporters";
 
 type CarouselProps = {
   title: string;
