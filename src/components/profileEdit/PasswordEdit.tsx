@@ -1,6 +1,6 @@
 import Form from "@/components/forms/Form";
 import styles from "./PasswordEdit.module.css";
-import Map from "../util/Map";
+import { Map } from "utilinent";
 import Clickable from "../clickable/Clickable";
 import { handleSubmit, register, ErrorState } from "@/hooks/useSicilian/passwordEdit";
 import { usePatchPasswordMutation } from "@/hooks/useMutation/usePatchPasswordMutation";

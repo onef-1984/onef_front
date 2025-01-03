@@ -31,7 +31,8 @@
     "sharp": "^0.33.4",
     "sicilian": "^2.1.7",
     "slick-carousel": "^1.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "utilinent": "^0.0.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.3",

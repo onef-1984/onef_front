@@ -7,7 +7,7 @@ import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import Show from "../util/Show";
+import { Show } from "utilinent";
 import { useIsQualified } from "@/hooks/useIsQualified";
 
 export default function ReportButton() {

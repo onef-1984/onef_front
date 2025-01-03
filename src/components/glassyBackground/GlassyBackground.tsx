@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styles from "./GlassyBackground.module.css";
 import Image from "next/image";
 import clsx from "clsx";
-import Show from "../util/Show";
+import { Show } from "utilinent";
 
 type GlassyBackgroundProps = { children: ReactNode; image: string; className?: string };
 

@@ -2,7 +2,7 @@ import CardReport from "../card/CardReport";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import SearchBinder from "../searchPage/SearchBinder";
 import styles from "./ReportOwner.module.css";
-import Map from "../util/Map";
+import { Map } from "utilinent";
 import { useQuery } from "@tanstack/react-query";
 import { formatReportArray } from "@/utils/formatReportArray";
 import { ReportRequest } from "@/apis/request/ReportRequest";

@@ -1,4 +1,4 @@
-import Show from "../util/Show";
+import { Show } from "utilinent";
 
 export default function ValueIndicator({ value, limit }: { value: number; limit: number }) {
   const ratio = value / limit;

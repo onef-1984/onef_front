@@ -1,8 +1,7 @@
 import { useInfiniteReportSearchListAdaptor } from "@/hooks/useAdaptor/useInfiniteReportSearchListAdaptor";
 import CardReport from "../card/CardReport";
 import SearchBinder from "./SearchBinder";
-import Show from "../util/Show";
-import Map from "../util/Map";
+import { Show, Map } from "utilinent";
 import { OrderBy, SearchType } from "@/types/graphql.types";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 

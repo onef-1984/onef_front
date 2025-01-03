@@ -7,7 +7,7 @@ import { MdClose } from "@react-icons/all-files/md/MdClose";
 import useNotification from "@/hooks/useSocket/useNotification";
 import Clickable from "../clickable/Clickable";
 import Link from "next/link";
-import Show from "../util/Show";
+import { Show } from "utilinent";
 import clsx from "clsx";
 import styles from "./Popover.module.css";
 import ProfileImage from "../Profile/ProfileImage";

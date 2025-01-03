@@ -1,6 +1,6 @@
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import styles from "@/styles/Sign.module.css";
-import Show from "@/components/util/Show";
+import { Show } from "utilinent";
 import Clickable from "@/components/clickable/Clickable";
 import Link from "next/link";
 import useSocialLoginMutation from "@/hooks/useMutation/useSocialLoginMutation";

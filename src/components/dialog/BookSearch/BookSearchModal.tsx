@@ -12,8 +12,7 @@ import Clickable from "@/components/clickable/Clickable";
 import styles from "./BookSearchModal.module.css";
 import Form from "@/components/forms/Form";
 import Card from "@/components/card/Card";
-import Show from "@/components/util/Show";
-import Map from "@/components/util/Map";
+import { Show, Map } from "utilinent";
 import Image from "next/image";
 import clsx from "clsx";
 

@@ -6,45 +6,33 @@ import SearchResult from "@/components/searchPage/SearchResult";
 import SearchTitle from "@/components/searchPage/SearchTitle";
 import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import SearchTag from "@/components/searchPage/SearchTag";
-import Show from "@/components/util/Show";
-import { SearchType } from "@/types/graphql.types";
+import { Match, Show, Switch } from "utilinent";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
-
-const searchTitle = (searchType: SearchType, keyword: string) => {
-  switch (searchType) {
-    case "report":
-      return (
-        <>
-          <SearchBar />
-
-          <Show when={!keyword}>
-            <SearchTitle>전체 리뷰</SearchTitle>
-          </Show>
-        </>
-      );
-
-    case "book":
-      return <SearchBook />;
-
-    case "tag":
-      return <SearchTag />;
-  }
-};
 
 export default function Search() {
   const { keyword, orderBy, searchType } = useRouterAdv();
 
   return (
-    <>
+    <div className={styles.root}>
       <HeadMetaTag title="리뷰 검색" />
 
-      <div className={styles.root}>
-        {searchTitle(searchType, keyword)}
+      <Switch when={searchType}>
+        <Match key="report">
+          <SearchBar />
 
-        <SearchOptionButton />
+          <Show when={!keyword}>
+            <SearchTitle>전체 리뷰</SearchTitle>
+          </Show>
+        </Match>
 
-        <SearchResult keyword={keyword} orderBy={orderBy} searchType={searchType} />
-      </div>
-    </>
+        <Match key="book" element={<SearchBook />} />
+
+        <Match key="tag" element={<SearchTag />} />
+      </Switch>
+
+      <SearchOptionButton />
+
+      <SearchResult keyword={keyword} orderBy={orderBy} searchType={searchType} />
+    </div>
   );
 }

@@ -8,7 +8,7 @@ import { useMostLikedReport } from "@/hooks/useAdaptor/reportLike/useMostLikedRe
 import { useEditorsPickAdaptor } from "@/hooks/useAdaptor/useEditorsPickAdaptor";
 import Link from "next/link";
 import GlassyBackground from "../glassyBackground/GlassyBackground";
-import Show from "../util/Show";
+import { Show } from "utilinent";
 
 export default function HeroSec() {
   return (

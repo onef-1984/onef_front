@@ -3,9 +3,9 @@ import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
+import { Map } from "utilinent";
 import styles from "./Report.module.css";
 import Clickable from "../clickable/Clickable";
-import Map from "../util/Map";
 import Link from "next/link";
 import Tag from "../tag/Tag";
 import { useIsQualified } from "@/hooks/useIsQualified";

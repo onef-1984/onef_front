@@ -3,7 +3,7 @@ import Link from "next/link";
 import google from "../../../public/images/google.png";
 import kakao from "../../../public/images/kakao.png";
 import Image from "next/image";
-import Map from "../util/Map";
+import { Map } from "utilinent";
 import styles from "./SocialLogin.module.css";
 
 export default function SocialLogin() {

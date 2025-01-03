@@ -5,7 +5,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
 import Dialog from "@/components/dialog/Dialog";
-import Show from "@/components/util/Show";
+import { Show } from "utilinent";
 import { useIsQualified } from "@/hooks/useIsQualified";
 import BookSearchModal from "@/components/dialog/BookSearch/BookSearchModal";
 
