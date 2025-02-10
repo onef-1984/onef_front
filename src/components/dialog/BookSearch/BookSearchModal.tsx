@@ -108,7 +108,10 @@ function BookSearchForm({ setSearchKeyword }: { setSearchKeyword: Dispatch<SetSt
   const keyword = "keyword" as const;
 
   return (
-    <Form className={styles.form} onSubmit={handleSubmit(({ keyword }) => setSearchKeyword(keyword))}>
+    <Form
+      className={styles.form}
+      onSubmit={handleSubmit(({ keyword }: { keyword: string }) => setSearchKeyword(keyword))}
+    >
       <SicilianProvider value={{ register, name: keyword }}>
         <Form.InputWrapper>
           <Form.Input placeholder="책 제목을 입력해주세요" />
