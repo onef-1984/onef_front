@@ -8,6 +8,13 @@
     "allowJs": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitAny": true, // 추가된 부분
+    "strictNullChecks": true, // 추가된 부분
+    "strictFunctionTypes": true, // 추가된 부분
+    "strictBindCallApply": true, // 추가된 부분
+    "strictPropertyInitialization": true, // 추가된 부분
+    "noImplicitThis": true, // 추가된 부분
+    "alwaysStrict": true, // 추가된 부분
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
