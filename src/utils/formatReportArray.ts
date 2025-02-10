@@ -4,7 +4,7 @@ export const formatReportArray = (data: GetReportListBySearchQuery | undefined, 
   if (!data) return [];
 
   const items = data?.reportList.items;
-  const newItems = [];
+  const newItems: any[] = [];
 
   for (const item of items) {
     if (item.id !== reportId) {
