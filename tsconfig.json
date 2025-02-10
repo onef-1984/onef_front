@@ -9,7 +9,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,
-    "noImplicitAny": false,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
