@@ -1,6 +1,6 @@
-import { playDragon } from "sicilian";
+import { CreateForm } from "sicilian";
 
-export const { ErrorState, register, FormState, setForm, handleSubmit } = playDragon({
+export const { getErrors, register, getValues, setValues, handleSubmit } = new CreateForm({
   initValue: { title: "", content: "", tags: "" },
   validator: {
     title: {

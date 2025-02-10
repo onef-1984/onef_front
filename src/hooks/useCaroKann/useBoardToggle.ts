@@ -1,6 +1,6 @@
-import { playTartakower } from "caro-kann";
+import { create } from "caro-kann";
 
-export const { useBoard: useBoardToggle } = playTartakower({
+export const useBoardToggle = create({
   SideMenu: false,
   BookSearchModal: false,
 });

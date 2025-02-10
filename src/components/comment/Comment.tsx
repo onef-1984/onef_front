@@ -5,7 +5,8 @@ import { ReportComment } from "@/types/comment.types";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useDeleteCommentMutation } from "@/hooks/useMutation/useDeleteCommentMutation";
-import { SicilianProvider, useDragon } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
+import { useForm } from "sicilian/useForm";
 import useCommentMutation from "@/hooks/useMutation/useCommentMutation";
 import Clickable from "../clickable/Clickable";
 import Form from "../forms/Form";
@@ -74,7 +75,7 @@ Comment.Input = function CommentInput({
 }) {
   const isLogin = useIsQualified("login");
   const { onSubmit, isPending } = useCommentMutation({ initValue, depth });
-  const { handleSubmit, register, setForm } = useDragon({
+  const { handleSubmit, register, setValues } = useForm({
     initValue: { comment: "" },
     validator: {
       comment: { required: true },
@@ -84,7 +85,7 @@ Comment.Input = function CommentInput({
   });
 
   react.useEffect(() => {
-    setForm({ comment: initValue });
+    setValues({ comment: initValue });
   }, [initValue]);
 
   return (

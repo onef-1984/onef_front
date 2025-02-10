@@ -14,7 +14,7 @@ import { Show, Map } from "utilinent";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import { useGetTextAreaHeight } from "@/hooks/useGetTextAreaHeight";
-import { getSicilianContext } from "sicilian";
+import { useSicilianContext } from "sicilian/provider";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface InputWrapperProps {
@@ -31,11 +31,11 @@ export default function Form({ children, ...props }: ComponentPropsWithoutRef<"f
   );
 }
 
-Form.InputWrapper = ({ inputName, children, className }: InputWrapperProps) => {
-  const { ErrorState, name } = getSicilianContext();
+Form.InputWrapper = function InputWrapper({ inputName, children, className }: InputWrapperProps) {
+  const { getErrors, name } = useSicilianContext();
   let errorMessage: string;
   try {
-    errorMessage = ErrorState(name);
+    errorMessage = getErrors(name);
   } catch (error) {
     errorMessage = "";
   }
@@ -62,8 +62,8 @@ type TagInputWrapperProps = {
 } & Omit<UseTagInputHandler, "value">;
 
 Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: TagInputWrapperProps) {
-  const { FormState, name } = getSicilianContext();
-  const value = FormState(name);
+  const { getValues, name } = useSicilianContext();
+  const value = getValues(name) as string;
 
   const { onKeyDown, onKeyUp, onClick } = useTagInputHandler({ tagList, value, ...props });
 
@@ -88,9 +88,9 @@ Form.TagInputWrapper = function TagInputWrapper({ tagList, input, ...props }: Ta
   );
 };
 
-Form.Input = ({ className, ...inputProps }: ComponentPropsWithoutRef<"input">) => {
-  const { register, name } = getSicilianContext();
-  return <input {...register(name)} {...inputProps} className={clsx(styles.input, className)} />;
+Form.Input = function Input({ className, ...inputProps }: ComponentPropsWithoutRef<"input">) {
+  const { register, name } = useSicilianContext();
+  return <input {...register({ name })} {...inputProps} className={clsx(styles.input, className)} />;
 };
 
 Form.Textarea = function FormTextarea({
@@ -99,11 +99,11 @@ Form.Textarea = function FormTextarea({
   ...inputProps
 }: ComponentPropsWithoutRef<"textarea"> & { initValue: string }) {
   const { textRef, handleInput } = useGetTextAreaHeight(initValue);
-  const { register, name } = getSicilianContext();
+  const { register, name } = useSicilianContext();
 
   return (
     <textarea
-      {...register(name)}
+      {...register({ name })}
       {...inputProps}
       className={clsx(styles.input, className)}
       onInput={handleInput}
@@ -159,8 +159,8 @@ Form.InputTypeToggler = function InputTypeToggler({ Input }: { Input: (type: "te
 };
 
 Form.MDEditor = function MD({ ...editor }: Omit<ComponentPropsWithoutRef<"input">, "value">) {
-  const { register, name } = getSicilianContext();
-  const { value, onChange } = register(name);
+  const { register, name } = useSicilianContext();
+  const { value, onChange } = register({ name });
 
   const { imageCommand, command, extraCommand } = useMDEditorCommands();
   if (command.length === 0 || extraCommand.length === 0) return null;
@@ -168,15 +168,14 @@ Form.MDEditor = function MD({ ...editor }: Omit<ComponentPropsWithoutRef<"input"
   return (
     <MDEditor
       className={styles.markdown}
-      value={value}
-      {...editor}
       data-color-mode="light"
-      onChange={(value) => {
-        value = value ?? "";
-        onChange({ target: { name, value } });
-      }}
+      {...editor}
+      value={value}
       commands={[...command.slice(1, 10), imageCommand, ...command.slice(12, 16)]}
       extraCommands={[...extraCommand.slice(0, 3)]}
+      onChange={(value) => {
+        onChange({ target: { name, value: value ?? "" } });
+      }}
       height={600}
     />
   );

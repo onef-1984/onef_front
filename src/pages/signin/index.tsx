@@ -1,4 +1,4 @@
-import { ErrorState, register, handleSubmit } from "@/hooks/useSicilian/signIn";
+import { getErrors, register, handleSubmit } from "@/hooks/useSicilian/signIn";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signInArray } from "@/constants/sign/signArray";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { Show, Map } from "utilinent";
 import Clickable from "@/components/clickable/Clickable";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
-import { SicilianProvider } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
 
 export default function SignIn() {
   const { mutate, isPending } = useSignMutation("/auth/signin");
@@ -38,7 +38,7 @@ export default function SignIn() {
               const inputProps = { placeholder, type };
 
               return (
-                <SicilianProvider value={{ register, name: htmlFor, ErrorState }}>
+                <SicilianProvider value={{ register, name: htmlFor, getErrors }}>
                   <Form.InputWrapper inputName={inputName} key={htmlFor}>
                     <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
                       <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />

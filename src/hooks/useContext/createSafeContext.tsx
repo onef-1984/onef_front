@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext } from "react";
 
 type CreateContextResult<T> = {
   Provider: React.FC<{ value: T; children: ReactNode }>;
-  useContext: (conponentName: string) => T;
+  useContext: (componentName: string) => T;
 };
 
 export function createSafeContext<T>(): CreateContextResult<T> {

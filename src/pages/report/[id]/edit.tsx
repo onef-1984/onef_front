@@ -7,7 +7,7 @@ import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { ReportMutateProvider } from "@/hooks/useContext/useReportMutationContext";
 import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
-import { setForm } from "@/hooks/useSicilian/report";
+import { setValues } from "@/hooks/useSicilian/report";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
 
@@ -33,18 +33,18 @@ export default function Edit() {
   const [_, setTagList] = useReportTagList();
 
   const {
-    report: { title, content, tags },
+    report: { title, tags, content },
     book,
     isPending,
   } = useReportAdaptor();
 
   useEffect(() => {
-    setForm({
-      title,
-      content,
+    setValues({
+      title: title,
+      content: content,
     });
     setTagList(tags);
-  }, [isPending, title, content, tags, setTagList]);
+  }, [isPending]);
 
   return (
     <>

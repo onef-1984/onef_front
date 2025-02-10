@@ -1,7 +1,7 @@
 import { passwordEditValidate } from "@/constants/edit/passwordEditValidate";
-import { playDragon } from "sicilian";
+import { CreateForm } from "sicilian";
 
-export const { register, ErrorState, handleSubmit } = playDragon({
+export const { register, getErrors, handleSubmit } = new CreateForm({
   initValue: {
     oldPassword: "",
     newPassword: "",

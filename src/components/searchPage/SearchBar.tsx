@@ -3,7 +3,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Clickable from "../clickable/Clickable";
 import styles from "./Search.module.css";
 import Form from "../forms/Form";
-import { SicilianProvider } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
 
 export default function SearchBar() {
   const { push, query } = useRouterAdv();

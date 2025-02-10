@@ -1,5 +1,5 @@
-import { playDragon } from "sicilian";
+import { CreateForm } from "sicilian";
 
-export const { register, handleSubmit } = playDragon({
+export const { register, handleSubmit } = new CreateForm({
   initValue: { keyword: "" },
 });

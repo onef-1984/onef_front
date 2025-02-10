@@ -3,7 +3,9 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
+  [_ in K]?: never;
+};
 export type Incremental<T> = T | { [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -472,13 +474,19 @@ export type UpdateReportMutationVariables = Exact<{
   ReportId: Scalars["String"]["input"];
 }>;
 
-export type UpdateReportMutation = { __typename?: "Mutation"; report: { __typename?: "Report"; id: string } };
+export type UpdateReportMutation = {
+  __typename?: "Mutation";
+  report: { __typename?: "Report"; id: string };
+};
 
 export type DeleteReportMutationVariables = Exact<{
   ReportId: Scalars["String"]["input"];
 }>;
 
-export type DeleteReportMutation = { __typename?: "Mutation"; report: { __typename?: "Report"; id: string } };
+export type DeleteReportMutation = {
+  __typename?: "Mutation";
+  report: { __typename?: "Report"; id: string };
+};
 
 export type ToggleReportLikeMutationVariables = Exact<{
   ReportId: Scalars["String"]["input"];
@@ -493,7 +501,10 @@ export type CheckUserLikedReportQueryVariables = Exact<{
   ReportId: Scalars["String"]["input"];
 }>;
 
-export type CheckUserLikedReportQuery = { __typename?: "Query"; isLiked: { __typename?: "IsLiked"; isLiked: boolean } };
+export type CheckUserLikedReportQuery = {
+  __typename?: "Query";
+  isLiked: { __typename?: "IsLiked"; isLiked: boolean };
+};
 
 export type GetReportListBySearchQueryVariables = Exact<{
   SearchReportInput: SearchReportInput;

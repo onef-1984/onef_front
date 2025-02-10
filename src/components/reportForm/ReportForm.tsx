@@ -1,11 +1,11 @@
 import styles from "./ReportForm.module.css";
 import Form from "@/components/forms/Form";
 import Clickable from "../clickable/Clickable";
-import { FormState, handleSubmit, setForm, register } from "@/hooks/useSicilian/report";
+import { getValues, handleSubmit, setValues, register } from "@/hooks/useSicilian/report";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { useReportMutateContext } from "@/hooks/useContext/useReportMutationContext";
-import { SicilianProvider } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
 import ValueIndicator from "../valueIndicator/ValueIndicator";
 
 export default function ReportForm() {
@@ -22,22 +22,22 @@ export default function ReportForm() {
       <SicilianProvider value={{ register, name: "title" }}>
         <div>
           <Form.Input placeholder={"제목을 입력해 주세요"} className={styles.titleInput} />
-          <ValueIndicator value={FormState().title.length} limit={19} />
+          <ValueIndicator value={getValues().title.length} limit={19} />
         </div>
       </SicilianProvider>
 
       <SicilianProvider value={{ register, name: "content" }}>
         <div>
           <Form.MDEditor />
-          <ValueIndicator value={FormState().content.length} limit={1984} />
+          <ValueIndicator value={getValues().content.length} limit={1984} />
         </div>
       </SicilianProvider>
 
-      <SicilianProvider value={{ register, name: "tags", FormState }}>
+      <SicilianProvider value={{ register, name: "tags", getValues }}>
         <Form.TagInputWrapper
           tagList={tagList}
           setTagList={setTagList}
-          setValue={setForm}
+          setValue={setValues}
           input={({ onKeyDown, onKeyUp }) =>
             Form.Input({
               onKeyUp,

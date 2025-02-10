@@ -6,10 +6,10 @@ import SocialLogin from "@/components/socialLogin/SocialLogin";
 import { Show, Map } from "utilinent";
 import { signUpArray } from "@/constants/sign/signArray";
 import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
-import { ErrorState, handleSubmit, register } from "@/hooks/useSicilian/signUp";
+import { getErrors, handleSubmit, register } from "@/hooks/useSicilian/signUp";
 import styles from "@/styles/Sign.module.css";
 import Link from "next/link";
-import { SicilianProvider } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
 
 export default function SignUp() {
   const { mutate, isPending } = useSignMutation("/auth/signup");
@@ -41,7 +41,7 @@ export default function SignUp() {
               };
 
               return (
-                <SicilianProvider value={{ register, name: htmlFor, ErrorState }}>
+                <SicilianProvider value={{ register, name: htmlFor, getErrors }}>
                   <Form.InputWrapper inputName={inputName} key={htmlFor}>
                     <Show when={type === "password"} fallback={<Form.Input {...inputProps} />}>
                       <Form.InputTypeToggler Input={(toggleType) => <Form.Input {...inputProps} type={toggleType} />} />

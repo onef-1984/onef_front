@@ -6,7 +6,7 @@ import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { Item } from "@/types/graphql.types";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { formatAuthor } from "@/utils/formatAuthor";
-import { SicilianProvider } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
 import CardResultBox from "@/components/card/CardResultBox";
 import Clickable from "@/components/clickable/Clickable";
 import styles from "./BookSearchModal.module.css";

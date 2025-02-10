@@ -8,22 +8,14 @@ export const useMDEditorCommands = () => {
     const formData = new FormData();
     formData.append("image", file);
 
-    const response = await fetcher<{ imageUrl: string }>({
+    const { imageUrl } = await fetcher<{ imageUrl: string }>({
       url: "/image/single-upload",
       method: "POST",
       data: formData,
     });
 
-    return response.imageUrl;
+    return imageUrl;
   };
-
-  const commands = import("@uiw/react-md-editor").then((a) => {
-    return a.commands;
-  });
-
-  const extraCommands = import("@uiw/react-md-editor").then((a) => {
-    return a;
-  });
 
   const imageCommand: ICommand = {
     name: "image",
@@ -49,18 +41,22 @@ export const useMDEditorCommands = () => {
     },
   };
 
+  const commands = import("@uiw/react-md-editor").then((a) => a.commands);
+  const extraCommands = import("@uiw/react-md-editor").then((a) => a);
+
   const [command, setCommand] = useState<Array<ICommand>>([]);
   const [extraCommand, setExtraCommand] = useState<Array<ICommand>>([]);
 
   useEffect(() => {
-    commands.then((a) => {
-      setCommand(a.getCommands());
-    });
+    commands.then((a) => setCommand(a.getCommands()));
+    extraCommands.then((a) => setExtraCommand(a.getExtraCommands()));
 
-    extraCommands.then((a) => {
-      setExtraCommand(a.getExtraCommands());
-    });
-  }, [commands, extraCommands]);
+    console.log(command, extraCommand);
+  }, []);
 
-  return { imageCommand, command, extraCommand };
+  return {
+    imageCommand,
+    command,
+    extraCommand,
+  };
 };

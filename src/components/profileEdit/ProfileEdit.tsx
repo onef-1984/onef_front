@@ -1,8 +1,8 @@
-import { register, setForm, handleSubmit, ErrorState } from "@/hooks/useSicilian/profileEdit";
+import { register, setValues, handleSubmit, getErrors } from "@/hooks/useSicilian/profileEdit";
 import { useEffect, useState } from "react";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { usePatchProfileMutation } from "@/hooks/useMutation/usePatchProfileMutation";
-import { SicilianProvider } from "sicilian";
+import { SicilianProvider } from "sicilian/provider";
 import styles from "./ProfileEdit.module.css";
 import toast from "react-hot-toast";
 import Form from "@/components/forms/Form";
@@ -14,7 +14,7 @@ export default function ProfileEdit() {
   const { mutate } = usePatchProfileMutation();
 
   useEffect(() => {
-    setForm({ email: user.email, nickname: user.nickname, bio: user.bio });
+    setValues({ email: user.email, nickname: user.nickname, bio: user.bio });
   }, [isPending, user]);
 
   const onSubmit = ({ files, nickname, bio }: { files: FileList | undefined; nickname: string; bio: string }) => {
@@ -46,19 +46,19 @@ export default function ProfileEdit() {
         file={files?.[0]}
       />
 
-      <SicilianProvider value={{ register, name: "email", ErrorState }}>
+      <SicilianProvider value={{ register, name: "email", getErrors }}>
         <Form.InputWrapper inputName={"이메일"}>
           <Form.Input disabled={true} />
         </Form.InputWrapper>
       </SicilianProvider>
 
-      <SicilianProvider value={{ register, name: "nickname", ErrorState }}>
+      <SicilianProvider value={{ register, name: "nickname", getErrors }}>
         <Form.InputWrapper inputName={"닉네임"}>
           <Form.Input />
         </Form.InputWrapper>
       </SicilianProvider>
 
-      <SicilianProvider value={{ register, name: "bio", ErrorState }}>
+      <SicilianProvider value={{ register, name: "bio", getErrors }}>
         <Form.InputWrapper className={styles.bio} inputName={"소개"}>
           <Form.Textarea initValue={user.bio} className={styles.textarea} />
         </Form.InputWrapper>
