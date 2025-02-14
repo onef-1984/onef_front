@@ -17,16 +17,16 @@ export const passwordEditValidate = () => {
 
   const newPassword = {
     ...oldPassword,
-    customChecker: {
-      checkFn: (newPassword: string, store: { oldPassword: string }) => newPassword === store.oldPassword,
+    custom: {
+      checkFn: (newPassword: string, store: { oldPassword: string }) => newPassword !== store.oldPassword,
       message: "신규 비밀번호는 기존 비밀번호와 일치하지 않아야 합니다",
     },
   };
 
   const newPasswordConfirm = {
     ...oldPassword,
-    customChecker: {
-      checkFn: (newPasswordConfirm: string, store: { newPassword: string }) => newPasswordConfirm !== store.newPassword,
+    custom: {
+      checkFn: (newPasswordConfirm: string, store: { newPassword: string }) => newPasswordConfirm === store.newPassword,
       message: "신규 비밀번호가 일치하지 않습니다",
     },
   };

@@ -25,7 +25,7 @@ export const SignValidate = () => {
 
   const passwordCheck = {
     ...password,
-    customChecker: {
+    custom: {
       checkFn: (value: string, store: { password: string }) => value !== store.password,
       message: "비밀번호가 일치하지 않습니다",
     },
