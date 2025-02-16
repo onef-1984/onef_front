@@ -72,49 +72,42 @@ main 브랜치로 코드가 머지되면 자동으로 github action이 동작하
 처음에는 getClickable 이라는 함수를 사용해 서로 다른 컴포넌트의 스타일링을 처리했지만, Next.js로 넘어오면서 오직 스타일링만을 위해 Link 컴포넌트를 감싸는 새로운 컴포넌트를 만드는 것이 영 께름칙했습니다. 그래서 **고차 컴포넌트 패턴(HOC)** 을 사용하여 button 태그와 Link 컴포넌트를 하나의 고차 컴포넌트 Clickable에서 처리하도록 하였습니다.
 
 ```tsx
-type TButton = React.FC<ComponentPropsWithoutRef<"button">>;
-type TComponent = typeof Link | TButton;
 type ClickableStyle = {
   color?: "primary" | "white" | "like" | "kakao" | "borderless";
   size?: "small" | "medium" | "large";
 };
-type ClickableProps<T extends TComponent> = ClickableStyle & ComponentPropsWithoutRef<T>;
+type ClickableProps<T extends ElementType> = ClickableStyle & ComponentPropsWithoutRef<T>;
 
-export default function Clickable<T extends TComponent = TButton>({
+export default function Clickable<T extends ElementType = "button">({
   Component,
   ...props
 }: {
   Component?: T;
 } & ClickableProps<T>) {
-  const Button = ({ children, ...buttonProps }: ComponentPropsWithoutRef<"button">) => (
-    <button {...buttonProps}>{children}</button>
-  );
-  const Render = Component ?? Button;
+  const Render = Component ?? "button";
   const { color = "primary", size = "medium", className, ...restProps } = props;
   const style = clsx(styles.root, styles[color], styles[size], className);
 
-  // @ts-expect-error
   return <Render className={style} {...restProps} />;
 }
+
+Clickable.Container = ({ children }: { children: ReactNode }) => {
+  return <div className={styles.container}>{children}</div>;
+};
+
 ```
 
-이전에는 스타일을 처리하는 getClickable 함수, button 태그를 감싼 Button 컴포넌트, Link 컴포넌트를 감싼 SLink 컴포넌트까지 총 세 개의 파일이 필요하였습니다. 하지만 Clickable 컴포넌트는 앞서 언급한 세 개의 파일이 하는 일을 동일하게 처리할 수 있습니다.
+기본적으로 Clickable은 button 태그로 랜더링되지만, 필요하다면 다른 태그 혹은 컴포넌트를 사용하여 랜더링할 수 있습니다.
 
 ```tsx
 // button 태그처럼 사용
 <Clickable type="submit" onClick={() => {}}>확인</Clickable>
 
 // Link 컴포넌트처럼 사용
-<Clickable component={Link} herf="/">메인 화면으로 이동</Clickable>
+<Clickable component={Link} href="/">메인 화면으로 이동</Clickable>
 ```
 
-또한, Clickable 컴포넌트는 확장성이 아주 뛰어납니다. 기획 요구가 변경되어 button 태그와 Link 컴포넌트 말고 a 태그도 Clickable에 추가해야 할 수 있습니다. 그럴 때는 아래와 같이 타입 수정만 해주면 즉시 a 태그도 Clickable하게 사용할 수 있습니다 :)
 
-```tsx
-type TButton = React.FC<ComponentPropsWithoutRef<"button">>;
-type TAnchor = React.FC<ComponentPropsWithoutRef<"a">>;
-type TComponent = typeof Link | TButton | TAnchor;
-```
 
 &nbsp;
 

@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
+    "@storybook/addon-a11y": "^8.5.5",
     "@tanstack/react-query": "^5.50.1",
     "@uiw/react-md-editor": "^3.6.0",
     "axios": "^1.7.7",
@@ -35,10 +38,18 @@
     "utilinent": "^0.0.4"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-operations": "^4.3.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@storybook/addon-essentials": "^8.5.5",
+    "@storybook/addon-interactions": "^8.5.5",
+    "@storybook/addon-onboarding": "^8.5.5",
+    "@storybook/blocks": "^8.5.5",
+    "@storybook/nextjs": "^8.5.5",
+    "@storybook/react": "^8.5.5",
+    "@storybook/test": "^8.5.5",
     "@tanstack/react-query-devtools": "^5.51.21",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -50,6 +61,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-storybook": "^0.11.2",
+    "storybook": "^8.5.5",
     "typescript": "^5"
   }
 }
