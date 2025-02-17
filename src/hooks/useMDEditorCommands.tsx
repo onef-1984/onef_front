@@ -1,14 +1,16 @@
-import fetcher from "@/apis/axios";
 import { ICommand, TextAreaTextApi, TextState } from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
 import { MdInsertPhoto } from "@react-icons/all-files/md/MdInsertPhoto";
+import { Fetcher } from "@/apis/Base/Fetcher";
 
 export const useMDEditorCommands = () => {
   const uploadImage = async (file: File): Promise<string> => {
     const formData = new FormData();
     formData.append("image", file);
 
-    const { imageUrl } = await fetcher<{ imageUrl: string }>({
+    const fetcher = new Fetcher();
+
+    const { imageUrl } = await fetcher.doFetch<{ imageUrl: string }>({
       url: "/image/single-upload",
       method: "POST",
       data: formData,

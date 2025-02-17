@@ -1,4 +1,4 @@
-import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
+import { AuthMutation } from "@/apis/Domains/AuthMutation";
 import { useMutation } from "@tanstack/react-query";
 import { useRouterAdv } from "../useRouterAdv";
 import toast from "react-hot-toast";

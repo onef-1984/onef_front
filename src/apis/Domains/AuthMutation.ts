@@ -1,7 +1,7 @@
 import { Message } from "@/types/graphql.types";
-import { MutationFn } from "./MutationFn";
+import { Mutation } from "@/apis/Base/Mutation";
 
-export class AuthMutation extends MutationFn {
+export class AuthMutation extends Mutation {
   constructor() {
     super();
   }

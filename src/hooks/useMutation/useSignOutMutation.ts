@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AuthMutation } from "@/apis/reactQuery/Mutation/AuthMutation";
+import { AuthMutation } from "@/apis/Domains/AuthMutation";
 import { useRouterAdv } from "../useRouterAdv";
 
 export const useSignOutMutation = () => {

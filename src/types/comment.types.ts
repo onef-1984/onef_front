@@ -5,10 +5,9 @@ export type ReportComment = {
   comment: string;
   createdAt: string;
   updatedAt: string;
-  userId: string;
-  reportId?: string;
-  parentId?: string;
-  replies: Array<ReportComment>;
+  reportId?: string | null;
+  parentId?: string | null;
+  replies?: Array<ReportComment>;
   user: Pick<User, "id" | "email" | "nickname" | "profileImage">;
 };
 

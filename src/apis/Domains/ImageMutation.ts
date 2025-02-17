@@ -1,7 +1,7 @@
-import { MutationFn } from "./MutationFn";
+import { Mutation } from "@/apis/Base/Mutation";
 import { ImageUrls } from "@/types/image.types";
 
-export class ImageMutation extends MutationFn {
+export class ImageMutation extends Mutation {
   constructor() {
     super();
   }

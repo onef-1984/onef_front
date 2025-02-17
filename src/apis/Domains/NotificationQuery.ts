@@ -1,7 +1,7 @@
-import { QueryFn } from "./QueryFn";
 import { Notification } from "@/types/notification.types";
+import { Query } from "../Base/Query";
 
-export class NotificationQuery extends QueryFn {
+export class NotificationQuery extends Query {
   constructor() {
     super();
   }

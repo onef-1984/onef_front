@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSocket } from "./useSocket";
 import type { Notification } from "@/types/notification.types";
-import { NotificationQuery } from "@/apis/reactQuery/Query/NotificationQuery";
+import { NotificationQuery } from "@/apis/Domains/NotificationQuery";
 
 export default function useNotification(userId: string) {
   const queryClient = useQueryClient();

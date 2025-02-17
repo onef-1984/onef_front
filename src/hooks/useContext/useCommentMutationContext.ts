@@ -1,10 +1,7 @@
-import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
 import { createSafeContext } from "./createSafeContext";
-
-const commentMutation = new CommentMutation();
+import { UseMutationOptions } from "@tanstack/react-query";
 
 export const { Provider: CommentMutationProvider, useContext: useCommentMutationContext } = createSafeContext<{
-  mutationFn: typeof commentMutation.postComment;
+  mutationOptions: UseMutationOptions<any, Error, any>;
   parentId: string;
-  onSuccessBehavior?: () => void;
 }>();

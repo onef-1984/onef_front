@@ -1,7 +1,5 @@
 import { CommentMutationProvider } from "@/hooks/useContext/useCommentMutationContext";
 import react, { useState } from "react";
-import { CommentMutation } from "@/apis/reactQuery/Mutation/CommentMutation";
-import { ReportComment } from "@/types/comment.types";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useDeleteCommentMutation } from "@/hooks/useMutation/useDeleteCommentMutation";
@@ -16,6 +14,9 @@ import ProfileImage from "../Profile/ProfileImage";
 import useCommentsAdaptor from "@/hooks/useAdaptor/useCommentsAdaptor";
 import styles from "./Comment.module.css";
 import { useIsQualified } from "@/hooks/useIsQualified";
+import type { Comment } from "@/types/graphql.types";
+import { CommentMutation } from "@/apis/Domains/Comment/Comment.mutation";
+import { ReportComment } from "@/types/comment.types";
 
 type CommentBoxType = "viewer" | "editor";
 
@@ -29,7 +30,7 @@ export default function Comment({ id, depth }: { id: string; depth: number }) {
       <CommentMutationProvider
         value={{
           parentId: id,
-          mutationFn: commentMutation.postComment,
+          mutationOptions: commentMutation.postComment(),
         }}
       >
         <Comment.Input depth={depth} inputName="댓글" buttonName="저장" />
@@ -74,7 +75,7 @@ Comment.Input = function CommentInput({
   buttonName: string;
 }) {
   const isLogin = useIsQualified("login");
-  const { onSubmit, isPending } = useCommentMutation({ initValue, depth });
+  const { onSubmit, isPending } = useCommentMutation({ depth });
   const { handleSubmit, register, setValues } = useForm({
     initValue: { comment: "" },
     validator: {
@@ -123,11 +124,10 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
             <div style={{ marginLeft: "5rem" }}>
               <CommentMutationProvider
                 value={{
-                  mutationFn: commentMutation.postComment,
-                  parentId: commentData.id,
-                  onSuccessBehavior: () => {
+                  mutationOptions: commentMutation.postComment(() => {
                     setOpen(false);
-                  },
+                  }),
+                  parentId: commentData.id,
                 }}
               >
                 <Comment.Input depth={depth + 1} buttonName="저장" inputName="답글" />
@@ -141,11 +141,8 @@ Comment.Box = function CommentBox({ commentData, depth }: { commentData: ReportC
       return (
         <CommentMutationProvider
           value={{
-            mutationFn: commentMutation.putComment,
+            mutationOptions: commentMutation.putComment(),
             parentId: commentData.id,
-            onSuccessBehavior: () => {
-              setCommentState("viewer");
-            },
           }}
         >
           <Comment.Input depth={depth} initValue={commentData.comment} buttonName="수정" inputName="" />
@@ -223,7 +220,7 @@ Comment.ReplyContainer = function CommentReplyContainer({
   const [open, setOpen] = useState(false);
 
   return (
-    <Show when={commentData.replies.length !== 0}>
+    <Show when={commentData.replies?.length !== 0}>
       <div className={styles.replyContainerRoot}>
         <Clickable
           {...clickableProps}
@@ -236,7 +233,7 @@ Comment.ReplyContainer = function CommentReplyContainer({
             when={open}
             fallback={
               <>
-                <IoIosArrowUp /> 답글 {commentData.replies.length}개
+                <IoIosArrowUp /> 답글 {commentData.replies?.length}개
               </>
             }
           >

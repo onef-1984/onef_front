@@ -2,7 +2,7 @@ import { Mutation } from "@/apis/Base/Mutation";
 import { ClientError, gql } from "graphql-request";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { ImageMutation } from "@/apis/reactQuery/Mutation/ImageMutation";
+import { ImageMutation } from "@/apis/Domains/ImageMutation";
 import {
   ChangePasswordMutationVariables,
   ChangePasswordMutation,

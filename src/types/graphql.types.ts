@@ -3,9 +3,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
-  [_ in K]?: never;
-};
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -56,9 +54,32 @@ export type ChangeProfileInput = {
   profileImage?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type Comment = {
+  __typename?: "Comment";
+  comment: Scalars["String"]["output"];
+  createdAt: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  parentId?: Maybe<Scalars["String"]["output"]>;
+  replies: Array<Comment>;
+  reportId?: Maybe<Scalars["String"]["output"]>;
+  updatedAt: Scalars["String"]["output"];
+  user: User;
+};
+
+export type CommentList = {
+  __typename?: "CommentList";
+  comments: Array<Comment>;
+};
+
 export type Count = {
   __typename?: "Count";
   userLiked: Scalars["Int"]["output"];
+};
+
+export type CreateComment = {
+  comment: Scalars["String"]["input"];
+  depth: Scalars["Float"]["input"];
+  parentId: Scalars["String"]["input"];
 };
 
 export type EditorsPick = {
@@ -99,10 +120,13 @@ export type Mutation = {
   changePassword: Message;
   changeProfile: Message;
   createBook: BookObject;
+  createComment: Comment;
   createEditorsPick: Message;
   createReport: Report;
+  deleteComment: Message;
   deleteReport: Report;
   promotionUser: Message;
+  putComment: Message;
   toggleReportLike: Message;
   updateReport: Report;
 };
@@ -119,6 +143,10 @@ export type MutationCreateBookArgs = {
   isbn13: Scalars["String"]["input"];
 };
 
+export type MutationCreateCommentArgs = {
+  createComment: CreateComment;
+};
+
 export type MutationCreateEditorsPickArgs = {
   description: Scalars["String"]["input"];
   reportId: Scalars["String"]["input"];
@@ -128,12 +156,21 @@ export type MutationCreateReportArgs = {
   reportInput: ReportInput;
 };
 
+export type MutationDeleteCommentArgs = {
+  id: Scalars["String"]["input"];
+};
+
 export type MutationDeleteReportArgs = {
   reportId: Scalars["String"]["input"];
 };
 
 export type MutationPromotionUserArgs = {
   key: Scalars["String"]["input"];
+};
+
+export type MutationPutCommentArgs = {
+  comment: Scalars["String"]["input"];
+  id: Scalars["String"]["input"];
 };
 
 export type MutationToggleReportLikeArgs = {
@@ -156,6 +193,7 @@ export type Query = {
   checkUserLikedReport: IsLiked;
   getBook: BookObject;
   getBookList: BookSearchResult;
+  getComments: CommentList;
   getEditorsPick: EditorsPick;
   getMe: User;
   getMostLikedReportList: ReportList;
@@ -174,6 +212,10 @@ export type QueryGetBookArgs = {
 
 export type QueryGetBookListArgs = {
   bookSearchInput: BookSearchInput;
+};
+
+export type QueryGetCommentsArgs = {
+  parentId: Scalars["String"]["input"];
 };
 
 export type QueryGetReportArgs = {
@@ -278,6 +320,17 @@ export enum UserRole {
   Admin = "ADMIN",
   User = "USER",
 }
+
+export type CreateReportMutationVariables = Exact<{
+  isbn13: Scalars["String"]["input"];
+  ReportInput: ReportInput;
+}>;
+
+export type CreateReportMutation = {
+  __typename?: "Mutation";
+  book: { __typename?: "BookObject"; isbn13: string };
+  report: { __typename?: "Report"; id: string };
+};
 
 export type AllBookFragment = {
   __typename?: "BookObject";
@@ -386,6 +439,224 @@ export type GetBookListQuery = {
   };
 };
 
+export type CreateCommentMutationVariables = Exact<{
+  createComment: CreateComment;
+}>;
+
+export type CreateCommentMutation = { __typename?: "Mutation"; comment: { __typename?: "Comment"; id: string } };
+
+export type PutCommentMutationVariables = Exact<{
+  id: Scalars["String"]["input"];
+  comment: Scalars["String"]["input"];
+}>;
+
+export type PutCommentMutation = { __typename?: "Mutation"; putComment: { __typename?: "Message"; message: string } };
+
+export type DeleteCommentMutationVariables = Exact<{
+  id: Scalars["String"]["input"];
+}>;
+
+export type DeleteCommentMutation = {
+  __typename?: "Mutation";
+  deleteComment: { __typename?: "Message"; message: string };
+};
+
+export type CommentFragmentFragment = {
+  __typename?: "Comment";
+  id: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  reportId?: string | null;
+  parentId?: string | null;
+  user: {
+    __typename?: "User";
+    id: string;
+    email: string;
+    nickname: string;
+    profileImage?: string | null;
+    role: UserRole;
+  };
+};
+
+export type CommentRecursiveFragment = {
+  __typename?: "Comment";
+  replies: Array<{
+    __typename?: "Comment";
+    id: string;
+    comment: string;
+    createdAt: string;
+    updatedAt: string;
+    reportId?: string | null;
+    parentId?: string | null;
+    replies: Array<{
+      __typename?: "Comment";
+      id: string;
+      comment: string;
+      createdAt: string;
+      updatedAt: string;
+      reportId?: string | null;
+      parentId?: string | null;
+      replies: Array<{
+        __typename?: "Comment";
+        id: string;
+        comment: string;
+        createdAt: string;
+        updatedAt: string;
+        reportId?: string | null;
+        parentId?: string | null;
+        replies: Array<{
+          __typename?: "Comment";
+          id: string;
+          comment: string;
+          createdAt: string;
+          updatedAt: string;
+          reportId?: string | null;
+          parentId?: string | null;
+          user: {
+            __typename?: "User";
+            id: string;
+            email: string;
+            nickname: string;
+            profileImage?: string | null;
+            role: UserRole;
+          };
+        }>;
+        user: {
+          __typename?: "User";
+          id: string;
+          email: string;
+          nickname: string;
+          profileImage?: string | null;
+          role: UserRole;
+        };
+      }>;
+      user: {
+        __typename?: "User";
+        id: string;
+        email: string;
+        nickname: string;
+        profileImage?: string | null;
+        role: UserRole;
+      };
+    }>;
+    user: {
+      __typename?: "User";
+      id: string;
+      email: string;
+      nickname: string;
+      profileImage?: string | null;
+      role: UserRole;
+    };
+  }>;
+};
+
+export type GetCommentsQueryVariables = Exact<{
+  reportId: Scalars["String"]["input"];
+}>;
+
+export type GetCommentsQuery = {
+  __typename?: "Query";
+  comments: {
+    __typename?: "CommentList";
+    comments: Array<{
+      __typename?: "Comment";
+      id: string;
+      comment: string;
+      createdAt: string;
+      updatedAt: string;
+      reportId?: string | null;
+      parentId?: string | null;
+      user: {
+        __typename?: "User";
+        id: string;
+        email: string;
+        nickname: string;
+        profileImage?: string | null;
+        role: UserRole;
+      };
+      replies: Array<{
+        __typename?: "Comment";
+        id: string;
+        comment: string;
+        createdAt: string;
+        updatedAt: string;
+        reportId?: string | null;
+        parentId?: string | null;
+        replies: Array<{
+          __typename?: "Comment";
+          id: string;
+          comment: string;
+          createdAt: string;
+          updatedAt: string;
+          reportId?: string | null;
+          parentId?: string | null;
+          replies: Array<{
+            __typename?: "Comment";
+            id: string;
+            comment: string;
+            createdAt: string;
+            updatedAt: string;
+            reportId?: string | null;
+            parentId?: string | null;
+            replies: Array<{
+              __typename?: "Comment";
+              id: string;
+              comment: string;
+              createdAt: string;
+              updatedAt: string;
+              reportId?: string | null;
+              parentId?: string | null;
+              user: {
+                __typename?: "User";
+                id: string;
+                email: string;
+                nickname: string;
+                profileImage?: string | null;
+                role: UserRole;
+              };
+            }>;
+            user: {
+              __typename?: "User";
+              id: string;
+              email: string;
+              nickname: string;
+              profileImage?: string | null;
+              role: UserRole;
+            };
+          }>;
+          user: {
+            __typename?: "User";
+            id: string;
+            email: string;
+            nickname: string;
+            profileImage?: string | null;
+            role: UserRole;
+          };
+        }>;
+        user: {
+          __typename?: "User";
+          id: string;
+          email: string;
+          nickname: string;
+          profileImage?: string | null;
+          role: UserRole;
+        };
+      }>;
+    }>;
+  };
+};
+
+export type CreateEditorsPickMutationVariables = Exact<{
+  reportId: Scalars["String"]["input"];
+  description: Scalars["String"]["input"];
+}>;
+
+export type CreateEditorsPickMutation = {
+  __typename?: "Mutation";
+  createEditorsPick: { __typename?: "Message"; message: string };
+};
+
 export type GetEditorsPickQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetEditorsPickQuery = {
@@ -404,14 +675,26 @@ export type GetEditorsPickQuery = {
   };
 };
 
-export type CreateEditorsPickMutationVariables = Exact<{
-  reportId: Scalars["String"]["input"];
-  description: Scalars["String"]["input"];
+export type UpdateReportMutationVariables = Exact<{
+  ReportUpdateInput: ReportUpdateInput;
+  ReportId: Scalars["String"]["input"];
 }>;
 
-export type CreateEditorsPickMutation = {
+export type UpdateReportMutation = { __typename?: "Mutation"; report: { __typename?: "Report"; id: string } };
+
+export type DeleteReportMutationVariables = Exact<{
+  ReportId: Scalars["String"]["input"];
+}>;
+
+export type DeleteReportMutation = { __typename?: "Mutation"; report: { __typename?: "Report"; id: string } };
+
+export type ToggleReportLikeMutationVariables = Exact<{
+  ReportId: Scalars["String"]["input"];
+}>;
+
+export type ToggleReportLikeMutation = {
   __typename?: "Mutation";
-  createEditorsPick: { __typename?: "Message"; message: string };
+  message: { __typename?: "Message"; message: string };
 };
 
 export type AllReportFragment = {
@@ -456,54 +739,6 @@ export type GetReportQuery = {
       subInfo: { __typename?: "SubInfoObject"; itemPage: number };
     };
   };
-};
-
-export type CreateReportMutationVariables = Exact<{
-  isbn13: Scalars["String"]["input"];
-  ReportInput: ReportInput;
-}>;
-
-export type CreateReportMutation = {
-  __typename?: "Mutation";
-  book: { __typename?: "BookObject"; isbn13: string };
-  report: { __typename?: "Report"; id: string };
-};
-
-export type UpdateReportMutationVariables = Exact<{
-  ReportUpdateInput: ReportUpdateInput;
-  ReportId: Scalars["String"]["input"];
-}>;
-
-export type UpdateReportMutation = {
-  __typename?: "Mutation";
-  report: { __typename?: "Report"; id: string };
-};
-
-export type DeleteReportMutationVariables = Exact<{
-  ReportId: Scalars["String"]["input"];
-}>;
-
-export type DeleteReportMutation = {
-  __typename?: "Mutation";
-  report: { __typename?: "Report"; id: string };
-};
-
-export type ToggleReportLikeMutationVariables = Exact<{
-  ReportId: Scalars["String"]["input"];
-}>;
-
-export type ToggleReportLikeMutation = {
-  __typename?: "Mutation";
-  message: { __typename?: "Message"; message: string };
-};
-
-export type CheckUserLikedReportQueryVariables = Exact<{
-  ReportId: Scalars["String"]["input"];
-}>;
-
-export type CheckUserLikedReportQuery = {
-  __typename?: "Query";
-  isLiked: { __typename?: "IsLiked"; isLiked: boolean };
 };
 
 export type GetReportListBySearchQueryVariables = Exact<{
@@ -551,6 +786,30 @@ export type GetMostLikedReportListQuery = {
   };
 };
 
+export type CheckUserLikedReportQueryVariables = Exact<{
+  ReportId: Scalars["String"]["input"];
+}>;
+
+export type CheckUserLikedReportQuery = { __typename?: "Query"; isLiked: { __typename?: "IsLiked"; isLiked: boolean } };
+
+export type ChangeProfileMutationVariables = Exact<{
+  changeProfileInput: ChangeProfileInput;
+}>;
+
+export type ChangeProfileMutation = {
+  __typename?: "Mutation";
+  changeProfile: { __typename?: "Message"; message: string };
+};
+
+export type ChangePasswordMutationVariables = Exact<{
+  changePasswordDto: ChangePasswordInput;
+}>;
+
+export type ChangePasswordMutation = {
+  __typename?: "Mutation";
+  changePassword: { __typename?: "Message"; message: string };
+};
+
 export type UserFragmentFragment = {
   __typename?: "User";
   id: string;
@@ -591,22 +850,4 @@ export type GetUserQuery = {
     profileImage?: string | null;
     bio?: string | null;
   };
-};
-
-export type ChangeProfileMutationVariables = Exact<{
-  changeProfileInput: ChangeProfileInput;
-}>;
-
-export type ChangeProfileMutation = {
-  __typename?: "Mutation";
-  changeProfile: { __typename?: "Message"; message: string };
-};
-
-export type ChangePasswordMutationVariables = Exact<{
-  changePasswordDto: ChangePasswordInput;
-}>;
-
-export type ChangePasswordMutation = {
-  __typename?: "Mutation";
-  changePassword: { __typename?: "Message"; message: string };
 };
