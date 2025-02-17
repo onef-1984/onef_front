@@ -1,17 +1,17 @@
 import { register, setValues, handleSubmit, getErrors } from "@/hooks/useSicilian/profileEdit";
 import { useEffect, useState } from "react";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
-import { usePatchProfileMutation } from "@/hooks/useMutation/usePatchProfileMutation";
 import { SicilianProvider } from "sicilian/provider";
 import styles from "./ProfileEdit.module.css";
 import toast from "react-hot-toast";
 import Form from "@/components/forms/Form";
 import Clickable from "../clickable/Clickable";
+import { useUserMutator } from "@/hooks/useMutation/useUserMutator";
 
 export default function ProfileEdit() {
   const [files, setFiles] = useState<FileList>();
   const { user, isPending } = useWhoAmIAdaptor();
-  const { mutate } = usePatchProfileMutation();
+  const { ChangeProfileMutate } = useUserMutator();
 
   useEffect(() => {
     setValues({ email: user.email, nickname: user.nickname, bio: user.bio });
@@ -29,7 +29,7 @@ export default function ProfileEdit() {
     if (user.bio === bio.replace(/\n\s*\n/g, "\n") && user.nickname === nickname && !files)
       return toast.error("변경사항이 없습니다.");
 
-    mutate({ formData, nickname, bio });
+    ChangeProfileMutate({ formData, nickname, bio });
   };
 
   return (

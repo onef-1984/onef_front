@@ -1,9 +1,9 @@
-import { ReportRequest } from "@/apis/request/ReportRequest";
+import { ReportQuery } from "@/apis/Domains/Report/Report.query";
 import { useQuery } from "@tanstack/react-query";
 
 export const useRecentReport = () => {
-  const reportRequest = new ReportRequest();
-  const { data } = useQuery(reportRequest.getRecentReportList());
+  const reportQuery = new ReportQuery();
+  const { data } = useQuery(reportQuery.getRecentReportList());
 
   const items = data?.reportList.items ?? [];
 

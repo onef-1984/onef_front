@@ -3,16 +3,19 @@ import styles from "./PasswordEdit.module.css";
 import { Map } from "utilinent";
 import Clickable from "../clickable/Clickable";
 import { handleSubmit, register, getErrors } from "@/hooks/useSicilian/passwordEdit";
-import { usePatchPasswordMutation } from "@/hooks/useMutation/usePatchPasswordMutation";
 import { passwordEditArray } from "@/constants/edit/passwordEditArray";
 import { SicilianProvider } from "sicilian/provider";
 import omit from "@/utils/omit";
+import { useUserMutator } from "@/hooks/useMutation/useUserMutator";
 
 export default function PasswordEdit() {
-  const { mutate } = usePatchPasswordMutation();
+  const { ChangePasswordMutate } = useUserMutator();
 
   return (
-    <Form className={styles.root} onSubmit={handleSubmit((data) => mutate(omit(data, ["newPasswordConfirm"])))}>
+    <Form
+      className={styles.root}
+      onSubmit={handleSubmit((data) => ChangePasswordMutate(omit(data, ["newPasswordConfirm"])))}
+    >
       <Map each={passwordEditArray}>
         {({ inputName, htmlFor }) => (
           <SicilianProvider value={{ register, name: htmlFor, getErrors }}>

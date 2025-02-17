@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { ReportRequest } from "@/apis/request/ReportRequest";
 import { OrderBy, SearchType } from "@/types/graphql.types";
+import { ReportQuery } from "@/apis/Domains/Report/Report.query";
 
 export const useInfiniteReportSearchListAdaptor = ({
   keyword,
@@ -11,10 +11,8 @@ export const useInfiniteReportSearchListAdaptor = ({
   orderBy: OrderBy;
   searchType: SearchType;
 }) => {
-  const reportRequest = new ReportRequest();
-  const { data, fetchNextPage } = useInfiniteQuery(
-    reportRequest.getReportListBySearch({ keyword, orderBy, searchType }),
-  );
+  const reportQuery = new ReportQuery();
+  const { data, fetchNextPage } = useInfiniteQuery(reportQuery.getReportListBySearch({ keyword, orderBy, searchType }));
 
   const pages = data?.pages ?? [];
 

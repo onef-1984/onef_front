@@ -5,7 +5,7 @@ import styles from "./ReportOwner.module.css";
 import { Map } from "utilinent";
 import { useQuery } from "@tanstack/react-query";
 import { formatReportArray } from "@/utils/formatReportArray";
-import { ReportRequest } from "@/apis/request/ReportRequest";
+import { ReportQuery } from "@/apis/Domains/Report/Report.query";
 
 export default function ReportOwner({
   userNickname,
@@ -16,8 +16,8 @@ export default function ReportOwner({
   userId: string;
   reportId: string;
 }) {
-  const reportRequest = new ReportRequest();
-  const { data } = useQuery(reportRequest.getUserLatestReportList(userId));
+  const reportQuery = new ReportQuery();
+  const { data } = useQuery(reportQuery.getUserLatestReportList(userId));
   const items = formatReportArray(data, reportId);
 
   return (

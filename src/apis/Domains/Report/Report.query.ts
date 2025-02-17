@@ -1,25 +1,17 @@
-import { GraphQL } from "@/apis/grahpqlClient";
+import { Query } from "@/apis/Base/Query";
 import { gql } from "graphql-request";
-import { ALL_BOOK } from "./BookRequest";
+import { ALL_BOOK } from "../Book/Book.query";
 import {
-  CheckUserLikedReportQuery,
-  CheckUserLikedReportQueryVariables,
-  CreateReportMutation,
-  CreateReportMutationVariables,
-  DeleteReportMutation,
-  DeleteReportMutationVariables,
   GetMostLikedReportListQuery,
   GetMostLikedReportListQueryVariables,
   GetReportListBySearchQuery,
   GetReportListBySearchQueryVariables,
-  GetReportQuery,
-  GetReportQueryVariables,
   OrderBy,
   SearchType,
-  ToggleReportLikeMutation,
-  ToggleReportLikeMutationVariables,
-  UpdateReportMutation,
-  UpdateReportMutationVariables,
+  GetReportQuery,
+  GetReportQueryVariables,
+  CheckUserLikedReportQuery,
+  CheckUserLikedReportQueryVariables,
 } from "@/types/graphql.types";
 
 export const ALL_REPORT = gql`
@@ -54,49 +46,6 @@ const GET_REPORT = gql`
   }
   ${ALL_REPORT}
   ${ALL_BOOK}
-`;
-
-const CREATE_REPORT_MUTATION = gql`
-  mutation CreateReport($isbn13: String!, $ReportInput: ReportInput!) {
-    book: createBook(isbn13: $isbn13) {
-      isbn13
-    }
-    report: createReport(reportInput: $ReportInput) {
-      id
-    }
-  }
-`;
-
-const UPDATE_REPORT_MUTATION = gql`
-  mutation UpdateReport($ReportUpdateInput: ReportUpdateInput!, $ReportId: String!) {
-    report: updateReport(reportUpdateInput: $ReportUpdateInput, reportId: $ReportId) {
-      id
-    }
-  }
-`;
-
-const DELETE_REPORT_MUTATION = gql`
-  mutation DeleteReport($ReportId: String!) {
-    report: deleteReport(reportId: $ReportId) {
-      id
-    }
-  }
-`;
-
-const TOGGLE_REPORT_LIKE = gql`
-  mutation toggleReportLike($ReportId: String!) {
-    message: toggleReportLike(reportId: $ReportId) {
-      message
-    }
-  }
-`;
-
-const IS_USER_LIKED_REPORT = gql`
-  query checkUserLikedReport($ReportId: String!) {
-    isLiked: checkUserLikedReport(reportId: $ReportId) {
-      isLiked
-    }
-  }
 `;
 
 const GET_REPORT_LIST_BY_SEARCH = gql`
@@ -144,10 +93,15 @@ const GET_MOST_LIKED_REPORT_LIST = gql`
   ${ALL_REPORT}
 `;
 
-export class ReportRequest extends GraphQL {
-  constructor() {
-    super();
+const IS_USER_LIKED_REPORT = gql`
+  query checkUserLikedReport($ReportId: String!) {
+    isLiked: checkUserLikedReport(reportId: $ReportId) {
+      isLiked
+    }
   }
+`;
+
+export class ReportQuery extends Query {
   queryKey = ["report"];
 
   getMostLikedReportList() {
@@ -163,14 +117,12 @@ export class ReportRequest extends GraphQL {
       queryKey: [...this.queryKey, "mostRecent"],
       queryFn: () =>
         this.graphql<GetReportListBySearchQuery, GetReportListBySearchQueryVariables>(GET_REPORT_LIST_BY_SEARCH, {
-          variables: {
-            SearchReportInput: {
-              keyword: "",
-              orderBy: OrderBy.CreatedAt,
-              searchType: SearchType.Report,
-              take: 12,
-              skip: 0,
-            },
+          SearchReportInput: {
+            keyword: "",
+            orderBy: OrderBy.CreatedAt,
+            searchType: SearchType.Report,
+            take: 12,
+            skip: 0,
           },
         }),
     };
@@ -181,14 +133,12 @@ export class ReportRequest extends GraphQL {
       queryKey: [...this.queryKey, userId, "userLatest"],
       queryFn: () =>
         this.graphql<GetReportListBySearchQuery, GetReportListBySearchQueryVariables>(GET_REPORT_LIST_BY_SEARCH, {
-          variables: {
-            SearchReportInput: {
-              keyword: userId,
-              orderBy: OrderBy.CreatedAt,
-              searchType: SearchType.User,
-              take: 5,
-              skip: 0,
-            },
+          SearchReportInput: {
+            keyword: userId,
+            orderBy: OrderBy.CreatedAt,
+            searchType: SearchType.User,
+            take: 5,
+            skip: 0,
           },
         }),
     };
@@ -206,7 +156,7 @@ export class ReportRequest extends GraphQL {
     return {
       queryKey: [...this.queryKey, orderBy, keyword ? keyword : "all", searchType],
       queryFn: ({ pageParam }: { pageParam: GetReportListBySearchQueryVariables }) =>
-        this.infiniteGraphql<GetReportListBySearchQuery, GetReportListBySearchQueryVariables>(
+        this.graphql<GetReportListBySearchQuery, GetReportListBySearchQueryVariables>(
           GET_REPORT_LIST_BY_SEARCH,
           pageParam,
         ),
@@ -237,49 +187,12 @@ export class ReportRequest extends GraphQL {
     };
   }
 
-  getReport(reviewId: string) {
+  getReport(reportId: string) {
     return {
-      queryKey: [...this.queryKey, reviewId],
-      queryFn: () =>
-        this.graphql<GetReportQuery, GetReportQueryVariables>(GET_REPORT, { variables: { reportId: reviewId } }),
-      enabled: !!reviewId,
+      queryKey: [...this.queryKey, reportId],
+      queryFn: () => this.graphql<GetReportQuery, GetReportQueryVariables>(GET_REPORT, { reportId }),
+      enabled: !!reportId,
     };
-  }
-
-  createReport(isbn13: CreateReportMutationVariables["isbn13"]) {
-    return (ReportInput: CreateReportMutationVariables["ReportInput"]) =>
-      this.graphql<CreateReportMutation, CreateReportMutationVariables>(CREATE_REPORT_MUTATION, {
-        variables: {
-          isbn13,
-          ReportInput,
-        },
-      });
-  }
-
-  updateReport(ReportId: UpdateReportMutationVariables["ReportId"]) {
-    return ({ title, content, tags }: UpdateReportMutationVariables["ReportUpdateInput"]) =>
-      this.graphql<UpdateReportMutation, UpdateReportMutationVariables>(UPDATE_REPORT_MUTATION, {
-        variables: {
-          ReportUpdateInput: { title, content, tags },
-          ReportId,
-        },
-      });
-  }
-
-  deleteReport(ReportId: string) {
-    return () =>
-      this.graphql<DeleteReportMutation, DeleteReportMutationVariables>(DELETE_REPORT_MUTATION, {
-        variables: {
-          ReportId,
-        },
-      });
-  }
-
-  toggleReportLike(ReportId: string) {
-    return () =>
-      this.graphql<ToggleReportLikeMutation, ToggleReportLikeMutationVariables>(TOGGLE_REPORT_LIKE, {
-        variables: { ReportId },
-      });
   }
 
   checkUserLikedReport(ReportId: string) {
@@ -287,7 +200,7 @@ export class ReportRequest extends GraphQL {
       queryKey: [...this.queryKey, ReportId, "like"],
       queryFn: () =>
         this.graphql<CheckUserLikedReportQuery, CheckUserLikedReportQueryVariables>(IS_USER_LIKED_REPORT, {
-          variables: { ReportId },
+          ReportId,
         }),
     };
   }

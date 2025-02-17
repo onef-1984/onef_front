@@ -2,20 +2,20 @@ import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport";
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
-import { useReportLikesMutation } from "@/hooks/useMutation/report/userReportLikesMutation";
 import { Map } from "utilinent";
 import styles from "./Report.module.css";
 import Clickable from "../clickable/Clickable";
 import Link from "next/link";
 import Tag from "../tag/Tag";
 import { useIsQualified } from "@/hooks/useIsQualified";
+import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
 
 export default function ReportFooter() {
   const { report } = useReportAdaptor();
   const isMyReport = useIsQualified("myReport");
   const isLogin = useIsQualified("login");
   const { isLiked } = useIsLikedReport();
-  const { mutate, isPending } = useReportLikesMutation();
+  const { ToggleReportLikeMutate, isToggleReportLikePending } = useReportMutator();
 
   return (
     <section className={styles.reportFooter}>
@@ -41,9 +41,9 @@ export default function ReportFooter() {
         color="like"
         size="small"
         type="button"
-        disabled={isPending || (isLogin ? isMyReport : true)}
+        disabled={isToggleReportLikePending || (isLogin ? isMyReport : true)}
         onClick={() => {
-          mutate();
+          ToggleReportLikeMutate();
         }}
         className={styles.likeButton}
       >

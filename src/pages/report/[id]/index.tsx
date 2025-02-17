@@ -12,16 +12,16 @@ import Comment from "@/components/comment/Comment";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import { GetServerSidePropsContext } from "next";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { ReportRequest } from "@/apis/request/ReportRequest";
+import { ReportQuery } from "@/apis/Domains/Report/Report.query";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { params } = context;
   const id = params?.id;
 
   const queryClient = new QueryClient();
-  const reportRequest = new ReportRequest();
+  const reportQuery = new ReportQuery();
 
-  await queryClient.prefetchQuery(reportRequest.getReport(id as string));
+  await queryClient.prefetchQuery(reportQuery.getReport(id as string));
 
   return {
     props: {

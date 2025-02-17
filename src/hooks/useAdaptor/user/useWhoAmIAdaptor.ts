@@ -1,9 +1,9 @@
-import { UserRequest } from "@/apis/request/UserRequest";
+import { UserQuery } from "@/apis/Domains/User/User.query";
 import { useQuery } from "@tanstack/react-query";
 
 export const useWhoAmIAdaptor = () => {
-  const userRequest = new UserRequest();
-  const { data, isError, isPending } = useQuery(userRequest.getMe());
+  const userQuery = new UserQuery();
+  const { data, isError, isPending } = useQuery(userQuery.getMe());
 
   return {
     isPending,

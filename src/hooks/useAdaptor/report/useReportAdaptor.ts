@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDate } from "@/utils/formatDate";
 import { formatAuthor } from "@/utils/formatAuthor";
 import { useRouterAdv } from "../../useRouterAdv";
-import { ReportRequest } from "@/apis/request/ReportRequest";
+import { ReportQuery } from "@/apis/Domains/Report/Report.query";
 
 export const useReportAdaptor = () => {
   const { id: reviewId } = useRouterAdv();
 
-  const reportRequest = new ReportRequest();
-  const { data, error, isPending } = useQuery(reportRequest.getReport(reviewId));
+  const reportQuery = new ReportQuery();
+  const { data, error, isPending } = useQuery(reportQuery.getReport(reviewId));
 
   return {
     error,

@@ -1,9 +1,9 @@
-import { EditorsPickRequest } from "@/apis/request/EditorsPickRequest";
+import { EPQuery } from "@/apis/Domains/EditorsPick/EP.query";
 import { useQuery } from "@tanstack/react-query";
 
 export const useEditorsPickAdaptor = () => {
-  const editorsPickRequest = new EditorsPickRequest();
-  const { data, isPending } = useQuery(editorsPickRequest.getEditorsPick());
+  const epQuery = new EPQuery();
+  const { data, isPending } = useQuery(epQuery.getEditorsPick());
 
   return {
     isPending,

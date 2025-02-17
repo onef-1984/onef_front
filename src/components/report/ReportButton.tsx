@@ -2,7 +2,7 @@ import styles from "./Report.module.css";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import { HiOutlineShare } from "@react-icons/all-files/hi/HiOutlineShare";
-import { useDeleteReportMutation } from "@/hooks/useMutation/report/useDeleteReportMutation";
+import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { Show } from "utilinent";
 import { useIsQualified } from "@/hooks/useIsQualified";
 
 export default function ReportButton() {
-  const { mutate } = useDeleteReportMutation();
+  const { DeleteReportMutate } = useReportMutator();
   const { report } = useReportAdaptor();
   const { id: reportId } = useRouterAdv();
 
@@ -24,7 +24,7 @@ export default function ReportButton() {
           <SlNote />
         </Link>
 
-        <button type="button" onClick={() => mutate()}>
+        <button type="button" onClick={() => DeleteReportMutate()}>
           <BsTrash3 />
         </button>
       </Show>

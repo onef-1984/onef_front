@@ -6,7 +6,7 @@ import { headerContent } from "@/constants/reportEdit/headerContent";
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { ReportMutateProvider } from "@/hooks/useContext/useReportMutationContext";
-import { usePutReportMutation } from "@/hooks/useMutation/report/usePutReportMutation";
+import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
 import { setValues } from "@/hooks/useSicilian/report";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
@@ -29,7 +29,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Edit() {
-  const { mutate } = usePutReportMutation();
+  const { UpdateReportMutate } = useReportMutator();
   const [_, setTagList] = useReportTagList();
 
   const {
@@ -54,7 +54,7 @@ export default function Edit() {
         <ReportHeader content={headerContent(book)} />
       </GlassyBackground>
 
-      <ReportMutateProvider value={mutate}>
+      <ReportMutateProvider value={UpdateReportMutate}>
         <ReportForm />
       </ReportMutateProvider>
     </>

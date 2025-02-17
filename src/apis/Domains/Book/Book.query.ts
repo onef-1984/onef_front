@@ -1,7 +1,5 @@
-import { gql } from "graphql-request";
+import { Query } from "@/apis/Base/Query";
 import {
-  CreateReportMutation,
-  CreateReportMutationVariables,
   GetAllBookDataQuery,
   GetAllBookDataQueryVariables,
   GetBookListQuery,
@@ -9,19 +7,7 @@ import {
   GetBookQuery,
   GetBookQueryVariables,
 } from "@/types/graphql.types";
-import { GraphQL } from "@/apis/grahpqlClient";
-import { useRouterAdv } from "@/hooks/useRouterAdv";
-
-const CREATE_REPORT_MUTATION = gql`
-  mutation CreateReport($isbn13: String!, $ReportInput: ReportInput!) {
-    book: createBook(isbn13: $isbn13) {
-      isbn13
-    }
-    report: createReport(reportInput: $ReportInput) {
-      id
-    }
-  }
-`;
+import { gql } from "graphql-request";
 
 export const ALL_BOOK = gql`
   fragment AllBook on BookObject {
@@ -97,7 +83,7 @@ const GET_BOOK_LIST = gql`
   }
 `;
 
-export class BookRequest extends GraphQL {
+export class BookQuery extends Query {
   constructor() {
     super();
   }
@@ -108,7 +94,7 @@ export class BookRequest extends GraphQL {
     this.infiniteQueryOptions({
       queryKey: [...this.queryKey, keyword],
       queryFn: ({ pageParam }: { pageParam: GetBookListQueryVariables }) =>
-        this.infiniteGraphql<GetBookListQuery, GetBookListQueryVariables>(GET_BOOK_LIST, pageParam),
+        this.graphql<GetBookListQuery, GetBookListQueryVariables>(GET_BOOK_LIST, pageParam),
       initialPageParam: {
         BookSearchInput: {
           keyword,
@@ -130,37 +116,14 @@ export class BookRequest extends GraphQL {
   getBook = (isbn13: string) =>
     this.queryOptions({
       queryKey: [...this.queryKey, isbn13, "getBook"],
-      queryFn: () =>
-        this.graphql<GetBookQuery, GetBookQueryVariables>(GET_BOOK_BY_ISBN, {
-          variables: { isbn13 },
-        }),
+      queryFn: () => this.graphql<GetBookQuery, GetBookQueryVariables>(GET_BOOK_BY_ISBN, { isbn13 }),
       enabled: !!isbn13,
     });
 
   getBookAllData = (isbn13: string) =>
     this.queryOptions({
       queryKey: [...this.queryKey, isbn13, "getBookAllData"],
-      queryFn: () =>
-        this.graphql<GetAllBookDataQuery, GetAllBookDataQueryVariables>(GET_ALL_BOOK_DATA, {
-          variables: { isbn13 },
-        }),
+      queryFn: () => this.graphql<GetAllBookDataQuery, GetAllBookDataQueryVariables>(GET_ALL_BOOK_DATA, { isbn13 }),
       enabled: !!isbn13,
-    });
-
-  postBook = (isbn13: CreateReportMutationVariables["isbn13"], push: ReturnType<typeof useRouterAdv>["push"]) =>
-    this.mutationOptions({
-      mutationFn: (ReportInput: CreateReportMutationVariables["ReportInput"]) =>
-        this.graphql<CreateReportMutation, CreateReportMutationVariables>(CREATE_REPORT_MUTATION, {
-          variables: {
-            isbn13,
-            ReportInput,
-          },
-        }),
-      onSuccess: (data) => {
-        push(`books/${data.book.isbn13}`);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
     });
 }
