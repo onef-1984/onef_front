@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { Dispatch, SetStateAction } from "react";
+import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 
 const CREATE_REPORT_MUTATION = gql`
   mutation CreateReport($isbn13: String!, $ReportInput: ReportInput!) {
@@ -53,8 +54,9 @@ const TOGGLE_REPORT_LIKE = gql`
 export class ReportMutation extends Mutation {
   private queryClient = useQueryClient();
   private router = useRouterAdv();
+  private setReportTagList = useReportTagList()[1];
 
-  createReport(setTagList: Dispatch<SetStateAction<Array<string>>>) {
+  createReport() {
     return this.mutationOptions({
       mutationFn: (ReportInput: CreateReportMutationVariables["ReportInput"]) =>
         this.graphql<CreateReportMutation, CreateReportMutationVariables>(CREATE_REPORT_MUTATION, {
@@ -64,12 +66,12 @@ export class ReportMutation extends Mutation {
       onSuccess: (data) => {
         toast.success("리뷰가 작성되었습니다.");
         this.router.push(`/report/${data.report.id}`);
-        setTagList([]);
+        this.setReportTagList([]);
       },
     });
   }
 
-  updateReport(setTagList: Dispatch<SetStateAction<Array<string>>>) {
+  updateReport() {
     return this.mutationOptions({
       mutationFn: ({ title, content, tags }: UpdateReportMutationVariables["ReportUpdateInput"]) =>
         this.graphql<UpdateReportMutation, UpdateReportMutationVariables>(UPDATE_REPORT_MUTATION, {
@@ -78,7 +80,7 @@ export class ReportMutation extends Mutation {
         }),
       onSuccess: () => {
         toast.success("리뷰가 수정되었습니다.");
-        setTagList([]);
+        this.setReportTagList([]);
         this.queryClient.invalidateQueries({ queryKey: ["report"], refetchType: "all" });
         this.router.push(`/report/${this.router.id}`);
       },
