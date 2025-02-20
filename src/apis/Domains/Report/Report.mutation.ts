@@ -13,7 +13,6 @@ import {
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { Dispatch, SetStateAction } from "react";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 
 const CREATE_REPORT_MUTATION = gql`
