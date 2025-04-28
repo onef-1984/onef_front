@@ -46,6 +46,6 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
-            cd /path/to/your/docker-compose-directory
+            cd /home/ec2-user
             docker compose pull
             docker compose up -d
