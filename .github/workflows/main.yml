@@ -1,4 +1,4 @@
-name: 🚀 Deploy workflow on production environment
+name: 🚀 Build and Deploy to EC2 from ECR
 
 on:
   pull_request:
@@ -10,36 +10,42 @@ on:
       - main
 
 jobs:
-  deploy:
-    env:
-      ENV_PATH: .env
-      S3_BUCKET_NAME: onef-cicd
-      DEPLOYMENT_GROUP_NAME: onef_frontend_deploy
-    environment: production
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: ✅ Checkout branch
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🗂️ Make config folder
-        run: mkdir -p config
-
-      - name: 📦 Zip project files
-        run: zip -r ./$GITHUB_SHA.zip .
-
-      - name: 🌎 Access to AWS
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ap-northeast-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2 # 서울 리전
 
-      - name: 🚛 Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://${{ env.S3_BUCKET_NAME }}/$GITHUB_SHA.zip
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: 🚀 Deploy to EC2 with CodeDeploy
-        run: aws deploy create-deployment
-          --application-name onef_frontend_deploy
-          --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name ${{ env.DEPLOYMENT_GROUP_NAME }}
-          --s3-location bucket=${{ env.S3_BUCKET_NAME }},bundleType=zip,key=$GITHUB_SHA.zip
+      - name: Build and push Docker image to ECR
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          build-args: |
+            NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}
+            NEXT_PUBLIC_SOCKET_URL=${{ secrets.NEXT_PUBLIC_SOCKET_URL }}
+
+      - name: SSH and deploy on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+            cd /path/to/your/docker-compose-directory
+            docker compose pull
+            docker compose up -d
