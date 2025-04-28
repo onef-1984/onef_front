@@ -41,7 +41,7 @@
   padding: 0 1.6rem;
 }
 
-.editorsPick {
+.editorsPickBox {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -128,7 +128,7 @@
 }
 
 @container editorsPickContainer (max-width: 800px) {
-  .editorsPick {
+  .editorsPickBox {
     height: 26rem;
     border-radius: 2.6rem;
     flex-direction: column;
@@ -173,7 +173,7 @@
 }
 
 @container editorsPickContainer (max-width: 500px) {
-  .editorsPick {
+  .editorsPickBox {
     height: 24rem;
     background-size: contain;
   }

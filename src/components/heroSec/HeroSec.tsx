@@ -46,7 +46,7 @@ HeroSec.EditorsPick = function EditorsPick() {
   return (
     <Show when={!!editorsPick.title}>
       <section className={styles.editorsPickContainer}>
-        <div className={styles.editorsPick}>
+        <div className={styles.editorsPickBox}>
           <div className={styles.editorsPickImage}>
             <Image src={pickImg} alt="editors pick logo" width={300} height={120} sizes="300" draggable="false" />
           </div>
