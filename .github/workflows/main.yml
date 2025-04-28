@@ -48,4 +48,5 @@ jobs:
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
             cd /home/ec2-user
             docker compose pull
+            docker compose down
             docker compose up -d
