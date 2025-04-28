@@ -128,7 +128,7 @@
 }
 
 @container editorsPickContainer (max-width: 800px) {
-  .root {
+  .editorsPick {
     height: 26rem;
     border-radius: 2.6rem;
     flex-direction: column;
@@ -173,7 +173,7 @@
 }
 
 @container editorsPickContainer (max-width: 500px) {
-  .root {
+  .editorsPick {
     height: 24rem;
     background-size: contain;
   }
