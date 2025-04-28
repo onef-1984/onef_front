@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useCommentMutationContext } from "../useContext/useCommentMutationContext";
 
-const useCommentMutation = ({ depth }: { depth: number }) => {
+export const useCommentMutation = ({ depth }: { depth: number }) => {
   const { parentId, mutationOptions } = useCommentMutationContext("useCommentMutation");
 
   const { mutate, isPending } = useMutation(mutationOptions);
@@ -12,5 +12,3 @@ const useCommentMutation = ({ depth }: { depth: number }) => {
 
   return { onSubmit, isPending };
 };
-
-export default useCommentMutation;

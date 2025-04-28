@@ -2,20 +2,15 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { GraphQLClient, RequestDocument } from "graphql-request";
 
 export class Fetcher {
-  private instance: AxiosInstance;
-  private client: GraphQLClient;
+  private instance: AxiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    timeout: 5 * 1000,
+    withCredentials: true,
+  });
 
-  constructor() {
-    this.instance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-      timeout: 5 * 1000,
-      withCredentials: true,
-    });
-
-    this.client = new GraphQLClient(process.env.NEXT_PUBLIC_BASE_URL + "/graphql", {
-      credentials: "include",
-    });
-  }
+  private client: GraphQLClient = new GraphQLClient(process.env.NEXT_PUBLIC_BASE_URL + "/graphql", {
+    credentials: "include",
+  });
 
   public async doFetch<T>(config: AxiosRequestConfig): Promise<T> {
     const { data } = await this.instance<T>({

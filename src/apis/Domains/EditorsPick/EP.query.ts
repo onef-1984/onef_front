@@ -29,9 +29,9 @@ export class EPQuery extends Query {
   queryKey = ["editorsPick"];
 
   getEditorsPick() {
-    return {
+    return this.queryOptions({
       queryKey: [...this.queryKey],
       queryFn: () => this.graphql<GetEditorsPickQuery, GetEditorsPickQueryVariables>(GET_EDITORS_PICK),
-    };
+    });
   }
 }

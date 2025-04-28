@@ -2,10 +2,10 @@ import { CommentMutationProvider } from "@/hooks/useContext/useCommentMutationCo
 import react, { useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
-import { useDeleteCommentMutation } from "@/hooks/useMutation/useDeleteCommentMutation";
+import { useDeleteCommentMutator } from "@/hooks/useMutator/useDeleteCommentMutator";
 import { SicilianProvider } from "sicilian/provider";
 import { useForm } from "sicilian/useForm";
-import useCommentMutation from "@/hooks/useMutation/useCommentMutation";
+import { useCommentMutation } from "@/hooks/useMutator/useCommentMutation";
 import Clickable from "../clickable/Clickable";
 import Form from "../forms/Form";
 import clsx from "clsx";
@@ -162,7 +162,7 @@ Comment.Viewer = function CommentViewer({
   setOpen: react.Dispatch<react.SetStateAction<boolean>>;
   setCommentState: react.Dispatch<react.SetStateAction<CommentBoxType>>;
 }) {
-  const { handleClick } = useDeleteCommentMutation(commentData.id);
+  const { handleClick } = useDeleteCommentMutator(commentData.id);
   const { user } = useWhoAmIAdaptor();
 
   return (

@@ -2,7 +2,7 @@ import styles from "./Report.module.css";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import { HiOutlineShare } from "@react-icons/all-files/hi/HiOutlineShare";
-import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
+import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";

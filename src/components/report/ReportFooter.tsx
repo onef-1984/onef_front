@@ -8,7 +8,7 @@ import Clickable from "../clickable/Clickable";
 import Link from "next/link";
 import Tag from "../tag/Tag";
 import { useIsQualified } from "@/hooks/useIsQualified";
-import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
+import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
 
 export default function ReportFooter() {
   const { report } = useReportAdaptor();

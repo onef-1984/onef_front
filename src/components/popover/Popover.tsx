@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { usePopoverToggle } from "@/hooks/usePopoverToggle";
-import { useSignOutMutation } from "@/hooks/useMutation/useSignOutMutation";
 import { josa } from "es-hangul";
 import { MdClose } from "@react-icons/all-files/md/MdClose";
 import useNotification from "@/hooks/useSocket/useNotification";
@@ -13,7 +12,8 @@ import styles from "./Popover.module.css";
 import ProfileImage from "../Profile/ProfileImage";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-import { useNotificationMutation } from "@/hooks/useMutation/useNotificationMutation";
+import { useNotificationMutator } from "@/hooks/useMutator/useNotificationMutator";
+import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
 
 function formatCreatedAt(createdAt: Date) {
   return formatDistanceToNow(new Date(createdAt), { addSuffix: true, locale: ko });
@@ -82,10 +82,10 @@ Popover.SearchOption = function SearchOptionPopover() {
 };
 
 Popover.Profile = function ProfilePopover() {
-  const { mutate } = useSignOutMutation();
+  const { deleteSignOutMutate } = useAuthMutator();
   const { push, asPath } = useRouterAdv();
   const handleClick = () => {
-    mutate();
+    deleteSignOutMutate();
     push(asPath);
   };
 
@@ -114,7 +114,7 @@ Popover.Notification = function NotificationPopover({
   isRead,
   createdAt,
 }: ReturnType<typeof useNotification>["data"][number]) {
-  const { deleteMutate, patchMutate } = useNotificationMutation();
+  const { deleteMutate, patchMutate } = useNotificationMutator();
 
   return (
     <div className={styles.notificationRoot}>

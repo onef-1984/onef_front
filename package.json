@@ -32,7 +32,7 @@
     "react-markdown": "^9.0.1",
     "react-slick": "^0.30.2",
     "sharp": "^0.33.4",
-    "sicilian": "^3.0.5",
+    "sicilian": "^3.0.7",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.8.1",
     "utilinent": "^0.0.4"

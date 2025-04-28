@@ -5,14 +5,14 @@ import Logo from "@/components/logo/Logo";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import { Show, Map } from "utilinent";
 import { signUpArray } from "@/constants/sign/signArray";
-import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { getErrors, handleSubmit, register } from "@/hooks/useSicilian/signUp";
 import styles from "@/styles/Sign.module.css";
 import Link from "next/link";
 import { SicilianProvider } from "sicilian/provider";
+import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
 
 export default function SignUp() {
-  const { mutate, isPending } = useSignMutation("/auth/signup");
+  const { postSignMutate, postSignIsPending } = useAuthMutator("/auth/signup");
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function SignUp() {
           </p>
         </section>
 
-        <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
+        <Form className={styles.form} onSubmit={handleSubmit((data) => postSignMutate(data))}>
           <Map each={signUpArray}>
             {({ inputName, htmlFor, type, placeholder }) => {
               const inputProps = {
@@ -51,7 +51,7 @@ export default function SignUp() {
               );
             }}
           </Map>
-          <Clickable disabled={isPending}>회원가입</Clickable>
+          <Clickable disabled={postSignIsPending}>회원가입</Clickable>
         </Form>
 
         <SocialLogin />

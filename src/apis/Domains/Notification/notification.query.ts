@@ -1,5 +1,5 @@
+import { Query } from "@/apis/Base/Query";
 import { Notification } from "@/types/notification.types";
-import { Query } from "../Base/Query";
 
 export class NotificationQuery extends Query {
   constructor() {
@@ -9,9 +9,9 @@ export class NotificationQuery extends Query {
   queryKey = ["notification"];
 
   getNotifications(userId: string) {
-    return {
+    return this.queryOptions({
       queryKey: [...this.queryKey, userId],
       queryFn: this.queryFn<Array<Notification>>(`/notification`),
-    };
+    });
   }
 }

@@ -6,7 +6,7 @@ import { headerContent } from "@/constants/reportEdit/headerContent";
 import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { ReportMutateProvider } from "@/hooks/useContext/useReportMutationContext";
-import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
+import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
 import { setValues } from "@/hooks/useSicilian/report";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";

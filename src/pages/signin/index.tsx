@@ -1,5 +1,4 @@
 import { getErrors, register, handleSubmit } from "@/hooks/useSicilian/signIn";
-import { useSignMutation } from "@/hooks/useMutation/useSignMutation";
 import { signInArray } from "@/constants/sign/signArray";
 import Link from "next/link";
 import Form from "@/components/forms/Form";
@@ -10,9 +9,10 @@ import Clickable from "@/components/clickable/Clickable";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import { SicilianProvider } from "sicilian/provider";
+import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
 
 export default function SignIn() {
-  const { mutate, isPending } = useSignMutation("/auth/signin");
+  const { postSignMutate, postSignIsPending } = useAuthMutator("/auth/signin");
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function SignIn() {
           </p>
         </section>
 
-        <Form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
+        <Form className={styles.form} onSubmit={handleSubmit((data) => postSignMutate(data))}>
           <Map each={signInArray}>
             {({ inputName, htmlFor, type, placeholder }) => {
               const inputProps = { placeholder, type };
@@ -49,7 +49,7 @@ export default function SignIn() {
             }}
           </Map>
 
-          <Clickable disabled={isPending}>로그인</Clickable>
+          <Clickable disabled={postSignIsPending}>로그인</Clickable>
         </Form>
 
         <SocialLogin />

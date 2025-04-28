@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSocket } from "./useSocket";
 import type { Notification } from "@/types/notification.types";
-import { NotificationQuery } from "@/apis/Domains/NotificationQuery";
+import { NotificationQuery } from "@/apis/Domains/Notification/notification.query";
 
 export default function useNotification(userId: string) {
   const queryClient = useQueryClient();
@@ -9,7 +9,7 @@ export default function useNotification(userId: string) {
   const { data } = useQuery(notificationQuery.getNotifications(userId));
 
   useSocket(userId, "notification", () => {
-    queryClient.invalidateQueries({ queryKey: ["notification"], refetchType: "all" });
+    queryClient.invalidateQueries({ queryKey: notificationQuery.queryKey, refetchType: "all" });
   });
 
   const { newData, isNew } = formatData(data ?? []);

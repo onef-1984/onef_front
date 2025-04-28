@@ -7,7 +7,7 @@ import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { GetServerSidePropsContext } from "next";
 import ReportForm from "@/components/reportForm/ReportForm";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
-import { useReportMutator } from "@/hooks/useMutation/useReportMutator";
+import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const accessToken = context.req.cookies.accessToken;

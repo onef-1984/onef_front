@@ -6,7 +6,7 @@ import { handleSubmit, register, getErrors } from "@/hooks/useSicilian/passwordE
 import { passwordEditArray } from "@/constants/edit/passwordEditArray";
 import { SicilianProvider } from "sicilian/provider";
 import omit from "@/utils/omit";
-import { useUserMutator } from "@/hooks/useMutation/useUserMutator";
+import { useUserMutator } from "@/hooks/useMutator/useUserMutator";
 
 export default function PasswordEdit() {
   const { ChangePasswordMutate } = useUserMutator();

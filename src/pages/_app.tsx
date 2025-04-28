@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { QueryClient, QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppPropsWithLayout, getLayout } from "@/utils/getLayout";
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -43,10 +42,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
-
-          <div style={{ fontSize: "2rem" }}>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </div>
         </HydrationBoundary>
       </QueryClientProvider>
     </>

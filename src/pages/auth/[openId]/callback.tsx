@@ -3,20 +3,20 @@ import styles from "@/styles/Sign.module.css";
 import { Show } from "utilinent";
 import Clickable from "@/components/clickable/Clickable";
 import Link from "next/link";
-import useSocialLoginMutation from "@/hooks/useMutation/useSocialLoginMutation";
 import { useEffect, useState } from "react";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
 
 export default function Callback() {
   const { asPath, isReady } = useRouterAdv();
   const [errorMessage, setErrorMessage] = useState("");
-  const { mutate } = useSocialLoginMutation();
+  const { postSocialSignMutate } = useAuthMutator();
 
   useEffect(() => {
     if (!isReady) return;
 
-    mutate({ url: process.env.NEXT_PUBLIC_BASE_URL + asPath, setErrorMessage });
-  }, [asPath, mutate, isReady]);
+    postSocialSignMutate({ url: process.env.NEXT_PUBLIC_BASE_URL + asPath, setErrorMessage });
+  }, [asPath, postSocialSignMutate, isReady]);
 
   return (
     <Show when={!!errorMessage}>
