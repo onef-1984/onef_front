@@ -1,13 +1,6 @@
 import { BookQueryAdaptor } from "@/apis/Adaptor/Book.adaptor";
 import { Query } from "@/apis/Base/Query";
-import {
-  GetAllBookDataQuery,
-  GetAllBookDataQueryVariables,
-  GetBookListQuery,
-  GetBookListQueryVariables,
-  GetBookQueryVariables,
-} from "@/types/graphql.types";
-import { queryOptions } from "@tanstack/react-query";
+import { GetBookListQuery, GetBookListQueryVariables, GetBookQueryVariables } from "@/types/graphql.types";
 import { gql } from "graphql-request";
 
 export const ALL_BOOK = gql`
@@ -26,18 +19,6 @@ export const ALL_BOOK = gql`
   }
 `;
 
-const ALL_SUB_INFO = gql`
-  fragment AllBookSubInfo on SubInfoObject {
-    itemPage
-    subTitle
-    originalTitle
-    weight
-    sizeDepth
-    sizeHeight
-    sizeWidth
-  }
-`;
-
 const GET_BOOK_BY_ISBN = gql`
   query getBook($isbn13: String!) {
     book: getBook(isbn13: $isbn13) {
@@ -48,19 +29,6 @@ const GET_BOOK_BY_ISBN = gql`
     }
   }
   ${ALL_BOOK}
-`;
-
-const GET_ALL_BOOK_DATA = gql`
-  query getAllBookData($isbn13: String!) {
-    book: getBook(isbn13: $isbn13) {
-      ...AllBook
-      subInfo {
-        ...AllBookSubInfo
-      }
-    }
-  }
-  ${ALL_BOOK}
-  ${ALL_SUB_INFO}
 `;
 
 const GET_BOOK_LIST = gql`
