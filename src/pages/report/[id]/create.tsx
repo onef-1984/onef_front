@@ -1,13 +1,13 @@
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import ReportHeader from "@/components/report/ReportHeader";
 import { headerContent } from "@/constants/reportEdit/headerContent";
-import { useBookAdaptor } from "@/hooks/useAdaptor/useBookAdaptor";
 import { ReportMutateProvider } from "@/hooks/useContext/useReportMutationContext";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { GetServerSidePropsContext } from "next";
 import ReportForm from "@/components/reportForm/ReportForm";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
-import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
+import { useBookQuery } from "@/apis/useDomain/useBook.query";
+import { useReportMutation } from "@/apis/useDomain/useReport.mutation";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const accessToken = context.req.cookies.accessToken;
@@ -27,19 +27,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Create() {
-  const { CreateReportMutate } = useReportMutator();
+  const { mutate: createReportMutate } = new useReportMutation().createReport();
   const { id: isbn13 } = useRouterAdv();
-  const { book } = useBookAdaptor({ isbn13 });
+  const { data } = new useBookQuery().getBook(isbn13);
 
   return (
     <>
       <HeadMetaTag title="리뷰 작성" />
 
-      <GlassyBackground image={book.cover}>
-        <ReportHeader content={headerContent(book)} />
+      <GlassyBackground image={data.cover}>
+        <ReportHeader content={headerContent(data)} />
       </GlassyBackground>
 
-      <ReportMutateProvider value={CreateReportMutate}>
+      <ReportMutateProvider value={createReportMutate}>
         <ReportForm />
       </ReportMutateProvider>
     </>

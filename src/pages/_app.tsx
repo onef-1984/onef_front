@@ -38,7 +38,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               },
             }}
           />
-
           <Layout>
             <Component {...pageProps} />
           </Layout>

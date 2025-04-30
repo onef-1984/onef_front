@@ -3,12 +3,11 @@ import styles from "./HeroSec.module.css";
 import eyeCatch from "@/../public/images/eyeCatch.webp";
 import pickImg from "@/../public/images/editorsPick.webp";
 import Carousel from "../carousel/Carousel";
-import { useRecentReport } from "@/hooks/useAdaptor/report/useRecentReport";
-import { useMostLikedReport } from "@/hooks/useAdaptor/reportLike/useMostLikedReport";
-import { useEditorsPickAdaptor } from "@/hooks/useAdaptor/useEditorsPickAdaptor";
 import Link from "next/link";
 import GlassyBackground from "../glassyBackground/GlassyBackground";
 import { Show } from "utilinent";
+import { useReportQuery } from "@/apis/useDomain/useReport.query";
+import { useEPQuery } from "@/apis/useDomain/useEP.query";
 
 export default function HeroSec() {
   return (
@@ -29,19 +28,21 @@ HeroSec.EyeCatch = () => {
 };
 
 HeroSec.Carousels = function Carousels() {
-  const { items: mostLikedReports } = useMostLikedReport();
-  const { items: recentReports } = useRecentReport();
+  const { data: { items } = { items: { items: [] } } } = new useReportQuery().getMostLikedReportList();
+  const { data: { reportList } = { reportList: { items: [] } } } = new useReportQuery().getRecentReportList();
 
   return (
     <section className={styles.carousels}>
-      <Carousel title="인기 리뷰" items={mostLikedReports} />
-      <Carousel title="최신 리뷰" items={recentReports} />
+      <Carousel title="인기 리뷰" items={items.items} />
+      <Carousel title="최신 리뷰" items={reportList.items} />
     </section>
   );
 };
 
 HeroSec.EditorsPick = function EditorsPick() {
-  const { editorsPick } = useEditorsPickAdaptor();
+  const {
+    data: { editorsPick } = { editorsPick: { title: "", reportId: "", cover: "", nickname: "", description: "" } },
+  } = new useEPQuery().getEditorsPick();
 
   return (
     <Show when={!!editorsPick.title}>

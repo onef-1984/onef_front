@@ -9,10 +9,10 @@ import Clickable from "@/components/clickable/Clickable";
 import SocialLogin from "@/components/socialLogin/SocialLogin";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import { SicilianProvider } from "sicilian/provider";
-import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
+import { useAuthMutation } from "@/apis/useDomain/useAuth.mutation";
 
 export default function SignIn() {
-  const { postSignMutate, postSignIsPending } = useAuthMutator("/auth/signin");
+  const { mutate: postSignMutate, isPending: postSignIsPending } = new useAuthMutation().postSign("/auth/signin");
 
   return (
     <>

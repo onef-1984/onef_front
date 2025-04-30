@@ -12,8 +12,8 @@ import styles from "./Popover.module.css";
 import ProfileImage from "../Profile/ProfileImage";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-import { useNotificationMutator } from "@/hooks/useMutator/useNotificationMutator";
-import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
+import { useAuthMutation } from "@/apis/useDomain/useAuth.mutation";
+import { useNotificationMutation } from "@/apis/useDomain/useNotification.mutation";
 
 function formatCreatedAt(createdAt: Date) {
   return formatDistanceToNow(new Date(createdAt), { addSuffix: true, locale: ko });
@@ -82,7 +82,7 @@ Popover.SearchOption = function SearchOptionPopover() {
 };
 
 Popover.Profile = function ProfilePopover() {
-  const { deleteSignOutMutate } = useAuthMutator();
+  const { mutate: deleteSignOutMutate } = new useAuthMutation().deleteSignOut();
   const { push, asPath } = useRouterAdv();
   const handleClick = () => {
     deleteSignOutMutate();
@@ -114,7 +114,9 @@ Popover.Notification = function NotificationPopover({
   isRead,
   createdAt,
 }: ReturnType<typeof useNotification>["data"][number]) {
-  const { deleteMutate, patchMutate } = useNotificationMutator();
+  const { deleteNotification, patchNotification } = new useNotificationMutation();
+  const { mutate: deleteMutate } = deleteNotification();
+  const { mutate: patchMutate } = patchNotification();
 
   return (
     <div className={styles.notificationRoot}>

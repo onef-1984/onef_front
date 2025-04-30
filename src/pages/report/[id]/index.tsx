@@ -1,4 +1,3 @@
-import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import ReportButton from "@/components/report/ReportButton";
@@ -13,6 +12,7 @@ import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import { GetServerSidePropsContext } from "next";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { ReportQuery } from "@/apis/Domains/Report/Report.query";
+import { useReportQuery } from "@/apis/useDomain/useReport.query";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { params } = context;
@@ -32,8 +32,28 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Review() {
-  const { report, user, book, error } = useReportAdaptor();
   const { push, id } = useRouterAdv();
+  const {
+    error,
+    data: { report, user, book } = {
+      report: {
+        id: "",
+        title: "",
+        content: "",
+      },
+      user: {
+        id: "",
+        nickname: "",
+      },
+      book: {
+        title: "",
+        author: "",
+        publisher: "",
+        itemPage: 0,
+        cover: "",
+      },
+    },
+  } = new useReportQuery().getReport(id);
 
   useEffect(() => {
     if (error) {

@@ -1,4 +1,3 @@
-import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { LuMenu } from "react-icons/lu";
 import { AiOutlineBell } from "@react-icons/all-files/ai/AiOutlineBell";
 import { User } from "@/types/graphql.types";
@@ -12,9 +11,10 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 import { useIsQualified } from "@/hooks/useIsQualified";
 import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
+import { useUserQuery } from "@/apis/useDomain/useUser.query";
 
 export default function Header() {
-  const { user } = useWhoAmIAdaptor();
+  const { data } = new useUserQuery().getMe();
   const isLogin = useIsQualified("login");
 
   return (
@@ -27,9 +27,9 @@ export default function Header() {
 
       <div className={styles.headerRightBox}>
         <Show when={isLogin} fallback={<Header.SignLink />}>
-          <Header.ProfileImagePopover {...user} />
+          <Header.ProfileImagePopover {...data?.user} />
 
-          <Header.Notification {...user} />
+          <Header.Notification id={data?.user.id ?? ""} />
         </Show>
       </div>
     </header>

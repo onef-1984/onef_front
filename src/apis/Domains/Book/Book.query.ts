@@ -1,12 +1,13 @@
+import { BookQueryAdaptor } from "@/apis/Adaptor/Book.adaptor";
 import { Query } from "@/apis/Base/Query";
 import {
   GetAllBookDataQuery,
   GetAllBookDataQueryVariables,
   GetBookListQuery,
   GetBookListQueryVariables,
-  GetBookQuery,
   GetBookQueryVariables,
 } from "@/types/graphql.types";
+import { queryOptions } from "@tanstack/react-query";
 import { gql } from "graphql-request";
 
 export const ALL_BOOK = gql`
@@ -90,40 +91,49 @@ export class BookQuery extends Query {
 
   queryKey = ["book"];
 
-  getBookList = (keyword: string) =>
-    this.infiniteQueryOptions({
-      queryKey: [...this.queryKey, keyword],
-      queryFn: ({ pageParam }: { pageParam: GetBookListQueryVariables }) =>
-        this.graphql<GetBookListQuery, GetBookListQueryVariables>(GET_BOOK_LIST, pageParam),
-      initialPageParam: {
+  getBookList = (keyword: string) => ({
+    queryKey: [...this.queryKey, keyword],
+    queryFn: ({ pageParam }: { pageParam: GetBookListQueryVariables }) =>
+      this.graphql<GetBookListQuery, GetBookListQueryVariables>(GET_BOOK_LIST, pageParam),
+    initialPageParam: {
+      BookSearchInput: {
+        keyword,
+        take: 12,
+        skip: 1,
+      },
+    },
+    getNextPageParam: (lastPage: GetBookListQuery, _: any, lastPageParam: GetBookListQueryVariables) => {
+      return {
         BookSearchInput: {
           keyword,
           take: 12,
-          skip: 1,
+          skip: lastPage.bookList?.hasNext ? lastPageParam.BookSearchInput.skip + 1 : NaN,
         },
-      },
-      getNextPageParam: (lastPage: GetBookListQuery, _: any, lastPageParam: GetBookListQueryVariables) => {
-        return {
-          BookSearchInput: {
-            keyword,
-            take: 12,
-            skip: lastPage.bookList?.hasNext ? lastPageParam.BookSearchInput.skip + 1 : NaN,
-          },
-        };
-      },
-    });
+      };
+    },
+  });
 
   getBook = (isbn13: string) =>
     this.queryOptions({
       queryKey: [...this.queryKey, isbn13, "getBook"],
-      queryFn: () => this.graphql<GetBookQuery, GetBookQueryVariables>(GET_BOOK_BY_ISBN, { isbn13 }),
+      queryFn: () =>
+        this.graphql<ReturnType<typeof BookQueryAdaptor.getBook>, GetBookQueryVariables>(GET_BOOK_BY_ISBN, {
+          isbn13,
+        }),
       enabled: !!isbn13,
-    });
-
-  getBookAllData = (isbn13: string) =>
-    this.queryOptions({
-      queryKey: [...this.queryKey, isbn13, "getBookAllData"],
-      queryFn: () => this.graphql<GetAllBookDataQuery, GetAllBookDataQueryVariables>(GET_ALL_BOOK_DATA, { isbn13 }),
-      enabled: !!isbn13,
+      initialData: () => ({
+        isbn13: "",
+        title: "",
+        author: "",
+        description: "",
+        cover: "",
+        categoryId: 0,
+        categoryName: "",
+        pubDate: "",
+        publisher: "",
+        priceStandard: 0,
+        customerReviewRank: 0,
+        itemPage: 0,
+      }),
     });
 }

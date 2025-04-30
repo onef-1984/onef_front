@@ -5,12 +5,12 @@ import Clickable from "@/components/clickable/Clickable";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
-import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
+import { useAuthMutation } from "@/apis/useDomain/useAuth.mutation";
 
 export default function Callback() {
   const { asPath, isReady } = useRouterAdv();
   const [errorMessage, setErrorMessage] = useState("");
-  const { postSocialSignMutate } = useAuthMutator();
+  const { mutate: postSocialSignMutate } = new useAuthMutation().postSocialSign();
 
   useEffect(() => {
     if (!isReady) return;

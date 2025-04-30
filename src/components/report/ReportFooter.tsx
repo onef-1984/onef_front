@@ -1,5 +1,3 @@
-import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
-import { useIsLikedReport } from "@/hooks/useAdaptor/reportLike/useIsLikedReport";
 import { IoHeartOutline } from "@react-icons/all-files/io5/IoHeartOutline";
 import { IoHeart } from "@react-icons/all-files/io5/IoHeart";
 import { Map } from "utilinent";
@@ -8,14 +6,20 @@ import Clickable from "../clickable/Clickable";
 import Link from "next/link";
 import Tag from "../tag/Tag";
 import { useIsQualified } from "@/hooks/useIsQualified";
-import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
+import { useReportQuery } from "@/apis/useDomain/useReport.query";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
+import { useReportMutation } from "@/apis/useDomain/useReport.mutation";
 
 export default function ReportFooter() {
-  const { report } = useReportAdaptor();
+  const { id: reportId } = useRouterAdv();
   const isMyReport = useIsQualified("myReport");
   const isLogin = useIsQualified("login");
-  const { isLiked } = useIsLikedReport();
-  const { ToggleReportLikeMutate, isToggleReportLikePending } = useReportMutator();
+  const { data: { report } = { report: { tags: [""], date: "", likeCount: 0 } } } = new useReportQuery().getReport(
+    reportId,
+  );
+  const { data } = new useReportQuery().checkUserLikedReport(reportId);
+  const { mutate: toggleReportLikeMutate, isPending: isToggleReportLikePending } =
+    new useReportMutation().toggleReportLike();
 
   return (
     <section className={styles.reportFooter}>
@@ -43,11 +47,11 @@ export default function ReportFooter() {
         type="button"
         disabled={isToggleReportLikePending || (isLogin ? isMyReport : true)}
         onClick={() => {
-          ToggleReportLikeMutate();
+          toggleReportLikeMutate();
         }}
         className={styles.likeButton}
       >
-        {report.likeCount} {isMyReport || isLiked ? <IoHeart /> : <IoHeartOutline />}
+        {report.likeCount} {isMyReport || data?.isLiked ? <IoHeart /> : <IoHeartOutline />}
       </Clickable>
     </section>
   );

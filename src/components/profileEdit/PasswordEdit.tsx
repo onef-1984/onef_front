@@ -6,15 +6,15 @@ import { handleSubmit, register, getErrors } from "@/hooks/useSicilian/passwordE
 import { passwordEditArray } from "@/constants/edit/passwordEditArray";
 import { SicilianProvider } from "sicilian/provider";
 import omit from "@/utils/omit";
-import { useUserMutator } from "@/hooks/useMutator/useUserMutator";
+import { useUserMutation } from "@/apis/useDomain/useUser.mutation";
 
 export default function PasswordEdit() {
-  const { ChangePasswordMutate } = useUserMutator();
+  const { mutate: changePasswordMutate } = new useUserMutation().changePassword();
 
   return (
     <Form
       className={styles.root}
-      onSubmit={handleSubmit((data) => ChangePasswordMutate(omit(data, ["newPasswordConfirm"])))}
+      onSubmit={handleSubmit((data) => changePasswordMutate(omit(data, ["newPasswordConfirm"])))}
     >
       <Map each={passwordEditArray}>
         {({ inputName, htmlFor }) => (

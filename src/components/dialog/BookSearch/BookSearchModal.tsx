@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { useInfiniteBookListAdaptor } from "@/hooks/useAdaptor/useInfiniteBookListAdaptor";
 import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 import { register, handleSubmit } from "@/hooks/useSicilian/bookSearch";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
@@ -15,6 +14,7 @@ import Card from "@/components/card/Card";
 import { Show, Map } from "utilinent";
 import Image from "next/image";
 import clsx from "clsx";
+import { useBookQuery } from "@/apis/useDomain/useBook.query";
 
 export default function BookSearchModal() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -88,14 +88,23 @@ function BookListSearchResult({
   searchKeyword: string;
   setBook: Dispatch<SetStateAction<Item>>;
 }) {
-  const { fetchNextPage, pages } = useInfiniteBookListAdaptor(searchKeyword);
+  const {
+    fetchNextPage,
+    data = {
+      pages: [{ bookList: { items: [], hasNext: false } }],
+    },
+  } = new useBookQuery().getBookList(searchKeyword);
   const ref = useInfiniteScroll<HTMLDivElement>(fetchNextPage);
 
   return (
     <div className={clsx(styles.bookSearchResult, styles.bookSearchSize)}>
-      <Map each={pages}>
-        {(book) => (
-          <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
+      <Map each={data.pages}>
+        {({ bookList: { items } }) => (
+          <Map each={items}>
+            {(book) => (
+              <Card key={book.isbn13} item={book} onClick={() => setBook(book)} cardBox={<CardResultBox {...book} />} />
+            )}
+          </Map>
         )}
       </Map>
 

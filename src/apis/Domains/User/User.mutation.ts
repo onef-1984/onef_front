@@ -1,4 +1,3 @@
-import { Mutation } from "@/apis/Base/Mutation";
 import { ClientError, gql } from "graphql-request";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
@@ -9,6 +8,7 @@ import {
   ChangeProfileMutationVariables,
   ChangeProfileMutation,
 } from "@/types/graphql.types";
+import { Mutation } from "@/apis/Base/Mutation";
 
 const CHANGE_PROFILE = gql`
   mutation changeProfile($changeProfileInput: ChangeProfileInput!) {

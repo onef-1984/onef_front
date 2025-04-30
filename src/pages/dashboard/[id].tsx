@@ -2,15 +2,15 @@ import SearchOptionButton from "@/components/clickable/SearchOptionButton";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import SearchResult from "@/components/searchPage/SearchResult";
-import { useUserAdaptor } from "@/hooks/useAdaptor/user/useUserAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { SearchType } from "@/types/graphql.types";
 import styles from "@/styles/Dashboard.module.css";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
+import { useUserQuery } from "@/apis/useDomain/useUser.query";
 
 export default function Dashboard() {
   const { id: userNickname, orderBy, searchType } = useRouterAdv();
-  const { user } = useUserAdaptor(userNickname);
+  const { data = { user: { id: "" } } } = new useUserQuery().getUser(userNickname);
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function Dashboard() {
         <SearchOptionButton />
 
         <SearchResult
-          keyword={user.id}
+          keyword={data.user.id}
           orderBy={orderBy}
           searchType={searchType === "report" ? ("user" as SearchType) : searchType}
         />

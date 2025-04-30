@@ -1,19 +1,18 @@
 import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
-import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import styles from "./SideMenu.module.css";
 import clsx from "clsx";
 import Dialog from "@/components/dialog/Dialog";
 import { Show } from "utilinent";
-import { useIsQualified } from "@/hooks/useIsQualified";
 import BookSearchModal from "@/components/dialog/BookSearch/BookSearchModal";
+import { useUserQuery } from "@/apis/useDomain/useUser.query";
+import { Guard } from "@/components/guard";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useBoardToggle();
-  const { user } = useWhoAmIAdaptor();
+  const { data } = new useUserQuery().getMe();
   const { push } = useRouterAdv();
-  const isLogin = useIsQualified("login");
 
   return (
     <aside className={clsx(styles.root, toggle.SideMenu && styles.open)}>
@@ -37,7 +36,7 @@ export default function SideMenu() {
           리뷰 검색
         </button>
 
-        <Show when={isLogin}>
+        <Guard.login>
           <button
             type="button"
             style={{ cursor: "pointer" }}
@@ -56,12 +55,12 @@ export default function SideMenu() {
             style={{ cursor: "pointer" }}
             onClick={() => {
               setToggle((prev) => ({ ...prev, SideMenu: false }));
-              push(`/dashboard/${user.nickname}`);
+              push(`/dashboard/${data?.user.nickname}`);
             }}
           >
             마이 페이지
           </button>
-        </Show>
+        </Guard.login>
       </menu>
     </aside>
   );

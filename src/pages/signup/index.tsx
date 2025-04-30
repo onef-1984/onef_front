@@ -6,13 +6,13 @@ import SocialLogin from "@/components/socialLogin/SocialLogin";
 import { Show, Map } from "utilinent";
 import { signUpArray } from "@/constants/sign/signArray";
 import { getErrors, handleSubmit, register } from "@/hooks/useSicilian/signUp";
+import { SicilianProvider } from "sicilian/provider";
+import { useAuthMutation } from "@/apis/useDomain/useAuth.mutation";
 import styles from "@/styles/Sign.module.css";
 import Link from "next/link";
-import { SicilianProvider } from "sicilian/provider";
-import { useAuthMutator } from "@/hooks/useMutator/useAuthMutator";
 
 export default function SignUp() {
-  const { postSignMutate, postSignIsPending } = useAuthMutator("/auth/signup");
+  const { mutate: postSignMutate, isPending: postSignIsPending } = new useAuthMutation().postSign("/auth/signup");
 
   return (
     <>

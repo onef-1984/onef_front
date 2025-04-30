@@ -1,7 +1,6 @@
 import react, { useState } from "react";
 import { CommentMutationProvider } from "@/hooks/useContext/useCommentMutationContext";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { useWhoAmIAdaptor } from "@/hooks/useAdaptor/user/useWhoAmIAdaptor";
 import { useDeleteCommentMutator } from "@/hooks/useMutator/useDeleteCommentMutator";
 import { SicilianProvider } from "sicilian/provider";
 import { useForm } from "sicilian/useForm";
@@ -11,12 +10,13 @@ import Form from "../forms/Form";
 import clsx from "clsx";
 import { Show, Map } from "utilinent";
 import ProfileImage from "../Profile/ProfileImage";
-import useCommentsAdaptor from "@/hooks/useAdaptor/useCommentsAdaptor";
 import styles from "./Comment.module.css";
 import { useIsQualified } from "@/hooks/useIsQualified";
 import type { Comment } from "@/types/graphql.types";
 import { CommentMutation } from "@/apis/Domains/Comment/Comment.mutation";
 import { ReportComment } from "@/types/comment.types";
+import { useUserQuery } from "@/apis/useDomain/useUser.query";
+import { useCommentQuery } from "@/apis/useDomain/useComment.query";
 
 type CommentBoxType = "viewer" | "editor";
 
@@ -42,22 +42,20 @@ export default function Comment({ id, depth }: { id: string; depth: number }) {
 }
 
 Comment.Container = function CommentContainer({ id, depth }: { id: string; depth: number }) {
-  const { comments } = useCommentsAdaptor(id);
+  const { data = { comments: { comments: [] } } } = new useCommentQuery().getComment(id);
 
   return (
     <div className={styles.containerRoot}>
-      <Map each={comments}>
-        {(commentData) => {
-          return (
-            <div key={commentData.id}>
-              <Comment.Box key={commentData.id} depth={depth} commentData={commentData} />
+      <Map each={data.comments.comments}>
+        {(commentData) => (
+          <div key={commentData.id}>
+            <Comment.Box key={commentData.id} depth={depth} commentData={commentData} />
 
-              <Comment.ReplyContainer commentData={commentData}>
-                <Comment.Container id={commentData.id} depth={depth + 1} />
-              </Comment.ReplyContainer>
-            </div>
-          );
-        }}
+            <Comment.ReplyContainer commentData={commentData}>
+              <Comment.Container id={commentData.id} depth={depth + 1} />
+            </Comment.ReplyContainer>
+          </div>
+        )}
       </Map>
     </div>
   );
@@ -163,7 +161,9 @@ Comment.Viewer = function CommentViewer({
   setCommentState: react.Dispatch<react.SetStateAction<CommentBoxType>>;
 }) {
   const { handleClick } = useDeleteCommentMutator(commentData.id);
-  const { user } = useWhoAmIAdaptor();
+  const { data } = new useUserQuery().getMe();
+
+  if (!data) return null;
 
   return (
     <>
@@ -178,7 +178,7 @@ Comment.Viewer = function CommentViewer({
           <p>{commentData.comment}</p>
 
           <div className={styles.button}>
-            <Show when={user.id === commentData.user.id}>
+            <Show when={data.user.id === commentData.user.id}>
               <Clickable
                 {...clickableProps}
                 onClick={() => {

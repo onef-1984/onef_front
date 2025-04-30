@@ -1,15 +1,18 @@
-import { useReportAdaptor } from "./useAdaptor/report/useReportAdaptor";
-import { useWhoAmIAdaptor } from "./useAdaptor/user/useWhoAmIAdaptor";
+import { useUserQuery } from "@/apis/useDomain/useUser.query";
 
 export const useIsQualified = (to: "login" | "myReport") => {
-  const { user: me } = useWhoAmIAdaptor();
-  const { user: reviewer } = useReportAdaptor();
+  const { data } = new useUserQuery().getMe();
+  // const { id: reportId } = useRouterAdv();
+  // const {
+  //   data: { user: reviewer },
+  // } = new useReportQuery().getReport(reportId);
 
   switch (to) {
     case "login":
-      return me?.email ? true : false;
+      return data?.user ? true : false;
 
     case "myReport":
-      return me.id === reviewer.id;
+      // return me.id === reviewer.id;
+      return true;
   }
 };

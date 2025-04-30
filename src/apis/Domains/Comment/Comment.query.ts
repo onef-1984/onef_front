@@ -69,11 +69,15 @@ export class CommentQuery extends Query {
 
   queryKey = ["comment"];
 
-  getComments(reportId: string) {
-    return {
+  getComments = (reportId: string) =>
+    this.queryOptions({
       queryKey: [...this.queryKey, reportId],
       queryFn: () =>
         this.graphql<{ comments: { comments: ReportComment[] } }, GetCommentsQueryVariables>(GET_COMMENT, { reportId }),
-    };
-  }
+      placeholderData: {
+        comments: {
+          comments: [],
+        },
+      },
+    });
 }

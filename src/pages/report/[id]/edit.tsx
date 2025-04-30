@@ -1,12 +1,13 @@
+import { useReportMutation } from "@/apis/useDomain/useReport.mutation";
+import { useReportQuery } from "@/apis/useDomain/useReport.query";
 import GlassyBackground from "@/components/glassyBackground/GlassyBackground";
 import HeadMetaTag from "@/components/HeadMetaTag/HeadMetaTag";
 import ReportHeader from "@/components/report/ReportHeader";
 import ReportForm from "@/components/reportForm/ReportForm";
 import { headerContent } from "@/constants/reportEdit/headerContent";
-import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useReportTagList } from "@/hooks/useCaroKann/useReportTagList";
 import { ReportMutateProvider } from "@/hooks/useContext/useReportMutationContext";
-import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
+import { useRouterAdv } from "@/hooks/useRouterAdv";
 import { setValues } from "@/hooks/useSicilian/report";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
@@ -28,33 +29,50 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
+const bookMock = {
+  isbn13: "",
+  title: "",
+  author: "",
+  description: "",
+  cover: "",
+  categoryId: 0,
+  categoryName: "",
+  pubDate: "",
+  publisher: "",
+  priceStandard: 0,
+  customerReviewRank: 0,
+  itemPage: 0,
+};
+
 export default function Edit() {
-  const { UpdateReportMutate } = useReportMutator();
+  const { mutate: updateReportMutate } = new useReportMutation().updateReport();
   const [_, setTagList] = useReportTagList();
+  const { id: reviewId } = useRouterAdv();
 
   const {
-    report: { title, tags, content },
-    book,
-    isPending,
-  } = useReportAdaptor();
+    data: { book, report: { title, content, tags } } = {
+      report: { title: "", content: "", tags: [] },
+      book: bookMock,
+    },
+  } = new useReportQuery().getReport(reviewId);
 
   useEffect(() => {
     setValues({
-      title: title,
-      content: content,
+      title,
+      content,
     });
     setTagList(tags);
-  }, [isPending]);
+  }, []);
 
   return (
     <>
       <HeadMetaTag title="리뷰 수정" />
 
       <GlassyBackground image={book.cover}>
-        <ReportHeader content={headerContent(book)} />
+        <ReportHeader content={headerContent({ ...book })} />
       </GlassyBackground>
 
-      <ReportMutateProvider value={UpdateReportMutate}>
+      <ReportMutateProvider value={updateReportMutate}>
         <ReportForm />
       </ReportMutateProvider>
     </>

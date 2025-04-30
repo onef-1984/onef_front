@@ -2,18 +2,18 @@ import styles from "./Report.module.css";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import { HiOutlineShare } from "@react-icons/all-files/hi/HiOutlineShare";
-import { useReportMutator } from "@/hooks/useMutator/useReportMutator";
-import { useReportAdaptor } from "@/hooks/useAdaptor/report/useReportAdaptor";
 import { useRouterAdv } from "@/hooks/useRouterAdv";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { Show } from "utilinent";
 import { useIsQualified } from "@/hooks/useIsQualified";
+import { useReportQuery } from "@/apis/useDomain/useReport.query";
+import { useReportMutation } from "@/apis/useDomain/useReport.mutation";
 
 export default function ReportButton() {
-  const { DeleteReportMutate } = useReportMutator();
-  const { report } = useReportAdaptor();
+  const { mutate: deleteReportMutate } = new useReportMutation().deleteReport();
   const { id: reportId } = useRouterAdv();
+  const { data: { report } = { report: { id: "", title: "", cover: "" } } } = new useReportQuery().getReport(reportId);
 
   const isMyReport = useIsQualified("myReport");
 
@@ -24,7 +24,7 @@ export default function ReportButton() {
           <SlNote />
         </Link>
 
-        <button type="button" onClick={() => DeleteReportMutate()}>
+        <button type="button" onClick={() => deleteReportMutate()}>
           <BsTrash3 />
         </button>
       </Show>

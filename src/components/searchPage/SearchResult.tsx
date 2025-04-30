@@ -1,9 +1,9 @@
-import { useInfiniteReportSearchListAdaptor } from "@/hooks/useAdaptor/useInfiniteReportSearchListAdaptor";
 import CardReport from "../card/CardReport";
 import SearchBinder from "./SearchBinder";
 import { Show, Map } from "utilinent";
 import { OrderBy, SearchType } from "@/types/graphql.types";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { useReportQuery } from "@/apis/useDomain/useReport.query";
 
 export default function SearchResult({
   keyword,
@@ -14,7 +14,11 @@ export default function SearchResult({
   orderBy: OrderBy;
   searchType: SearchType;
 }) {
-  const { pages, fetchNextPage } = useInfiniteReportSearchListAdaptor({ keyword, orderBy, searchType });
+  const { data: { pages } = {}, fetchNextPage } = new useReportQuery().getReportListBySearch({
+    keyword,
+    orderBy,
+    searchType,
+  });
   const ref = useInfiniteScroll<HTMLParagraphElement>(fetchNextPage);
 
   return (

@@ -1,4 +1,4 @@
-import socket from "@/apis/socket";
+import socket from "@/apis/Base/socket";
 import { useEffect } from "react";
 
 export const useSocket = (userId: string, event: string, callback: (data: any) => void) => {
