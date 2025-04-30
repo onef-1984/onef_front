@@ -29,7 +29,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function Create() {
   const { mutate: createReportMutate } = new useReportMutation().createReport();
   const { id: isbn13 } = useRouterAdv();
-  const { data } = new useBookQuery().getBook(isbn13);
+  const {
+    data = {
+      isbn13: "",
+      title: "",
+      author: "",
+      description: "",
+      cover: "",
+      categoryId: 0,
+      categoryName: "",
+      pubDate: "",
+      publisher: "",
+      priceStandard: 0,
+      customerReviewRank: 0,
+      itemPage: 0,
+    },
+  } = new useBookQuery().getBook(isbn13);
 
   return (
     <>

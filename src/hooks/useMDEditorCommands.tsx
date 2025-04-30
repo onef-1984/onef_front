@@ -52,8 +52,6 @@ export const useMDEditorCommands = () => {
   useEffect(() => {
     commands.then((a) => setCommand(a.getCommands()));
     extraCommands.then((a) => setExtraCommand(a.getExtraCommands()));
-
-    console.log(command, extraCommand);
   }, []);
 
   return {

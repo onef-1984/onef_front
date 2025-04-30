@@ -1,13 +1,13 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ReportQuery } from "../Domains/Report/Report.query";
-import { withQuery } from "../Decorator/withQuery";
+import { withAdaptor } from "../Decorator/withQuery";
 import { ReportQueryAdaptor } from "../Adaptor/Report.adaptor";
 import { OrderBy, SearchType } from "@/types/graphql.types";
 
 export class useReportQuery {
   private reportQuery = new ReportQuery();
 
-  @withQuery(ReportQueryAdaptor.getReport)
+  @withAdaptor(ReportQueryAdaptor.getReport)
   getReport = (reportId: string) => useQuery(this.reportQuery.getReport(reportId));
 
   getRecentReportList = () => useQuery(this.reportQuery.getRecentReportList());
@@ -24,6 +24,6 @@ export class useReportQuery {
     searchType: SearchType;
   }) => useInfiniteQuery(this.reportQuery.getReportListBySearch({ keyword, orderBy, searchType }));
 
-  @withQuery(ReportQueryAdaptor.checkUserLikedReport)
+  @withAdaptor(ReportQueryAdaptor.checkUserLikedReport)
   checkUserLikedReport = (reportId: string) => useQuery(this.reportQuery.checkUserLikedReport(reportId));
 }

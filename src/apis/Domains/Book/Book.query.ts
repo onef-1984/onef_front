@@ -89,19 +89,5 @@ export class BookQuery extends Query {
           isbn13,
         }),
       enabled: !!isbn13,
-      initialData: () => ({
-        isbn13: "",
-        title: "",
-        author: "",
-        description: "",
-        cover: "",
-        categoryId: 0,
-        categoryName: "",
-        pubDate: "",
-        publisher: "",
-        priceStandard: 0,
-        customerReviewRank: 0,
-        itemPage: 0,
-      }),
     });
 }
