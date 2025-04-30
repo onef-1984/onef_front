@@ -43,10 +43,10 @@ export default removeImportsFun({
         pathname: "/**",
       },
       {
-        protocol: 'http',
-        hostname: 'k.kakaocdn.net',
-        pathname: '/dn/*',
-      }
+        protocol: "http",
+        hostname: "k.kakaocdn.net",
+        pathname: "/dn/*",
+      },
     ],
   },
 });
