@@ -1,14 +1,19 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ReportQuery } from "../Domains/Report/Report.query";
-import { withAdaptor } from "../Decorator/withQuery";
+import { transformResult } from "../Decorator/transformResult";
 import { ReportQueryAdaptor } from "../Adaptor/Report.adaptor";
 import { OrderBy, SearchType } from "@/types/graphql.types";
+import { thisBind } from "../Decorator/thisBind";
 
+@thisBind
 export class useReportQuery {
   private reportQuery = new ReportQuery();
 
-  @withAdaptor(ReportQueryAdaptor.getReport)
-  getReport = (reportId: string) => useQuery(this.reportQuery.getReport(reportId));
+  @transformResult(ReportQueryAdaptor.getReport)
+  getReport(reportId: string) {
+    return useQuery(this.reportQuery.getReport(reportId));
+  }
 
   getRecentReportList = () => useQuery(this.reportQuery.getRecentReportList());
 
@@ -24,6 +29,8 @@ export class useReportQuery {
     searchType: SearchType;
   }) => useInfiniteQuery(this.reportQuery.getReportListBySearch({ keyword, orderBy, searchType }));
 
-  @withAdaptor(ReportQueryAdaptor.checkUserLikedReport)
-  checkUserLikedReport = (reportId: string) => useQuery(this.reportQuery.checkUserLikedReport(reportId));
+  @transformResult(ReportQueryAdaptor.checkUserLikedReport)
+  checkUserLikedReport(reportId: string) {
+    return useQuery(this.reportQuery.checkUserLikedReport(reportId));
+  }
 }
