@@ -9,7 +9,7 @@ export const useIsQualified = (to: "login" | "myReport") => {
 
   switch (to) {
     case "login":
-      return me ? true : false;
+      return me.user.id ? true : false;
 
     case "myReport":
       return me.user.id === reviewer.id;
