@@ -49,7 +49,9 @@ jobs:
             # 먼저 실행 중인 컨테이너 중지
             docker compose down
             # 모든 Docker 이미지 강제 삭제
-            docker rmi $(docker images -q) -f
+            # docker rmi $(docker images -q) -f
+            # 프론트 이미지만 삭제
+            docker rmi ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest -f || true
             # 미사용 리소스 정리
             docker system prune -a -f --volumes
             # ECR 로그인

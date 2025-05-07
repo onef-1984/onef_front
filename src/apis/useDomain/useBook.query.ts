@@ -3,11 +3,15 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { BookQuery } from "../Domains/Book/Book.query";
 import { transformResult } from "../Decorator/transformResult";
 import { BookQueryAdaptor } from "../Adaptor/Book.adaptor";
+import { thisBind } from "../Decorator/thisBind";
 
+@thisBind
 export class useBookQuery {
   private bookQuery = new BookQuery();
 
-  getBookList = (keyword: string) => useInfiniteQuery(this.bookQuery.getBookList(keyword));
+  getBookList(keyword: string) {
+    return useInfiniteQuery(this.bookQuery.getBookList(keyword));
+  }
 
   @transformResult(BookQueryAdaptor.getBook)
   getBook(isbn13: string) {
