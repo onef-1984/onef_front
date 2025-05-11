@@ -42,7 +42,7 @@ export default function Comment({ id, depth }: { id: string; depth: number }) {
 }
 
 Comment.Container = function CommentContainer({ id, depth }: { id: string; depth: number }) {
-  const { data = { comments: { comments: [] } } } = new useCommentQuery().getComment(id);
+  const { data } = useCommentQuery().GetComment(id);
 
   return (
     <div className={styles.containerRoot}>
@@ -161,7 +161,7 @@ Comment.Viewer = function CommentViewer({
   setCommentState: react.Dispatch<react.SetStateAction<CommentBoxType>>;
 }) {
   const { handleClick } = useDeleteCommentMutator(commentData.id);
-  const { data } = new useUserQuery().getMe();
+  const { data } = useUserQuery().GetMe();
 
   if (!data) return null;
 

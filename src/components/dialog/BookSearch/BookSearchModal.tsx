@@ -88,12 +88,7 @@ function BookListSearchResult({
   searchKeyword: string;
   setBook: Dispatch<SetStateAction<Item>>;
 }) {
-  const {
-    fetchNextPage,
-    data = {
-      pages: [{ bookList: { items: [], hasNext: false } }],
-    },
-  } = new useBookQuery().getBookList(searchKeyword);
+  const { fetchNextPage, data } = useBookQuery().GetBookList(searchKeyword);
   const ref = useInfiniteScroll<HTMLDivElement>(fetchNextPage);
 
   return (

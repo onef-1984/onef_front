@@ -14,7 +14,7 @@ import { useBoardToggle } from "@/hooks/useCaroKann/useBoardToggle";
 import { useUserQuery } from "@/apis/useDomain/useUser.query";
 
 export default function Header() {
-  const { data } = new useUserQuery().getMe();
+  const { data } = useUserQuery().GetMe();
   const isLogin = useIsQualified("login");
 
   return (

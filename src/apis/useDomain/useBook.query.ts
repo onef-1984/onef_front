@@ -1,22 +1,20 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { BookQuery } from "../Domains/Book/Book.query";
-import { transformResult } from "../Decorator/transformResult";
 import { BookQueryAdaptor } from "../Adaptor/Book.adaptor";
-import { thisBind } from "../Decorator/thisBind";
 
-@thisBind
-export class useBookQuery {
-  private bookQuery = new BookQuery();
+export const useBookQuery = () => {
+  const GetBook = (isbn13: string) => {
+    const res = useQuery(new BookQuery().getBook(isbn13));
+    return { ...res, data: BookQueryAdaptor.getBook(res.data) };
+  };
 
-  getBookList(keyword: string) {
-    return useInfiniteQuery(this.bookQuery.getBookList(keyword));
-  }
+  const GetBookList = (keyword: string) => {
+    const { data, ...res } = useInfiniteQuery(new BookQuery().getBookList(keyword));
+    return { ...res, data: BookQueryAdaptor.getBookList(data) };
+  };
 
-  @transformResult(BookQueryAdaptor.getBook)
-  getBook(isbn13: string) {
-    return useQuery(this.bookQuery.getBook(isbn13));
-  }
-
-  // getBookAllData = (isbn13: string) => useQuery(this.bookQuery.getBookAllData(isbn13)); // deprecated
-}
+  return {
+    GetBook,
+    GetBookList,
+  };
+};

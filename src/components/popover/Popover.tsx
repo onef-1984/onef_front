@@ -82,7 +82,7 @@ Popover.SearchOption = function SearchOptionPopover() {
 };
 
 Popover.Profile = function ProfilePopover() {
-  const { mutate: deleteSignOutMutate } = new useAuthMutation().deleteSignOut();
+  const { mutate: deleteSignOutMutate } = useAuthMutation().DeleteSignOut();
   const { push, asPath } = useRouterAdv();
   const handleClick = () => {
     deleteSignOutMutate();
@@ -114,9 +114,8 @@ Popover.Notification = function NotificationPopover({
   isRead,
   createdAt,
 }: ReturnType<typeof useNotification>["data"][number]) {
-  const { deleteNotification, patchNotification } = new useNotificationMutation();
-  const { mutate: deleteMutate } = deleteNotification();
-  const { mutate: patchMutate } = patchNotification();
+  const { mutate: deleteMutate } = useNotificationMutation().DeleteNotification();
+  const { mutate: patchMutate } = useNotificationMutation().PatchNotification();
 
   return (
     <div className={styles.notificationRoot}>

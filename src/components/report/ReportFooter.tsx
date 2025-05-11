@@ -14,12 +14,12 @@ export default function ReportFooter() {
   const { id: reportId } = useRouterAdv();
   const isMyReport = useIsQualified("myReport");
   const isLogin = useIsQualified("login");
-  const { data: { report } = { report: { tags: [""], date: "", likeCount: 0 } } } = new useReportQuery().getReport(
-    reportId,
-  );
-  const { data } = new useReportQuery().checkUserLikedReport(reportId);
+  const {
+    data: { report },
+  } = useReportQuery().GetReport(reportId);
+  const { data } = useReportQuery().CheckUserLikedReport(reportId);
   const { mutate: toggleReportLikeMutate, isPending: isToggleReportLikePending } =
-    new useReportMutation().toggleReportLike();
+    useReportMutation().ToggleReportLike();
 
   return (
     <section className={styles.reportFooter}>

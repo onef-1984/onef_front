@@ -10,7 +10,9 @@ const MDPreview = dynamic(() => import("@uiw/react-markdown-preview"), { ssr: fa
 
 export default function ReportMain() {
   const { id: reportId } = useRouterAdv();
-  const { data: { report } = { report: { content: "" } } } = new useReportQuery().getReport(reportId);
+  const {
+    data: { report },
+  } = useReportQuery().GetReport(reportId);
 
   return (
     <div data-color-mode="light">

@@ -1,11 +1,19 @@
 import { ReportMutation } from "../Domains/Report/Report.mutation";
 import { useMutation } from "@tanstack/react-query";
 
-export class useReportMutation {
-  private reportMutation = new ReportMutation();
+export const useReportMutation = () => {
+  const DeleteReport = () => {
+    return useMutation(new ReportMutation().deleteReport());
+  };
+  const CreateReport = () => {
+    return useMutation(new ReportMutation().createReport());
+  };
+  const UpdateReport = () => {
+    return useMutation(new ReportMutation().updateReport());
+  };
+  const ToggleReportLike = () => {
+    return useMutation(new ReportMutation().toggleReportLike());
+  };
 
-  deleteReport = () => useMutation(this.reportMutation.deleteReport());
-  createReport = () => useMutation(this.reportMutation.createReport());
-  updateReport = () => useMutation(this.reportMutation.updateReport());
-  toggleReportLike = () => useMutation(this.reportMutation.toggleReportLike());
-}
+  return { DeleteReport, CreateReport, UpdateReport, ToggleReportLike };
+};

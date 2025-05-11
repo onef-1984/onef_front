@@ -10,7 +10,7 @@ import { useAuthMutation } from "@/apis/useDomain/useAuth.mutation";
 export default function Callback() {
   const { asPath, isReady } = useRouterAdv();
   const [errorMessage, setErrorMessage] = useState("");
-  const { mutate: postSocialSignMutate } = new useAuthMutation().postSocialSign();
+  const { mutate: postSocialSignMutate } = useAuthMutation().PostSocialSign();
 
   useEffect(() => {
     if (!isReady) return;

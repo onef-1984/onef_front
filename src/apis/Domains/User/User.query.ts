@@ -1,6 +1,5 @@
-import { UserQueryAdaptor } from "@/apis/Adaptor/User.adaptor";
 import { Query } from "@/apis/Base/Query";
-import { GetMeQueryVariables, GetUserQueryVariables } from "@/types/graphql.types";
+import { GetMeQuery, GetMeQueryVariables, GetUserQuery, GetUserQueryVariables } from "@/types/graphql.types";
 import { gql } from "graphql-request";
 
 const UserFragment = gql`
@@ -41,13 +40,13 @@ export class UserQuery extends Query {
 
   getMe = () => ({
     queryKey: [...this.queryKey],
-    queryFn: () => this.graphql<ReturnType<typeof UserQueryAdaptor.getMe>, GetMeQueryVariables>(GET_ME),
+    queryFn: () => this.graphql<GetMeQuery, GetMeQueryVariables>(GET_ME),
   });
 
   getUser = (userNickname: string) => ({
     queryKey: [...this.queryKey, userNickname],
     queryFn: () =>
-      this.graphql<ReturnType<typeof UserQueryAdaptor.getUser>, GetUserQueryVariables>(GET_USER, {
+      this.graphql<GetUserQuery, GetUserQueryVariables>(GET_USER, {
         userNickname,
       }),
   });

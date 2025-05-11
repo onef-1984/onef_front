@@ -10,8 +10,9 @@ import {
   SearchType,
   GetReportQueryVariables,
   CheckUserLikedReportQueryVariables,
+  GetReportQuery,
+  CheckUserLikedReportQuery,
 } from "@/types/graphql.types";
-import { ReportQueryAdaptor } from "@/apis/Adaptor/Report.adaptor";
 
 export const ALL_REPORT = gql`
   fragment AllReport on Report {
@@ -189,7 +190,7 @@ export class ReportQuery extends Query {
   getReport = (reportId: string) => ({
     queryKey: [...this.queryKey, reportId],
     queryFn: () =>
-      this.graphql<ReturnType<typeof ReportQueryAdaptor.getReport>, GetReportQueryVariables>(GET_REPORT, {
+      this.graphql<GetReportQuery, GetReportQueryVariables>(GET_REPORT, {
         reportId,
       }),
     // enabled: !!reportId,
@@ -199,12 +200,9 @@ export class ReportQuery extends Query {
     return {
       queryKey: [...this.queryKey, ReportId, "like"],
       queryFn: () =>
-        this.graphql<ReturnType<typeof ReportQueryAdaptor.checkUserLikedReport>, CheckUserLikedReportQueryVariables>(
-          IS_USER_LIKED_REPORT,
-          {
-            ReportId,
-          },
-        ),
+        this.graphql<CheckUserLikedReportQuery, CheckUserLikedReportQueryVariables>(IS_USER_LIKED_REPORT, {
+          ReportId,
+        }),
     };
   }
 }

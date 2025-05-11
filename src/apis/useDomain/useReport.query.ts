@@ -1,25 +1,25 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ReportQuery } from "../Domains/Report/Report.query";
-import { transformResult } from "../Decorator/transformResult";
 import { ReportQueryAdaptor } from "../Adaptor/Report.adaptor";
 import { OrderBy, SearchType } from "@/types/graphql.types";
-import { thisBind } from "../Decorator/thisBind";
 
-@thisBind
-export class useReportQuery {
-  private reportQuery = new ReportQuery();
+export const useReportQuery = () => {
+  const GetReport = (reportId: string) => {
+    const { data, ...res } = useQuery(new ReportQuery().getReport(reportId));
+    return { ...res, data: ReportQueryAdaptor.getReport(data) };
+  };
 
-  @transformResult(ReportQueryAdaptor.getReport)
-  getReport(reportId: string) {
-    return useQuery(this.reportQuery.getReport(reportId));
-  }
+  const GetRecentReportList = () => {
+    const { data, ...res } = useQuery(new ReportQuery().getRecentReportList());
+    return { ...res, data: ReportQueryAdaptor.getRecentReportList(data) };
+  };
 
-  getRecentReportList = () => useQuery(this.reportQuery.getRecentReportList());
+  const GetMostLikedReportList = () => {
+    const { data, ...res } = useQuery(new ReportQuery().getMostLikedReportList());
+    return { ...res, data: ReportQueryAdaptor.getMostLikedReportList(data) };
+  };
 
-  getMostLikedReportList = () => useQuery(this.reportQuery.getMostLikedReportList());
-
-  getReportListBySearch = ({
+  const GetReportListBySearch = ({
     keyword,
     orderBy,
     searchType,
@@ -27,10 +27,17 @@ export class useReportQuery {
     keyword: string;
     orderBy: OrderBy;
     searchType: SearchType;
-  }) => useInfiniteQuery(this.reportQuery.getReportListBySearch({ keyword, orderBy, searchType }));
+  }) => {
+    const { data, ...res } = useInfiniteQuery(
+      new ReportQuery().getReportListBySearch({ keyword, orderBy, searchType }),
+    );
+    return { ...res, data: ReportQueryAdaptor.getReportListBySearch(data) };
+  };
 
-  @transformResult(ReportQueryAdaptor.checkUserLikedReport)
-  checkUserLikedReport(reportId: string) {
-    return useQuery(this.reportQuery.checkUserLikedReport(reportId));
-  }
-}
+  const CheckUserLikedReport = (reportId: string) => {
+    const { data, ...res } = useQuery(new ReportQuery().checkUserLikedReport(reportId));
+    return { ...res, data: ReportQueryAdaptor.checkUserLikedReport(data) };
+  };
+
+  return { GetReport, GetRecentReportList, GetMostLikedReportList, GetReportListBySearch, CheckUserLikedReport };
+};

@@ -28,38 +28,44 @@ HeroSec.EyeCatch = () => {
 };
 
 HeroSec.Carousels = function Carousels() {
-  const { data: { items } = { items: { items: [] } } } = new useReportQuery().getMostLikedReportList();
-  const { data: { reportList } = { reportList: { items: [] } } } = new useReportQuery().getRecentReportList();
+  const {
+    data: { likedReportList },
+  } = useReportQuery().GetMostLikedReportList();
+  const {
+    data: { recentReportList },
+  } = useReportQuery().GetRecentReportList();
 
   return (
     <section className={styles.carousels}>
-      <Carousel title="인기 리뷰" items={items.items} />
-      <Carousel title="최신 리뷰" items={reportList.items} />
+      <Carousel title="인기 리뷰" items={likedReportList} />
+      <Carousel title="최신 리뷰" items={recentReportList} />
     </section>
   );
 };
 
 HeroSec.EditorsPick = function EditorsPick() {
   const {
-    data: { editorsPick } = { editorsPick: { title: "", reportId: "", cover: "", nickname: "", description: "" } },
-  } = new useEPQuery().getEditorsPick();
+    data: {
+      editorsPick: { title, reportId, cover, nickname, description },
+    },
+  } = useEPQuery().GetEditorsPick();
 
   return (
-    <Show when={!!editorsPick.title}>
+    <Show when={!!title}>
       <section className={styles.editorsPickContainer}>
         <div className={styles.editorsPickBox}>
           <div className={styles.editorsPickImage}>
             <Image src={pickImg} alt="editors pick logo" width={300} height={120} sizes="300" draggable="false" />
           </div>
 
-          <Link className={styles.link} href={`/report/${editorsPick.reportId}`}>
-            <GlassyBackground className={styles.report} image={editorsPick.cover}>
+          <Link className={styles.link} href={`/report/${reportId}`}>
+            <GlassyBackground className={styles.report} image={cover}>
               <div className={styles.content}>
                 <p className={styles.title}>
-                  {editorsPick.title} <span className={styles.nickname}>by. {editorsPick.nickname}</span>
+                  {title} <span className={styles.nickname}>by. {nickname}</span>
                 </p>
 
-                <p className={styles.description}>{editorsPick.description}</p>
+                <p className={styles.description}>{description}</p>
 
                 <p className={styles.buttonLike}>지금 읽으러 가기</p>
               </div>

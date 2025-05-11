@@ -14,7 +14,7 @@ export default function SearchResult({
   orderBy: OrderBy;
   searchType: SearchType;
 }) {
-  const { data: { pages } = {}, fetchNextPage } = new useReportQuery().getReportListBySearch({
+  const { data, fetchNextPage } = useReportQuery().GetReportListBySearch({
     keyword,
     orderBy,
     searchType,
@@ -24,12 +24,12 @@ export default function SearchResult({
   return (
     <>
       <SearchBinder>
-        <Map each={pages}>
+        <Map each={data.pages}>
           {(page) => <Map each={page?.reportList.items}>{(item) => <CardReport key={item.id} {...item} />}</Map>}
         </Map>
       </SearchBinder>
 
-      <Show when={!!pages}>
+      <Show when={!!data.pages}>
         <p ref={ref} />
       </Show>
     </>

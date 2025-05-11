@@ -11,7 +11,7 @@ import { Guard } from "@/components/guard";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useBoardToggle();
-  const { data } = new useUserQuery().getMe();
+  const { data } = useUserQuery().GetMe();
   const { push } = useRouterAdv();
 
   return (

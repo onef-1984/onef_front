@@ -5,7 +5,7 @@ import { useBookQuery } from "@/apis/useDomain/useBook.query";
 
 export default function SearchBook() {
   const { keyword: isbn13 } = useRouterAdv();
-  const { data = { title: "" } } = new useBookQuery().getBook(isbn13);
+  const { data } = useBookQuery().GetBook(isbn13);
 
   return (
     <div className={styles.searchUser}>

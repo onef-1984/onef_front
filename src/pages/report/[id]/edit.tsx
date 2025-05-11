@@ -29,32 +29,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-const bookMock = {
-  isbn13: "",
-  title: "",
-  author: "",
-  description: "",
-  cover: "",
-  categoryId: 0,
-  categoryName: "",
-  pubDate: "",
-  publisher: "",
-  priceStandard: 0,
-  customerReviewRank: 0,
-  itemPage: 0,
-};
-
 export default function Edit() {
-  const { mutate: updateReportMutate } = new useReportMutation().updateReport();
+  const { mutate: updateReportMutate } = useReportMutation().UpdateReport();
   const [_, setTagList] = useReportTagList();
   const { id: reviewId } = useRouterAdv();
 
   const {
-    data: { book, report: { title, content, tags } } = {
-      report: { title: "", content: "", tags: [] },
-      book: bookMock,
+    data: {
+      book,
+      report: { title, content, tags },
     },
-  } = new useReportQuery().getReport(reviewId);
+  } = useReportQuery().GetReport(reviewId);
 
   useEffect(() => {
     setValues({

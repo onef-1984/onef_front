@@ -3,9 +3,11 @@ import { useRouterAdv } from "./useRouterAdv";
 import { useReportQuery } from "@/apis/useDomain/useReport.query";
 
 export const useIsQualified = (to: "login" | "myReport") => {
-  const { data: me = { user: { id: "" } } } = new useUserQuery().getMe();
+  const { data: me = { user: { id: "" } } } = useUserQuery().GetMe();
   const { id: reportId } = useRouterAdv();
-  const { data: { user: reviewer } = { user: { id: "" } } } = new useReportQuery().getReport(reportId);
+  const {
+    data: { user: reviewer },
+  } = useReportQuery().GetReport(reportId);
 
   switch (to) {
     case "login":

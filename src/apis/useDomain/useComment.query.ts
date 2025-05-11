@@ -1,13 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
 import { CommentQuery } from "../Domains/Comment/Comment.query";
-import { thisBind } from "../Decorator/thisBind";
 
-@thisBind
-export class useCommentQuery {
-  private commentQuery = new CommentQuery();
+export const useCommentQuery = () => {
+  const GetComment = (reportId: string) => {
+    const { data = { comments: { comments: [] } }, ...res } = useQuery(new CommentQuery().getComments(reportId));
+    return { ...res, data };
+  };
 
-  getComment(reportId: string) {
-    return useQuery(this.commentQuery.getComments(reportId));
-  }
-}
+  return { GetComment };
+};

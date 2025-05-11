@@ -12,7 +12,7 @@ import styles from "@/styles/Sign.module.css";
 import Link from "next/link";
 
 export default function SignUp() {
-  const { mutate: postSignMutate, isPending: postSignIsPending } = new useAuthMutation().postSign("/auth/signup");
+  const { mutate: postSignMutate, isPending: postSignIsPending } = useAuthMutation().PostSign("/auth/signup");
 
   return (
     <>

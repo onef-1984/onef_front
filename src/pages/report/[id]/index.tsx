@@ -35,25 +35,8 @@ export default function Review() {
   const { push, id } = useRouterAdv();
   const {
     error,
-    data: { report, user, book } = {
-      report: {
-        id: "",
-        title: "",
-        content: "",
-      },
-      user: {
-        id: "",
-        nickname: "",
-      },
-      book: {
-        title: "",
-        author: "",
-        publisher: "",
-        itemPage: 0,
-        cover: "",
-      },
-    },
-  } = new useReportQuery().getReport(id);
+    data: { report, user, book },
+  } = useReportQuery().GetReport(id);
 
   useEffect(() => {
     if (error) {

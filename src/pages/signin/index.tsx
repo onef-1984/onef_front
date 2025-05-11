@@ -12,7 +12,7 @@ import { SicilianProvider } from "sicilian/provider";
 import { useAuthMutation } from "@/apis/useDomain/useAuth.mutation";
 
 export default function SignIn() {
-  const { mutate: postSignMutate, isPending: postSignIsPending } = new useAuthMutation().postSign("/auth/signin");
+  const { mutate: postSignMutate, isPending: postSignIsPending } = useAuthMutation().PostSign("/auth/signin");
 
   return (
     <>

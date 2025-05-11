@@ -11,9 +11,11 @@ import { useReportQuery } from "@/apis/useDomain/useReport.query";
 import { useReportMutation } from "@/apis/useDomain/useReport.mutation";
 
 export default function ReportButton() {
-  const { mutate: deleteReportMutate } = new useReportMutation().deleteReport();
+  const { mutate: deleteReportMutate } = useReportMutation().DeleteReport();
   const { id: reportId } = useRouterAdv();
-  const { data: { report } = { report: { id: "", title: "", cover: "" } } } = new useReportQuery().getReport(reportId);
+  const {
+    data: { report },
+  } = useReportQuery().GetReport(reportId);
 
   const isMyReport = useIsQualified("myReport");
 

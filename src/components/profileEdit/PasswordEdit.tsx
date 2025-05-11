@@ -9,7 +9,7 @@ import omit from "@/utils/omit";
 import { useUserMutation } from "@/apis/useDomain/useUser.mutation";
 
 export default function PasswordEdit() {
-  const { mutate: changePasswordMutate } = new useUserMutation().changePassword();
+  const { mutate: changePasswordMutate } = useUserMutation().ChangePassword();
 
   return (
     <Form

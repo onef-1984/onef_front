@@ -1,6 +1,10 @@
-import { BookQueryAdaptor } from "@/apis/Adaptor/Book.adaptor";
 import { Query } from "@/apis/Base/Query";
-import { GetBookListQuery, GetBookListQueryVariables, GetBookQueryVariables } from "@/types/graphql.types";
+import {
+  GetBookListQuery,
+  GetBookListQueryVariables,
+  GetBookQuery,
+  GetBookQueryVariables,
+} from "@/types/graphql.types";
 import { gql } from "graphql-request";
 
 export const ALL_BOOK = gql`
@@ -85,7 +89,7 @@ export class BookQuery extends Query {
     this.queryOptions({
       queryKey: [...this.queryKey, isbn13, "getBook"],
       queryFn: () =>
-        this.graphql<ReturnType<typeof BookQueryAdaptor.getBook>, GetBookQueryVariables>(GET_BOOK_BY_ISBN, {
+        this.graphql<GetBookQuery, GetBookQueryVariables>(GET_BOOK_BY_ISBN, {
           isbn13,
         }),
       enabled: !!isbn13,

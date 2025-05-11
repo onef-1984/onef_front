@@ -6,7 +6,7 @@ import { useWindowSize } from "@/hooks/useWindowSize";
 import { useUserQuery } from "@/apis/useDomain/useUser.query";
 
 export default function DashboardHeader({ userNickname }: { userNickname: string }) {
-  const { data } = new useUserQuery().getUser(userNickname);
+  const { data } = useUserQuery().GetUser(userNickname);
   const [width, setWidth] = useState(0);
   const { windowWidth } = useWindowSize();
   const ref = useRef<HTMLDivElement>(null);

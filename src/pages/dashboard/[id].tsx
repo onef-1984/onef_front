@@ -10,7 +10,7 @@ import { useUserQuery } from "@/apis/useDomain/useUser.query";
 
 export default function Dashboard() {
   const { id: userNickname, orderBy, searchType } = useRouterAdv();
-  const { data = { user: { id: "" } } } = new useUserQuery().getUser(userNickname);
+  const { data = { user: { id: "" } } } = useUserQuery().GetUser(userNickname);
 
   return (
     <>
