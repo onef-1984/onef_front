@@ -49,21 +49,6 @@ svg {
   color: var(--black);
 }
 
-.slick-prev:before,
-.slick-next:before {
-  color: var(--brown-70) !important;
-}
-
-.slick-initialized .slick-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & > div {
-    flex: 1;
-  }
-}
-
 .wmde-markdown p {
   margin: 0 !important;
 }
