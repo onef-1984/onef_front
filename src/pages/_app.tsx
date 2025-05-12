@@ -1,7 +1,5 @@
 import "@/styles/reset.css";
 import "@/styles/globals.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { QueryClient, QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
