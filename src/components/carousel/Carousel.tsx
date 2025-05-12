@@ -57,7 +57,6 @@ function BigCarousel({ items, title }: CarouselProps) {
         <Swiper
           modules={[Navigation]}
           spaceBetween={24}
-          loopAdditionalSlides={4}
           slidesPerView={4}
           slidesPerGroup={4}
           onBeforeInit={(swiper) => {
@@ -73,15 +72,18 @@ function BigCarousel({ items, title }: CarouselProps) {
           breakpoints={{
             1100: {
               slidesPerView: 4,
+              slidesPerGroup: 4,
               spaceBetween: 24,
             },
             900: {
               slidesPerView: 3,
+              slidesPerGroup: 3,
               spaceBetween: 20,
             },
             600: {
               slidesPerView: 2,
-              spaceBetween: 20,
+              slidesPerGroup: 2,
+              spaceBetween: 16,
             },
           }}
           loop
