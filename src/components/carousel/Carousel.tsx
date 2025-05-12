@@ -39,20 +39,18 @@ function SmallCarousel({ items, title }: CarouselProps) {
 }
 
 function BigCarousel({ items, title }: CarouselProps) {
-  const uniqueIdRef = useRef(`big-carousel-${Math.random().toString(36).slice(2, 9)}`);
-
-  const prevId = `${uniqueIdRef.current}-prev`;
-  const nextId = `${uniqueIdRef.current}-next`;
+  const prevRef = useRef<HTMLButtonElement | null>(null);
+  const nextRef = useRef<HTMLButtonElement | null>(null);
 
   return (
     <div className={styles.root}>
       <h2 className={styles.title}>{title}</h2>
 
       <div className={styles.sliderWrapper}>
-        <button className={`${styles.navButton} ${styles.prev}`} id={prevId}>
+        <button className={`${styles.navButton} ${styles.prev}`} ref={prevRef}>
           <IoMdArrowDropleftCircle />
         </button>
-        <button className={`${styles.navButton} ${styles.next}`} id={nextId}>
+        <button className={`${styles.navButton} ${styles.next}`} ref={nextRef}>
           <IoMdArrowDroprightCircle />
         </button>
 
@@ -62,9 +60,15 @@ function BigCarousel({ items, title }: CarouselProps) {
           loopAdditionalSlides={4}
           slidesPerView={4}
           slidesPerGroup={4}
+          onBeforeInit={(swiper) => {
+            if (typeof swiper.params.navigation !== "boolean" && swiper.params.navigation) {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+            }
+          }}
           navigation={{
-            nextEl: `#${nextId}`,
-            prevEl: `#${prevId}`,
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
           }}
           breakpoints={{
             1100: {
