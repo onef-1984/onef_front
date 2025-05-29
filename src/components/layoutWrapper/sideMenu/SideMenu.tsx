@@ -8,6 +8,7 @@ import { Show } from "utilinent";
 import BookSearchModal from "@/components/dialog/BookSearch/BookSearchModal";
 import { useUserQuery } from "@/apis/useDomain/useUser.query";
 import { Guard } from "@/components/guard";
+import Link from "next/link";
 
 export default function SideMenu() {
   const [toggle, setToggle] = useBoardToggle();
@@ -61,6 +62,10 @@ export default function SideMenu() {
             마이 페이지
           </button>
         </Guard.login>
+
+        <Link href="/privacy_policy" style={{ fontWeight: "normal", fontSize: "0.8rem", marginTop: "auto" }}>
+          개인정보 처리방침
+        </Link>
       </menu>
     </aside>
   );
