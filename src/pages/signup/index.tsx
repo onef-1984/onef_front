@@ -54,6 +54,20 @@ export default function SignUp() {
           <Clickable disabled={postSignIsPending}>회원가입</Clickable>
         </Form>
 
+        <div className={styles.terms} style={{ textAlign: "center" }}>
+          <p className={styles.termsText}>
+            회원가입을 하시면{" "}
+            <Link href="/terms" className={styles.link}>
+              이용약관
+            </Link>{" "}
+            및{" "}
+            <Link href="/privacy_policy" className={styles.link}>
+              개인정보 처리방침
+            </Link>{" "}
+            에 동의하게 됩니다.
+          </p>
+        </div>
+
         <SocialLogin />
       </div>
     </>
