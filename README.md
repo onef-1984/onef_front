@@ -178,8 +178,8 @@ export default function Map<T>({
 onef에서는 depth 프로퍼티를 사용해 재귀적으로 댓글의 깊이를 추적하고, 깊이가 5보다 깊어지면 대댓글을 작성할 수 없도록 함으로써 무한한 깊이의 대댓글이 작성되는 것을 원칙적으로 차단하고 있습니다.
 
 ```tsx
-function CommentContainer({ id, depth }: { id: string; depth: number }) {
-  const { comments } = useCommentsAdaptor(id);
+Comment.Container = function CommentContainer({ id, depth }: { id: string; depth: number }) {
+  const { comments } = useQuery(new CommentQuery().getComments(id));
 
   return (
     <div className={styles.containerRoot}>

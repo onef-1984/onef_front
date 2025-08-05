@@ -1,22 +1,22 @@
-import react, { useState } from "react";
+import { CommentMutation } from "@/apis/Domains/Comment/Comment.mutation";
+import { CommentQuery } from "@/apis/Domains/Comment/Comment.query";
+import { useUserQuery } from "@/apis/useDomain/useUser.query";
 import { CommentMutationProvider } from "@/hooks/useContext/useCommentMutationContext";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useIsQualified } from "@/hooks/useIsQualified";
+import { useCommentMutation } from "@/hooks/useMutator/useCommentMutation";
 import { useDeleteCommentMutator } from "@/hooks/useMutator/useDeleteCommentMutator";
+import { ReportComment } from "@/types/comment.types";
+import { useQuery } from "@tanstack/react-query";
+import clsx from "clsx";
+import react, { useState } from "react";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { SicilianProvider } from "sicilian/provider";
 import { useForm } from "sicilian/useForm";
-import { useCommentMutation } from "@/hooks/useMutator/useCommentMutation";
+import { Map, Show } from "utilinent";
 import Clickable from "../clickable/Clickable";
 import Form from "../forms/Form";
-import clsx from "clsx";
-import { Show, Map } from "utilinent";
 import ProfileImage from "../Profile/ProfileImage";
 import styles from "./Comment.module.css";
-import { useIsQualified } from "@/hooks/useIsQualified";
-import type { Comment } from "@/types/graphql.types";
-import { CommentMutation } from "@/apis/Domains/Comment/Comment.mutation";
-import { ReportComment } from "@/types/comment.types";
-import { useUserQuery } from "@/apis/useDomain/useUser.query";
-import { useCommentQuery } from "@/apis/useDomain/useComment.query";
 
 type CommentBoxType = "viewer" | "editor";
 
@@ -42,11 +42,11 @@ export default function Comment({ id, depth }: { id: string; depth: number }) {
 }
 
 Comment.Container = function CommentContainer({ id, depth }: { id: string; depth: number }) {
-  const { data } = useCommentQuery().GetComment(id);
+  const { data } = useQuery(new CommentQuery().getComments(id));
 
   return (
     <div className={styles.containerRoot}>
-      <Map each={data.comments.comments}>
+      <Map each={data?.comments.comments}>
         {(commentData) => (
           <div key={commentData.id}>
             <Comment.Box key={commentData.id} depth={depth} commentData={commentData} />
